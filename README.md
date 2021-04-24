@@ -1,2 +1,2 @@
 # Jobs
-Jobs is containerized microservices application based on .NET 5.
+Jobs is containerized micro-services application based on .NET 5.
