@@ -30,7 +30,7 @@ namespace JobService
             connectionString = Configuration.GetConnectionString("SQLConnection");
 #endif
             services.AddDbContext<JobContext>(o => o.UseSqlServer(connectionString));
-            services.AddTransient<IJobRepository, JobRepository>();
+            services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

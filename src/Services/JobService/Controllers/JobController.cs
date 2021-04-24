@@ -1,6 +1,7 @@
 ﻿using JobService.Models;
 using JobService.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Transactions;
 
 namespace JobService.Controllers
@@ -8,9 +9,9 @@ namespace JobService.Controllers
     [Route("api/[controller]")]
     public class JobController : Controller
     {
-        private readonly IJobRepository _jobRepository;
+        private readonly IEntityRepository<Job> _jobRepository;
 
-        public JobController(IJobRepository jobRepository)
+        public JobController(IEntityRepository<Job> jobRepository)
         {
             _jobRepository = jobRepository;
         }
@@ -18,14 +19,14 @@ namespace JobService.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var jobs = _jobRepository.GetJobs();
+            var jobs = _jobRepository.GetEntities();
             return new OkObjectResult(jobs);
         }
 
         [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        public IActionResult Get(Guid id)
         {
-            var job = _jobRepository.GetJobByID(id);
+            var job = _jobRepository.GetEntityByID(id);
             return new OkObjectResult(job);
         }
 
@@ -34,7 +35,7 @@ namespace JobService.Controllers
         {
             using (var scope = new TransactionScope())
             {
-                _jobRepository.InsertJob(job);
+                _jobRepository.InsertEntity(job);
                 scope.Complete();
                 return CreatedAtAction(nameof(Get), new { id = job.Id }, job);
             }
@@ -47,7 +48,7 @@ namespace JobService.Controllers
             {
                 using (var scope = new TransactionScope())
                 {
-                    _jobRepository.UpdateJob(job);
+                    _jobRepository.UpdateEntity(job);
                     scope.Complete();
                     return new OkResult();
                 }
@@ -56,9 +57,9 @@ namespace JobService.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
-            _jobRepository.DeleteJob(id);
+            _jobRepository.DeleteEntity(id);
             return new OkResult();
         }
     }

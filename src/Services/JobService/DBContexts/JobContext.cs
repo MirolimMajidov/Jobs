@@ -2,6 +2,8 @@
 using JobService.Models;
 using System.Collections.Generic;
 using Jobs.SharedModel.Helpers;
+using Jobs.SharedModel.Models;
+using System.Linq;
 
 namespace JobService.DBContexts
 {
@@ -10,6 +12,11 @@ namespace JobService.DBContexts
         public JobContext(DbContextOptions<JobContext> options) : base(options)
         {
         }
+
+        /// <summary>   
+        /// This is for get entities all type from data base.
+        /// </summary>    
+        public virtual IQueryable<T> GetEntities<T>() where T : IEntity => Set<T>();
 
         public DbSet<Job> Jobs { get; set; }
 
