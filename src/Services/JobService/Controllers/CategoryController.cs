@@ -7,11 +7,11 @@ using System.Transactions;
 namespace JobService.Controllers
 {
     [Route("api/[controller]")]
-    public class JobController : Controller
+    public class CategoryController : Controller
     {
-        private readonly IEntityRepository<Job> _pepository;
+        private readonly IEntityRepository<Category> _pepository;
 
-        public JobController(IEntityRepository<Job> pepository)
+        public CategoryController(IEntityRepository<Category> pepository)
         {
             _pepository = pepository;
         }
@@ -31,7 +31,7 @@ namespace JobService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Job entity)
+        public IActionResult Post([FromBody] Category entity)
         {
             using (var scope = new TransactionScope())
             {
@@ -42,7 +42,7 @@ namespace JobService.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Job entity)
+        public IActionResult Put([FromBody] Category entity)
         {
             if (entity != null)
             {
