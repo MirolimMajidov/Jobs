@@ -1,0 +1,36 @@
+version: '3.4'
+
+services:
+  JobService:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7001:80"
+    build:
+      context: .
+      dockerfile: src/Services/JobService/Dockerfile
+
+  AccountService:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7002:80"
+    build:
+      context: .
+      dockerfile: src/Services/AccountService/Dockerfile
+
+  PaymentService:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7003:80"
+    build:
+      context: .
+      dockerfile: src/Services/PaymentService/Dockerfile
+
+  JobDB:
+    ports:
+      - "7011:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=test_password123

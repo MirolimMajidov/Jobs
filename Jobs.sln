@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountService", "src\Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "src\Services\PaymentService\PaymentService.csproj", "{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1B101D7B-48AC-4F19-9933-3CFF68F38175}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B101D7B-48AC-4F19-9933-3CFF68F38175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B101D7B-48AC-4F19-9933-3CFF68F38175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B101D7B-48AC-4F19-9933-3CFF68F38175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B101D7B-48AC-4F19-9933-3CFF68F38175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

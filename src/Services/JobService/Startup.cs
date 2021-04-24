@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,7 @@ namespace JobService
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "JobService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Job service's APIs", Version = "v1" });
             });
         }
 
@@ -40,7 +41,7 @@ namespace JobService
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "JobService v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Job service's APIs v1"));
             }
 
             app.UseRouting();
@@ -50,6 +51,11 @@ namespace JobService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Welcome to 'Job' service!");
             });
         }
     }
