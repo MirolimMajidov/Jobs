@@ -1,19 +1,13 @@
 ﻿using Jobs.SharedModel.Helpers;
 using Jobs.SharedModel.Models;
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace JobService.Models
 {
-    public class Job 
+    public class Job : BaseEntity
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [DisplayName("Id")]
-        public Guid Id { get; set; } = Guid.NewGuid();
-
         public string Name { get; set; }
 
         public string Description { get; set; }

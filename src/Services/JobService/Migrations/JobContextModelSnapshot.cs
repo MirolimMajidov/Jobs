@@ -44,7 +44,7 @@ namespace JobService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("482be1d9-7c96-4e5d-ad60-707cbd3862d6"),
+                            Id = new Guid("aff61f2d-02f4-42de-896d-5aace3880669"),
                             Description = "Web Development, Mobile Development, Desktop Software Developmen, QA & Testing",
                             IsDeleted = false,
                             Name = "Web, Mobile & Software Dev",
@@ -52,7 +52,7 @@ namespace JobService.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5bd0d6ab-340d-4f7c-bb3b-55539422cac5"),
+                            Id = new Guid("c8726fe0-3ac9-4352-bef3-0819b53f3768"),
                             Description = "Sales & Marketing Strategy",
                             IsDeleted = false,
                             Name = "Sales & Marketing",
@@ -60,7 +60,7 @@ namespace JobService.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f4671ba3-0c0c-4adf-95da-af11f816ebe4"),
+                            Id = new Guid("4887cb56-9a91-4fe0-bcbe-8a03a49112ea"),
                             Description = "Design, Writing, Photography & Translator",
                             IsDeleted = false,
                             Name = "Design & Writing",
@@ -68,7 +68,7 @@ namespace JobService.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9cd993d3-de91-4cc9-b72a-2988f6be4107"),
+                            Id = new Guid("018211c5-1114-4ce3-9f6a-c836f857a529"),
                             Description = "Engineering & Architecture",
                             IsDeleted = false,
                             Name = "Engineering & Architecture",
@@ -94,8 +94,14 @@ namespace JobService.Migrations
                     b.Property<int>("Duration")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -109,42 +115,50 @@ namespace JobService.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11402986-27fc-4ba6-bd41-dc7bedda3245"),
-                            CategoryId = new Guid("482be1d9-7c96-4e5d-ad60-707cbd3862d6"),
+                            Id = new Guid("32e1eb2a-e0aa-4747-9f6b-c6c39a63169f"),
+                            CategoryId = new Guid("aff61f2d-02f4-42de-896d-5aace3880669"),
                             Cost = 25,
                             Description = "ASP.Net Core and Xamarin developer",
                             Duration = 2,
+                            IsDeleted = false,
                             Name = "Back-end developer",
+                            Status = true,
                             Type = 0
                         },
                         new
                         {
-                            Id = new Guid("ce6ee095-a4b4-464c-9634-2bf2dff0d798"),
-                            CategoryId = new Guid("482be1d9-7c96-4e5d-ad60-707cbd3862d6"),
+                            Id = new Guid("9724f2a5-4afd-49ba-8517-59df13a53c7b"),
+                            CategoryId = new Guid("aff61f2d-02f4-42de-896d-5aace3880669"),
                             Cost = 25,
                             Description = "We need experienced Angular developer for short term project.",
                             Duration = 1,
+                            IsDeleted = false,
                             Name = "Angular Developer Needed",
+                            Status = true,
                             Type = 0
                         },
                         new
                         {
-                            Id = new Guid("97a09511-2607-4e53-a9c7-25716019beaa"),
-                            CategoryId = new Guid("5bd0d6ab-340d-4f7c-bb3b-55539422cac5"),
+                            Id = new Guid("e4d90499-5d77-45d8-8257-05e57554500f"),
+                            CategoryId = new Guid("c8726fe0-3ac9-4352-bef3-0819b53f3768"),
                             Cost = 2000,
                             Description = "Salesperson needed",
                             Duration = 2,
+                            IsDeleted = false,
                             Name = "Salesperson",
+                            Status = true,
                             Type = 1
                         },
                         new
                         {
-                            Id = new Guid("e3901e7a-c0e3-4ae2-bed5-c3821f6e65d1"),
-                            CategoryId = new Guid("f4671ba3-0c0c-4adf-95da-af11f816ebe4"),
+                            Id = new Guid("752e9873-f453-4418-81cb-6a3b1f993533"),
+                            CategoryId = new Guid("4887cb56-9a91-4fe0-bcbe-8a03a49112ea"),
                             Cost = 30,
                             Description = "Design & Photography needed to build mockup of mobile app",
                             Duration = 4,
+                            IsDeleted = false,
                             Name = "Design & Photography",
+                            Status = true,
                             Type = 0
                         });
                 });
