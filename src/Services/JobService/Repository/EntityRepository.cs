@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace JobService.Repository
 {
-    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : IEntity
+    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly JobContext _dbContext;
 
