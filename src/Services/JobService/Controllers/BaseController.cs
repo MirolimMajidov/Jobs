@@ -1,12 +1,15 @@
 ﻿using Jobs.SharedModel.Models;
 using JobService.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Transactions;
 
 namespace JobService.Controllers
 {
-    public abstract class BaseController<TEntity> : Controller where TEntity : BaseEntity
+    [Produces("application/json")]
+    [ApiExplorerSettings(GroupName = "v1")]
+    public abstract class BaseController<TEntity> : Controller where TEntity : IEntity
     {
         private readonly IEntityRepository<TEntity> _pepository;
 
@@ -15,6 +18,7 @@ namespace JobService.Controllers
             _pepository = pepository;
         }
 
+        [SwaggerOperation(Summary = "To get all the items")]
         [HttpGet]
         public virtual IActionResult Get()
         {
@@ -22,6 +26,7 @@ namespace JobService.Controllers
             return new OkObjectResult(entities);
         }
 
+        [SwaggerOperation(Summary = "To get an item by Id")]
         [HttpGet("{id}")]
         public virtual IActionResult Get(Guid id)
         {
@@ -29,6 +34,7 @@ namespace JobService.Controllers
             return new OkObjectResult(entity);
         }
 
+        [SwaggerOperation(Summary = "To create a new item")]
         [HttpPost]
         public virtual IActionResult Post([FromBody] TEntity entity)
         {
@@ -40,6 +46,7 @@ namespace JobService.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "To update exists an item")]
         [HttpPut]
         public virtual IActionResult Put([FromBody] TEntity entity)
         {
@@ -55,6 +62,7 @@ namespace JobService.Controllers
             return new NoContentResult();
         }
 
+        [SwaggerOperation(Summary = "To delete an item")]
         [HttpDelete("{id}")]
         public virtual IActionResult Delete(Guid id)
         {

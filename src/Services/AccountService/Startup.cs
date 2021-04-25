@@ -26,11 +26,11 @@ namespace AccountService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Account service's APIs", Version = "v1" });
+                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Account service's RESTful APIs documentation", Version = "v1" });
             });
         }
 
@@ -40,9 +40,17 @@ namespace AccountService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Account service's APIs v1"));
             }
+
+            app.UseSwagger(o =>
+            {
+                o.RouteTemplate = "docs/{documentName}/docs.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/docs/v1/docs.json", "RESTful APIs v1");
+                c.RoutePrefix = "docs";
+            });
 
             app.UseRouting();
 

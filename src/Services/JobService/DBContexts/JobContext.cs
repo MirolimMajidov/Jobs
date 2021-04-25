@@ -14,9 +14,9 @@ namespace JobService.DBContexts
         }
 
         /// <summary>   
-        /// This is for get entities all type from data base.
+        /// This is for getting entities by type from data base.
         /// </summary>    
-        public virtual IQueryable<T> GetEntities<T>() where T : IEntity => Set<T>();
+        public virtual IQueryable<T> GetEntities<T>() where T : BaseEntity => Set<T>();
 
         public DbSet<Job> Jobs { get; set; }
 

@@ -30,7 +30,8 @@ namespace PaymentService
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Payment service's APIs", Version = "v1" });
+                c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Payment service's RESTful APIs documentation", Version = "v1" });
             });
         }
 
@@ -40,9 +41,17 @@ namespace PaymentService
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment service's APIs v1"));
             }
+
+            app.UseSwagger(o =>
+            {
+                o.RouteTemplate = "docs/{documentName}/docs.json";
+            });
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/docs/v1/docs.json", "RESTful APIs v1");
+                c.RoutePrefix = "docs";
+            });
 
             app.UseRouting();
 
