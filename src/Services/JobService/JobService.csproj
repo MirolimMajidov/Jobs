@@ -26,5 +26,6 @@
   </ItemGroup>
 
   <Import Project="..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
+  <Import Project="..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
 
 </Project>

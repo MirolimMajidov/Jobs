@@ -1,8 +1,7 @@
-﻿using JobService.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace JobService.Repository
+namespace Service.SharedModel.Repository
 {
     public interface IEntityRepository<TEntity>
     {

@@ -17,10 +17,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E80378
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Jobs.SharedModel", "src\Common\Jobs.SharedModel\Jobs.SharedModel.shproj", "{B958ED8E-BA65-47B9-9162-5AC02B219679}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Service.SharedModel", "src\Common\Service.SharedModel\Service.SharedModel.shproj", "{DE44A723-43EC-4540-BD59-597EC8208607}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{56579efb-3dd2-4449-be95-cf6f3a4203f3}*SharedItemsImports = 5
+		src\Common\Service.SharedModel\Service.SharedModel.projitems*{56579efb-3dd2-4449-be95-cf6f3a4203f3}*SharedItemsImports = 5
 		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{b958ed8e-ba65-47b9-9162-5ac02b219679}*SharedItemsImports = 13
+		src\Common\Service.SharedModel\Service.SharedModel.projitems*{de44a723-43ec-4540-bd59-597ec8208607}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +56,7 @@ Global
 		{0686EFE5-3821-421D-8C8E-9761F6FEBBD3} = {7915AA37-4E24-4CFB-B929-A1918621F681}
 		{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F} = {7915AA37-4E24-4CFB-B929-A1918621F681}
 		{B958ED8E-BA65-47B9-9162-5AC02B219679} = {E8037851-7962-4AAE-AD39-4387B687175A}
+		{DE44A723-43EC-4540-BD59-597EC8208607} = {E8037851-7962-4AAE-AD39-4387B687175A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97750CB7-F573-4255-B22E-D39F65872393}

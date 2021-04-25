@@ -1,11 +1,11 @@
 ﻿using Jobs.SharedModel.Models;
-using JobService.Repository;
+using Service.SharedModel.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Transactions;
 
-namespace JobService.Controllers
+namespace Service.SharedModel.Controllers
 {
     [Produces("application/json")]
     [ApiExplorerSettings(GroupName = "v1")]
