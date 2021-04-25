@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace Service.SharedModel.Repository
 {
-    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
+    public class EntityRepository<TContext, TEntity> : IEntityRepository<TContext, TEntity> where TContext : DbContext where TEntity : BaseEntity
     {
-        private readonly DbContext _dbContext;
+        private readonly TContext _dbContext;
 
-        public EntityRepository(DbContext dbContext)
+        public EntityRepository(TContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -4,16 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Transactions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service.SharedModel.Controllers
 {
     [Produces("application/json")]
     [ApiExplorerSettings(GroupName = "v1")]
-    public abstract class BaseController<TEntity> : Controller where TEntity : IEntity
+    public abstract class BaseController<TContext, TEntity> : Controller where TContext : DbContext where TEntity : BaseEntity
     {
-        private readonly IEntityRepository<TEntity> _pepository;
+        private readonly IEntityRepository<TContext, TEntity> _pepository;
 
-        public BaseController(IEntityRepository<TEntity> pepository)
+        public BaseController(IEntityRepository<TContext, TEntity> pepository)
         {
             _pepository = pepository;
         }

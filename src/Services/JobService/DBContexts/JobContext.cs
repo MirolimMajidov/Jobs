@@ -1,17 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Jobs.SharedModel.Helpers;
 using JobService.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using Jobs.SharedModel.Helpers;
-using Jobs.SharedModel.Models;
-using System.Linq;
 
 namespace JobService.DBContexts
 {
     public class JobContext : DbContext
     {
-        public JobContext(DbContextOptions<JobContext> options) : base(options)
-        {
-        }
+        public JobContext(DbContextOptions<JobContext> options) : base(options) { }
 
         public DbSet<Job> Jobs { get; set; }
 

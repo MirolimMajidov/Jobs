@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Jobs.SharedModel.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Service.SharedModel.Repository
 {
-    public interface IEntityRepository<TEntity>
+    public interface IEntityRepository<TContext, TEntity> where TContext : DbContext where TEntity : BaseEntity
     {
         /// <summary>
         /// Get all entities

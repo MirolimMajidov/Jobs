@@ -5,7 +5,7 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <ProjectGuid>1b101d7b-48ac-4f19-9933-3cff68f38175</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/docs</DockerServiceUrl>
     <DockerServiceName>jobservice</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

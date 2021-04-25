@@ -21,8 +21,12 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Service.SharedModel", "src\
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{0686efe5-3821-421d-8c8e-9761f6febbd3}*SharedItemsImports = 5
+		src\Common\Service.SharedModel\Service.SharedModel.projitems*{0686efe5-3821-421d-8c8e-9761f6febbd3}*SharedItemsImports = 5
 		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{56579efb-3dd2-4449-be95-cf6f3a4203f3}*SharedItemsImports = 5
 		src\Common\Service.SharedModel\Service.SharedModel.projitems*{56579efb-3dd2-4449-be95-cf6f3a4203f3}*SharedItemsImports = 5
+		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{626fba16-c7cd-4417-8c34-4e5dbcf17c4f}*SharedItemsImports = 5
+		src\Common\Service.SharedModel\Service.SharedModel.projitems*{626fba16-c7cd-4417-8c34-4e5dbcf17c4f}*SharedItemsImports = 5
 		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{b958ed8e-ba65-47b9-9162-5ac02b219679}*SharedItemsImports = 13
 		src\Common\Service.SharedModel\Service.SharedModel.projitems*{de44a723-43ec-4540-bd59-597ec8208607}*SharedItemsImports = 13
 	EndGlobalSection

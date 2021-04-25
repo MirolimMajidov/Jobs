@@ -1,3 +1,4 @@
+using Jobs.SharedModel.Models;
 using JobService.DBContexts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,7 @@ namespace JobService
             connectionString = Configuration.GetConnectionString("SQLConnection");
 #endif
             services.AddDbContext<JobContext>(o => o.UseSqlServer(connectionString));
-            services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+            services.AddTransient(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
