@@ -1,26 +1,26 @@
 version: '3.4'
 
 services:
-  JobService:
+  job-api:
     container_name: JobService
     image: ${DOCKER_REGISTRY-}jobservice
-    depends_on:
-      - JobServiceDB
 
-  JobServiceDB:
+  job-SqlServerDB:
     container_name: JobService_SqlServerDB
     image: "mcr.microsoft.com/mssql/server:2019-latest"
 
-  AccountService:
+  account-api:
     container_name: AccountService
     image: ${DOCKER_REGISTRY-}accountservice
-    depends_on:
-      - AccountServiceDB
 
-  AccountServiceDB:
+  account-MySqlDB:
     container_name: AccountService_MySqlDB
     image: mysql:5.7
 
-  PaymentService:
+  payment-api:
     container_name: PaymentService
     image: ${DOCKER_REGISTRY-}paymentservice
+
+  ocelot-api-gateway:
+    container_name: OcelotApiGateway
+    image: ${DOCKER_REGISTRY-}acelotapigateway

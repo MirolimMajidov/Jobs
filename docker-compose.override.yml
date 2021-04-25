@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  JobService:
+  job-api:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -10,14 +10,16 @@ services:
     build:
       context: .
       dockerfile: src/Services/JobService/Dockerfile
+    depends_on:
+      - job-SqlServerDB
 
-  JobServiceDB:
+  job-SqlServerDB:
     restart: always
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=job_service_password
 
-  AccountService:
+  account-api:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -26,8 +28,10 @@ services:
     build:
       context: .
       dockerfile: src/Services/AccountService/Dockerfile
+    depends_on:
+      - account-MySqlDB
       
-  AccountServiceDB:
+  account-MySqlDB:
     restart: always
     environment:
       MYSQL_DATABASE: AccountServiceDB
@@ -35,7 +39,7 @@ services:
       MYSQL_PASSWORD: account_service_password
       MYSQL_RANDOM_ROOT_PASSWORD: 'account_service_password'
 
-  PaymentService:
+  payment-api:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -44,3 +48,19 @@ services:
     build:
       context: .
       dockerfile: src/Services/PaymentService/Dockerfile
+
+  ocelot-api-gateway:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "7000:80"
+    build:
+      context: .
+      dockerfile: src/OcelotApiGateway/Dockerfile
+    depends_on:
+      - job-SqlServerDB
+      - job-api
+      - account-MySqlDB
+      - account-api
+      - payment-api
