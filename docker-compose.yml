@@ -5,16 +5,22 @@ services:
     container_name: JobService
     image: ${DOCKER_REGISTRY-}jobservice
     depends_on:
-      - JobDB
+      - JobServiceDB
+
+  JobServiceDB:
+    container_name: JobService_SqlServerDB
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
 
   AccountService:
     container_name: AccountService
     image: ${DOCKER_REGISTRY-}accountservice
+    depends_on:
+      - AccountServiceDB
+
+  AccountServiceDB:
+    container_name: AccountService_MySqlDB
+    image: mysql:5.7
 
   PaymentService:
     container_name: PaymentService
     image: ${DOCKER_REGISTRY-}paymentservice
-
-  JobDB:
-    container_name: SqlServer
-    image: "mcr.microsoft.com/mssql/server:2019-latest"

@@ -22,14 +22,11 @@ namespace JobService
             {
                 var dbContext = services.GetRequiredService<JobContext>();
                 if (dbContext.Database.IsSqlServer())
-                {
                     dbContext.Database.Migrate();
-                }
             }
             catch (Exception ex)
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
                 logger.LogError(ex, "An error occurred while migrating or seeding the database.");
 
                 throw;
