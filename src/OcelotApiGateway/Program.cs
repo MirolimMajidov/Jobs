@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using System.IO;
 
 namespace OcelotApiGateway
 {
@@ -16,7 +15,8 @@ namespace OcelotApiGateway
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((host, confic) =>
                 {
-                    confic.AddJsonFile("configuration.json");
+                    confic.SetBasePath(host.HostingEnvironment.ContentRootPath)
+                    .AddJsonFile("ocelotconfiguration.json", optional: false, reloadOnChange: true);
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
