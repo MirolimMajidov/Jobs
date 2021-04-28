@@ -1,10 +1,11 @@
 ﻿using Jobs.SharedModel.Models;
-using Service.SharedModel.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Service.SharedModel.Repository;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Threading.Tasks;
 using System.Transactions;
-using Microsoft.EntityFrameworkCore;
 
 namespace Service.SharedModel.Controllers
 {
@@ -21,27 +22,27 @@ namespace Service.SharedModel.Controllers
 
         [SwaggerOperation(Summary = "To get all the items")]
         [HttpGet]
-        public virtual IActionResult Get()
+        public virtual async Task<IActionResult> Get()
         {
-            var entities = _pepository.GetEntities();
+            var entities = await _pepository.GetEntities();
             return new OkObjectResult(entities);
         }
 
         [SwaggerOperation(Summary = "To get an item by Id")]
         [HttpGet("{id}")]
-        public virtual IActionResult Get(Guid id)
+        public virtual async Task<IActionResult> Get(Guid id)
         {
-            var entity = _pepository.GetEntityByID(id);
+            var entity = await _pepository.GetEntityByID(id);
             return new OkObjectResult(entity);
         }
 
         [SwaggerOperation(Summary = "To create a new item")]
         [HttpPost]
-        public virtual IActionResult Post([FromBody] TEntity entity)
+        public virtual async Task<IActionResult> Post([FromBody] TEntity entity)
         {
             using (var scope = new TransactionScope())
             {
-                _pepository.InsertEntity(entity);
+                await _pepository.InsertEntity(entity);
                 scope.Complete();
                 return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
             }
@@ -49,25 +50,21 @@ namespace Service.SharedModel.Controllers
 
         [SwaggerOperation(Summary = "To update exists an item")]
         [HttpPut]
-        public virtual IActionResult Put([FromBody] TEntity entity)
+        public virtual async Task<IActionResult> Put([FromBody] TEntity entity)
         {
             if (entity != null)
             {
-                using (var scope = new TransactionScope())
-                {
-                    _pepository.UpdateEntity(entity);
-                    scope.Complete();
-                    return new OkResult();
-                }
+                await _pepository.UpdateEntity(entity);
+                return new OkResult();
             }
             return new NoContentResult();
         }
 
         [SwaggerOperation(Summary = "To delete an item")]
         [HttpDelete("{id}")]
-        public virtual IActionResult Delete(Guid id)
+        public virtual async Task<IActionResult> Delete(Guid id)
         {
-            _pepository.DeleteEntity(id);
+            await _pepository.DeleteEntity(id);
             return new OkResult();
         }
     }
