@@ -41,4 +41,27 @@ namespace Jobs.SharedModel.Helpers
         [Display(Name = "Male")]
         Male
     }
+
+    public enum CurrencyType
+    {
+        [Display(Name = "USD")]
+        USD = 0,
+
+        [Display(Name = "RUB")]
+        RUB = 1,
+
+        [Display(Name = "UZB")]
+        UZB = 2,
+
+        [Display(Name = "TJS")]
+        TJK = 3,
+    }
+
+    public enum PaymentStatus
+    {
+        Process = 0,
+        Success = 1,
+        Rejected = 2,
+        Cancel = 3
+    }
 }

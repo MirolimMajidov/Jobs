@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Service.SharedModel.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace Service.SharedModel.Repository
 {
@@ -17,44 +17,46 @@ namespace Service.SharedModel.Repository
         }
 
         /// <summary/>
-        public IEnumerable<TEntity> GetEntities()
+        public async Task<IEnumerable<TEntity>> GetEntities()
         {
-            return _dbContext.GetEntities<TEntity>().ToList();
+            return await _dbContext.GetEntities<TEntity>().ToListAsync();
         }
 
         /// <summary/>
-        public TEntity GetEntityByID(Guid jobId)
+        public async Task<TEntity> GetEntityByID(Guid entityId)
         {
-            return _dbContext.Find(typeof(TEntity), jobId) as TEntity;
+            return await _dbContext.FindAsync(typeof(TEntity), entityId) as TEntity;
         }
 
         /// <summary/>
-        public void InsertEntity(TEntity entity)
+        public async Task<TEntity> InsertEntity(TEntity entity)
         {
             entity.Id = Guid.NewGuid();
             _dbContext.Add(entity);
-            Save();
+            await Save();
+
+            return entity;
         }
 
         /// <summary/>
-        public void UpdateEntity(TEntity entity)
+        public async Task UpdateEntity(TEntity entity)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            Save();
+            await Save();
         }
 
         /// <summary/>
-        public void DeleteEntity(Guid jobId)
+        public async Task DeleteEntity(Guid entityId)
         {
-            var entity = _dbContext.Find(typeof(TEntity), jobId);
+            var entity = _dbContext.Find(typeof(TEntity), entityId);
             _dbContext.Remove(entity);
-            Save();
+            await Save();
         }
 
         /// <summary/>
-        public void Save()
+        public async Task Save()
         {
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

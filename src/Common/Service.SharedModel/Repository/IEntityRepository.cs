@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Service.SharedModel.Repository
 {
@@ -10,31 +11,31 @@ namespace Service.SharedModel.Repository
         /// <summary>
         /// Get all entities
         /// </summary>
-        IEnumerable<TEntity> GetEntities();
+        Task<IEnumerable<TEntity>> GetEntities();
 
         /// <summary>
         /// Get entity by ID
         /// </summary>
-        TEntity GetEntityByID(Guid entityId);
+        Task<TEntity> GetEntityByID(Guid entityId);
 
         /// <summary>
         /// To insert new entity to the DB
         /// </summary>
-        void InsertEntity(TEntity entity);
+        Task<TEntity> InsertEntity(TEntity entity);
 
         /// <summary>
         /// To update exists entity
         /// </summary>
-        void UpdateEntity(TEntity entity);
+        Task UpdateEntity(TEntity entity);
 
         /// <summary>
         /// To delete entity
         /// </summary>
-        void DeleteEntity(Guid entityId);
+        Task DeleteEntity(Guid entityId);
 
         /// <summary>
         /// To save changes of context
         /// </summary>
-        void Save();
+        Task Save();
     }
 }
