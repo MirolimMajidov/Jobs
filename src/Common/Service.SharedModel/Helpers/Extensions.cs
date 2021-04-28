@@ -1,6 +1,4 @@
-﻿using Jobs.SharedModel.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
@@ -84,10 +82,5 @@ namespace Service.SharedModel.Helpers
                 throw new InvalidCastException($"The server couldn't cast '{value}' object to '{typeTo.Name}' type. Error: {ex.Message}");
             }
         }
-
-        /// <summary>   
-        /// This is for getting entities by type from data base.
-        /// </summary>   
-        public static IQueryable<T> GetEntities<T>(this DbContext context) where T : BaseEntity => context.Set<T>();
     }
 }

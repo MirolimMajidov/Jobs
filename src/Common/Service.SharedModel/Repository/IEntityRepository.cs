@@ -1,12 +1,11 @@
 ﻿using Jobs.SharedModel.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Service.SharedModel.Repository
 {
-    public interface IEntityRepository<TContext, TEntity> where TContext : DbContext where TEntity : BaseEntity
+    public interface IEntityRepository<TEntity> where TEntity : IEntity
     {
         /// <summary>
         /// Get all entities
@@ -32,10 +31,5 @@ namespace Service.SharedModel.Repository
         /// To delete entity
         /// </summary>
         Task DeleteEntity(Guid entityId);
-
-        /// <summary>
-        /// To save changes of context
-        /// </summary>
-        Task Save();
     }
 }

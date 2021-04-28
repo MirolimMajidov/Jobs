@@ -14,8 +14,7 @@ namespace Jobs.SharedModel.Models
         #region Properties
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [DisplayName("Id")]
-        public virtual Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [JsonIgnore]
         public bool Status { get; set; } = true;

@@ -1,17 +1,19 @@
 ﻿using Jobs.SharedModel.Models;
+using JobService.DBContexts;
 using Microsoft.EntityFrameworkCore;
 using Service.SharedModel.Helpers;
+using Service.SharedModel.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Service.SharedModel.Repository
+namespace JobService.Repository
 {
-    public class EntityRepository<TContext, TEntity> : IEntityRepository<TContext, TEntity> where TContext : DbContext where TEntity : BaseEntity
+    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly TContext _dbContext;
+        private readonly JobContext _dbContext;
 
-        public EntityRepository(TContext dbContext)
+        public EntityRepository(JobContext dbContext)
         {
             _dbContext = dbContext;
         }

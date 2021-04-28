@@ -1,13 +1,20 @@
 ﻿using Jobs.SharedModel.Helpers;
+using Jobs.SharedModel.Models;
 using JobService.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JobService.DBContexts
 {
     public class JobContext : DbContext
     {
         public JobContext(DbContextOptions<JobContext> options) : base(options) { }
+
+        /// <summary>   
+        /// This is for getting entities by type from data base.
+        /// </summary>   
+        public IQueryable<T> GetEntities<T>() where T : BaseEntity => Set<T>();
 
         public DbSet<Job> Jobs { get; set; }
 

@@ -1,4 +1,5 @@
 using AccountService.DBContexts;
+using AccountService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,7 @@ namespace AccountService
             services.AddDbContext<AccountContext>(o => 
             o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
-            services.AddTransient(typeof(IEntityRepository<,>), typeof(EntityRepository<,>));
+            services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

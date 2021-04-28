@@ -1,5 +1,4 @@
-﻿using AccountService.DBContexts;
-using AccountService.Models;
+﻿using AccountService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Controllers;
 using Service.SharedModel.Repository;
@@ -7,9 +6,9 @@ using Service.SharedModel.Repository;
 namespace AccountService.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController : BaseController<AccountContext, User>
+    public class UserController : BaseController<User>
     {
-        public UserController(IEntityRepository<AccountContext, User> pepository) : base(pepository) { }
+        public UserController(IEntityRepository<User> pepository) : base(pepository) { }
     }
 }
 

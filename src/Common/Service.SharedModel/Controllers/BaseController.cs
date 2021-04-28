@@ -1,21 +1,19 @@
 ﻿using Jobs.SharedModel.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Service.SharedModel.Repository;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
-using System.Transactions;
 
 namespace Service.SharedModel.Controllers
 {
     [Produces("application/json")]
     [ApiExplorerSettings(GroupName = "v1")]
-    public abstract class BaseController<TContext, TEntity> : Controller where TContext : DbContext where TEntity : BaseEntity
+    public abstract class BaseController<TEntity> : Controller where TEntity : IEntity
     {
-        private readonly IEntityRepository<TContext, TEntity> _pepository;
+        private readonly IEntityRepository<TEntity> _pepository;
 
-        public BaseController(IEntityRepository<TContext, TEntity> pepository)
+        public BaseController(IEntityRepository<TEntity> pepository)
         {
             _pepository = pepository;
         }
@@ -40,12 +38,8 @@ namespace Service.SharedModel.Controllers
         [HttpPost]
         public virtual async Task<IActionResult> Post([FromBody] TEntity entity)
         {
-            using (var scope = new TransactionScope())
-            {
-                await _pepository.InsertEntity(entity);
-                scope.Complete();
-                return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
-            }
+            await _pepository.InsertEntity(entity);
+            return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 
         [SwaggerOperation(Summary = "To update exists an item")]
