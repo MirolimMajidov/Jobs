@@ -49,10 +49,14 @@ services:
     build:
       context: .
       dockerfile: src/Services/PaymentService/Dockerfile
+    links:
+      - payment-mongoDB
     depends_on:
-       - payment-mongoDB
+      - payment-mongoDB
 
   payment-mongoDB:
+    volumes:
+      - jobs-mongoDB:/data/db
     ports:
       - "27017:27017"
 
@@ -70,4 +74,9 @@ services:
       - job-api
       - account-MySqlDB
       - account-api
+      - payment-mongoDB
       - payment-api
+
+volumes:
+  jobs-mongoDB:
+    external: false
