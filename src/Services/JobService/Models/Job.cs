@@ -2,6 +2,7 @@
 using Jobs.SharedModel.Models;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace JobService.Models
@@ -18,6 +19,9 @@ namespace JobService.Models
         public JobType Type { get; set; }
 
         public JobDuration Duration { get; set; }
+
+        [Required]
+        public Guid UserId { get; set; }
 
         public Guid CategoryId { get; set; }
 

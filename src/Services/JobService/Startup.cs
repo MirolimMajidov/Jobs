@@ -1,4 +1,4 @@
-using JobService.DBContexts;
+using JobService.DataProvider;
 using JobService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +30,7 @@ namespace JobService
 #else
             connectionString = Configuration.GetConnectionString("SQLConnection");
 #endif
-            services.AddDbContext<JobContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<JobsContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddControllers();

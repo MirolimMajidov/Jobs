@@ -1,4 +1,4 @@
-using AccountService.DBContexts;
+using AccountService.DataProvider;
 using AccountService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +31,7 @@ namespace AccountService
 #else
             connectionString = Configuration.GetConnectionString("MySQLConnection");
 #endif
-            services.AddDbContext<AccountContext>(o => 
+            services.AddDbContext<JobsContext>(o => 
             o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));

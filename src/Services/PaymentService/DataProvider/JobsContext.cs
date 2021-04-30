@@ -5,14 +5,14 @@ using PaymentService.Models;
 using PaymentService.Repository;
 using Service.SharedModel.Repository;
 
-namespace PaymentService.DBContexts
+namespace PaymentService.DataProvider
 {
-    public class PaymentContext
+    public class JobsContext
     {
         private readonly IMongoDatabase _database;
         private readonly DatabaseConfiguration _settings;
 
-        public PaymentContext(IOptions<DatabaseConfiguration> settings)
+        public JobsContext(IOptions<DatabaseConfiguration> settings)
         {
             _settings = settings.Value;
             var client = new MongoClient(_settings.ConnectionString);

@@ -1,4 +1,4 @@
-﻿using AccountService.DBContexts;
+﻿using AccountService.DataProvider;
 using Jobs.SharedModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Service.SharedModel.Helpers;
@@ -11,9 +11,9 @@ namespace AccountService.Repository
 {
     public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
     {
-        private readonly AccountContext _dbContext;
+        private readonly JobsContext _dbContext;
 
-        public EntityRepository(AccountContext dbContext)
+        public EntityRepository(JobsContext dbContext)
         {
             _dbContext = dbContext;
         }

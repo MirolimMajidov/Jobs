@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PaymentService.Configurations;
-using PaymentService.DBContexts;
+using PaymentService.DataProvider;
 
 namespace PaymentService
 {
@@ -23,7 +23,7 @@ namespace PaymentService
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DatabaseConfiguration>(Configuration.GetSection("DatabaseConfiguration"));
-            services.AddScoped<PaymentContext>();
+            services.AddScoped<JobsContext>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
