@@ -3,7 +3,7 @@ version: '3.4'
 services:
   job-api:
     container_name: JobService
-    image: ${DOCKER_REGISTRY-}jobservice
+    image: ${DOCKER_REGISTRY-}job.api
 
   job-SqlServerDB:
     container_name: JobService_SqlServerDB
@@ -11,7 +11,7 @@ services:
 
   account-api:
     container_name: AccountService
-    image: ${DOCKER_REGISTRY-}accountservice
+    image: ${DOCKER_REGISTRY-}account.api
 
   account-MySqlDB:
     container_name: AccountService_MySqlDB
@@ -19,8 +19,12 @@ services:
 
   payment-api:
     container_name: PaymentService
-    image: ${DOCKER_REGISTRY-}paymentservice
+    image: ${DOCKER_REGISTRY-}payment.api
+
+  payment-mongoDB:
+    container_name: Mongo_NoSqlData
+    image: mongo
 
   ocelot-api-gateway:
     container_name: OcelotApiGateway
-    image: ${DOCKER_REGISTRY-}ocelotapigateway
+    image: ${DOCKER_REGISTRY-}ocelot.gateway.api

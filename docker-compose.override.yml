@@ -43,11 +43,18 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionString=mongodb://payment-mongoDB
     ports:
       - "7003:80"
     build:
       context: .
       dockerfile: src/Services/PaymentService/Dockerfile
+    depends_on:
+       - payment-mongoDB
+
+  payment-mongoDB:
+    ports:
+      - "27017:27017"
 
   ocelot-api-gateway:
     restart: always
