@@ -36,7 +36,7 @@ namespace AccountService
             );
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
-            services.AddAuthentications();
+            services.AddAuthenticationsAndPolices();
             services.AddControllers().AddResponseJsonOptions();
             services.AddSwaggerGen("Account");
         }

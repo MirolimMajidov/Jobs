@@ -8,5 +8,7 @@ namespace AccountService.Models
         public string Name { get; set; }
 
         public UserRole Role { get; set; } = UserRole.User;
+
+        public string RefreshToken { get; set; }
     }
 }

@@ -9,6 +9,7 @@
     <Import_RootNamespace>Service.SharedModel</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations\Polices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Swagger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\ResponseJson.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Authentications.cs" />

@@ -8,9 +8,11 @@ namespace Service.SharedModel.Configurations
 {
     public static class AuthenticationExtensions
     {
-        public static void AddAuthentications(this IServiceCollection services)
+        public static void AddAuthenticationsAndPolices(this IServiceCollection services)
         {
             services.AddJwtBearerAuthentication();
+
+            services.AddPolices();
         }
 
         public static void AddJwtBearerAuthentication(this IServiceCollection services)

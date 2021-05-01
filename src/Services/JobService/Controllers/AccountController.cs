@@ -1,7 +1,7 @@
-﻿using Jobs.SharedModel.Helpers;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Service.SharedModel.Helpers;
 
 namespace JobService.Controllers
 {

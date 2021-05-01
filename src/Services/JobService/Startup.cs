@@ -33,7 +33,7 @@ namespace JobService
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
-            services.AddAuthentications();
+            services.AddAuthenticationsAndPolices();
             services.AddControllers().AddResponseJsonOptions();
             services.AddSwaggerGen("Job");
         }

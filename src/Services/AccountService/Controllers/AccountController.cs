@@ -26,12 +26,12 @@ namespace AccountService.Controllers
         [SwaggerResponse(0, "Return AuthInfo = {accessToken, refreshToken} when registration finished successfully", typeof(Tuple<string, string>))]
         public async Task<IActionResult> Authorization()
         {
-            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: new User() { Name = "Test", Role = UserRole.SuperAdmin });
+            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: new User() { Name = "Test", Role = UserRole.Admin });
             var authInfo = new { accessToken, refreshToken };
             return new OkObjectResult(authInfo);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AllUsers")]
         [HttpGet("UserInfo")]
         public IActionResult UserInfo()
         {

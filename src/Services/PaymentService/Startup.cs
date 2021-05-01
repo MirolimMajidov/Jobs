@@ -25,7 +25,7 @@ namespace PaymentService
             services.Configure<DatabaseConfiguration>(Configuration.GetSection("DatabaseConfiguration"));
             services.AddScoped<JobsContext>();
 
-            services.AddAuthentications();
+            services.AddAuthenticationsAndPolices();
             services.AddControllers().AddResponseJsonOptions();
             services.AddSwaggerGen("Payment");
         }
