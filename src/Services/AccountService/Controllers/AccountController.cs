@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace AccountService.Controllers
 {
     [Produces("application/json")]
-    [Route("api/auth")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AccountController : ControllerBase
