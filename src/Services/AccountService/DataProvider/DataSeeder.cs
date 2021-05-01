@@ -1,6 +1,9 @@
 ﻿using AccountService.Models;
+using Jobs.SharedModel.Helpers;
 using Microsoft.Extensions.Logging;
+using Service.SharedModel.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,8 +19,14 @@ namespace AccountService.DataProvider
                 {
                     await Task.Run(async () =>
                     {
-                        for (int i = 1; i < 11; i++)
-                            await context.AddAsync(new User { Name = $"User {i}" });
+                        var users = new List<User>()
+                        {
+                            new User { Name = "SuperAdmin", Login = "superadmin@jobs.com", HashPassword = Encryptor.SH1Hash("superadmin123"), Role = UserRole.SuperAdmin },
+                            new User { Name = "Admin", Login = "admin@jobs.com", HashPassword = Encryptor.SH1Hash("admin123"), Role = UserRole.Admin },
+                            new User { Name = "Editor", Login = "Editor@jobs.com", HashPassword = Encryptor.SH1Hash("Editor123"), Role = UserRole.Editor },
+                            new User { Name = "User", Login = "user@jobs.com", HashPassword = Encryptor.SH1Hash("user123"), Role = UserRole.Admin },
+                        };
+                        await context.AddRangeAsync(users);
 
                         await context.SaveChangesAsync();
                     });

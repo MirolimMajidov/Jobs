@@ -1,4 +1,5 @@
 ﻿using Jobs.SharedModel.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Repository;
 using Swashbuckle.AspNetCore.Annotations;
@@ -21,6 +22,7 @@ namespace Service.SharedModel.Controllers
 
         [SwaggerOperation(Summary = "To get all the items")]
         [HttpGet]
+        [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(OkObjectResult))]
         public virtual async Task<IActionResult> Get()
         {
             var entities = await _pepository.GetEntities();
@@ -29,22 +31,29 @@ namespace Service.SharedModel.Controllers
 
         [SwaggerOperation(Summary = "To get an item by Id")]
         [HttpGet("{id}")]
+        [SwaggerResponse(200, "Return the found item if it's finished successfully", typeof(OkObjectResult))]
+        [SwaggerResponse(404, "An item with the specified ID was not found", typeof(NotFoundResult))]
         public virtual async Task<IActionResult> Get(Guid id)
         {
             var entity = await _pepository.GetEntityByID(id);
+            if (entity == null)
+                return new NotFoundResult();
+
             return new OkObjectResult(entity);
         }
 
         [SwaggerOperation(Summary = "To create a new item")]
         [HttpPost]
+        [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Post([FromBody] TEntity entity)
         {
-            await _pepository.InsertEntity(entity);
-            return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
+            var createdEntity = await _pepository.InsertEntity(entity);
+            return new OkObjectResult(createdEntity);
         }
 
         [SwaggerOperation(Summary = "To update exists an item")]
         [HttpPut]
+        [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Put([FromBody] TEntity entity)
         {
             if (entity != null)
@@ -55,8 +64,10 @@ namespace Service.SharedModel.Controllers
             return new NoContentResult();
         }
 
+        [Authorize]
         [SwaggerOperation(Summary = "To delete an item")]
         [HttpDelete("{id}")]
+        [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Delete(Guid id)
         {
             await _pepository.DeleteEntity(id);

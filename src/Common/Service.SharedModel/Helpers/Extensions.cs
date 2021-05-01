@@ -1,4 +1,5 @@
 ﻿using Jobs.SharedModel.Helpers;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -123,6 +124,19 @@ namespace Service.SharedModel.Helpers
                 return defaultValue;
 
             return (TEnum)Enum.Parse(typeof(TEnum), strEnumValue);
+        }
+
+        /// <summary>
+        /// This method for get value one of Header properties.
+        /// </summary>
+        /// <param name="request">Request for Header properties.</param>
+        /// <param name="key">Key of header property.</param>
+        /// <returns>Return gets value of header property</returns>
+        public static string GetHeaderValue(this HttpRequest request, string key = "x-auth-token") => request.Headers[key].ToString().Trim() ?? string.Empty;
+
+        public static string GetBearerToken(this HttpContext context)
+        {
+            return context.Request.GetHeaderValue("Authorization").Replace("Bearer ", "");
         }
 
         /// <summary>

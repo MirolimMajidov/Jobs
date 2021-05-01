@@ -1,4 +1,5 @@
-﻿using AccountService.Models;
+﻿using AccountService.DataProvider;
+using AccountService.Models;
 using Jobs.SharedModel.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -9,6 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -20,18 +22,83 @@ namespace AccountService.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class AccountController : ControllerBase
     {
+        private readonly JobsContext _context;
+
+        public AccountController(JobsContext context)
+        {
+            _context = context;
+        }
+
         [AllowAnonymous]
         [HttpPost("Auth")]
-        [SwaggerOperation(Summary = "Gets verification code to authorize user to the system")]
-        [SwaggerResponse(0, "Return AuthInfo = {accessToken, refreshToken} when registration finished successfully", typeof(Tuple<string, string>))]
-        public async Task<IActionResult> Authorization()
+        [SwaggerOperation(Summary = "For authorization user to jobs services")]
+        [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when authorization finished successfully", typeof(Tuple<string, string>))]
+        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(NotFoundResult))]
+        public async Task<IActionResult> Authorization([FromForm, SwaggerParameter("Login of user", Required = true)] string login, [FromForm, SwaggerParameter("Orginal password of user", Required = true)] string password)
         {
-            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: new User() { Name = "Test", Role = UserRole.Admin });
+            if (login.IsNullOrEmpty() || password.IsNullOrEmpty())
+                return new NotFoundResult();
+
+            var user = _context.Users.FirstOrDefault(u => u.Login == login && u.HashPassword == Encryptor.SH1Hash(password));
+            if (user == null)
+                return new NotFoundResult();
+
+            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: user);
+            user.Token = hashToken;
+            user.RefreshToken = refreshToken;
+            user.LastOnline = DateTime.Now;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
             var authInfo = new { accessToken, refreshToken };
             return new OkObjectResult(authInfo);
         }
 
+        [Authorize]
+        [HttpPost("RefreshToken")]
+        [SwaggerOperation(Summary = "For refreshing exist token of user")]
+        [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when token updated successfully", typeof(Tuple<string, string>))]
+        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(NotFoundResult))]
+        public async Task<IActionResult> RefreshToken([FromForm, SwaggerParameter("Last refresh token of user", Required = true)] string refreshToken)
+        {
+            if (refreshToken.IsNullOrEmpty())
+                return new NotFoundResult();
+
+            var user = _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken && u.Token == Encryptor.SH1Hash(HttpContext.GetBearerToken()));
+            if (user == null)
+                return new NotFoundResult();
+
+            var (accessToken, refToken, hashToken) = await GenerateToken(user: user);
+            user.Token = hashToken;
+            user.RefreshToken = refToken;
+            user.LastOnline = DateTime.Now;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            var authInfo = new { accessToken, refreshToken = refToken };
+
+            return new OkObjectResult(authInfo);
+        }
+
         [Authorize(Policy = "AllUsers")]
+        [HttpPost("LogOut")]
+        [SwaggerOperation(Summary = "To log out user from jobs services")]
+        [SwaggerResponse(200, "If finished successfully", typeof(OkObjectResult))]
+        public async Task<IActionResult> LogOut()
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Id == User.GetUserId());
+            if (user == null)
+                return new NotFoundResult();
+
+            user.Token = string.Empty;
+            user.RefreshToken = string.Empty;
+            user.LastOnline = DateTime.Now;
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+
+            return new OkResult();
+        }
+
         [HttpGet("UserInfo")]
         public IActionResult UserInfo()
         {
@@ -42,14 +109,13 @@ namespace AccountService.Controllers
         /// This is for creating new token by new identity
         /// </summary>
         /// <param name="user">User info</param>
-        /// <param name="claims">Claims (IP address, mobile model, mobile id)</param>
         /// <returns>Return new generated token, refresh token and hash token</returns>
-        private static async Task<(string accessToken, string refreshToken, string hashToken)> GenerateToken(User user, params (string type, string value)[] claims)
+        private static async Task<(string accessToken, string refreshToken, string hashToken)> GenerateToken(User user)
         {
             return await Task.Run(async () =>
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var newIdentity = await GenerateIdentity(user: user, paramClaims: claims);
+                var newIdentity = await GenerateIdentity(user: user);
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
@@ -73,9 +139,8 @@ namespace AccountService.Controllers
         /// This is for creating new Identity by existent old identity or user and claims (IP address, mobile model, mobile id)
         /// </summary>
         /// <param name="user">User info</param>
-        /// <param name="paramClaims">Claims (IP address, mobile model, mobile id)</param>
         /// <returns>Return new created ClaimsIdentity</returns>
-        private static async Task<ClaimsIdentity> GenerateIdentity(User user, params (string type, string value)[] paramClaims)
+        private static async Task<ClaimsIdentity> GenerateIdentity(User user)
         {
             return await Task.Run(() =>
             {
@@ -86,9 +151,6 @@ namespace AccountService.Controllers
                 claims.Add(CreateClaim("UserId", user.Id.ToString()));
                 claims.Add(CreateClaim(ClaimTypes.Role, user.Role.GetDisplayName()));
                 claims.Add(CreateClaim("RoleId", ((int)user.Role).ToString()));
-
-                foreach (var (type, value) in paramClaims)
-                    claims.Add(CreateClaim(type, value));
 
                 static Claim CreateClaim(string key, string value) => new(key, value);
 

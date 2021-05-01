@@ -1,7 +1,6 @@
 ﻿using AccountService.DataProvider;
 using Jobs.SharedModel.Models;
 using Microsoft.EntityFrameworkCore;
-using Service.SharedModel.Helpers;
 using Service.SharedModel.Repository;
 using System;
 using System.Collections.Generic;
