@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Jobs.SharedModel.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 namespace Service.SharedModel.Helpers
@@ -9,16 +11,105 @@ namespace Service.SharedModel.Helpers
     public static class Extensions
     {
         /// <summary>
-        /// A generic extension method that aids in reflecting and retrieving any attribute that is applied to an `Enum`.
+        /// This is for get user Id from User of Context
         /// </summary>
-        public static TAttribute GetAttribute<TAttribute>(this Enum enumValue)
-                where TAttribute : Attribute
+        /// <param name="user">User of Context</param>
+        /// <returns>User Id</returns>
+        public static Guid GetUserId(this ClaimsPrincipal user)
         {
-            return enumValue.GetType().GetMember(enumValue.ToString()).First().GetCustomAttribute<TAttribute>();
+            var result = Guid.TryParse(user.Claims.SingleOrDefault(c => c.Type == "UserId")?.Value, out Guid userId);
+            if (result)
+                return userId;
+            else
+                return Guid.Empty;
         }
 
         /// <summary>
-        ///     A generic extension method that aids in reflecting and retrieving any attribute that is applied to an `Enum`.
+        /// This is for get user name from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>User name</returns>
+        public static string GetUserName(this ClaimsPrincipal user)
+        {
+            return user.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+        }
+
+        /// <summary>
+        /// This is for get user role from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>User role</returns>
+        public static string GetUserRole(this ClaimsPrincipal user)
+        {
+            return user.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+        }
+
+        /// <summary>
+        /// This is for get user role Id from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>User role Id</returns>
+        public static int GetUserRoleId(this ClaimsPrincipal user)
+        {
+            var result = int.TryParse(user.Claims.SingleOrDefault(c => c.Type == "RoleId")?.Value, out int statusId);
+            if (result)
+                return statusId;
+            else
+                return 0;
+        }
+
+        /// <summary>
+        /// This is for check admin from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>True or false</returns>
+        public static bool IsAdmin(this ClaimsPrincipal user)
+        {
+            return user.Identity.IsAuthenticated && user.IsInRole(UserRole.Admin.GetDisplayName());
+        }
+
+        /// <summary>
+        /// This is for check SuperAdmin from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>True or false</returns>
+        public static bool IsSuperAdmin(this ClaimsPrincipal user)
+        {
+            return user.Identity.IsAuthenticated && user.IsInRole(UserRole.SuperAdmin.GetDisplayName());
+        }
+
+        /// <summary>
+        /// This is for check SuperAdmin from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>True or false</returns>
+        public static bool IsEditor(this ClaimsPrincipal user)
+        {
+            return user.Identity.IsAuthenticated && user.IsInRole(UserRole.Editor.GetDisplayName());
+        }
+
+        /// <summary>
+        /// This is for check User from User of Context
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>True or false</returns>
+        public static bool IsUser(this ClaimsPrincipal user)
+        {
+            return user.Identity.IsAuthenticated && user.IsInRole(UserRole.User.GetDisplayName());
+        }
+
+        /// <summary>
+        /// It will be true when user is SuperAdmin or Admin
+        /// </summary>
+        /// <param name="user">User of Context</param>
+        /// <returns>True or false</returns>
+        public static bool IsAdministrators(this ClaimsPrincipal user)
+        {
+            return user.IsSuperAdmin() || user.IsAdmin();
+        }
+
+        /// <summary>
+        /// A generic extension method that aids in reflecting and retrieving any attribute that is applied to an `Enum`.
         /// </summary>
         public static string GetDisplayName(this Enum enumValue)
         {
@@ -26,9 +117,6 @@ namespace Service.SharedModel.Helpers
             return customAttribute?.Name ?? enumValue.ToString();
         }
 
-        /// <summary>
-        /// Cast string to enum type
-        /// </summary>
         public static TEnum ToEnum<TEnum>(this string strEnumValue, TEnum defaultValue)
         {
             if (!Enum.IsDefined(typeof(TEnum), strEnumValue))

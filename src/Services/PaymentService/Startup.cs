@@ -27,7 +27,7 @@ namespace PaymentService
 
             services.AddAuthentications();
             services.AddControllers().AddResponseJsonOptions();
-            services.AddSwaggerGen("Account");
+            services.AddSwaggerGen("Payment");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

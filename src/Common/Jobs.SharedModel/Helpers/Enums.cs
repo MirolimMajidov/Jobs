@@ -3,6 +3,21 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Jobs.SharedModel.Helpers
 {
+    public enum UserRole
+    {
+        [Display(Name = "Super admin")]
+        SuperAdmin = 0,
+
+        [Display(Name = "Admin")]
+        Admin = 1,
+
+        [Display(Name = "Editor")]
+        Editor = 2,
+
+        [Display(Name = "User")]
+        User = 3
+    }
+
     public enum JobType
     {
         [Display(Name = "Hourly")]

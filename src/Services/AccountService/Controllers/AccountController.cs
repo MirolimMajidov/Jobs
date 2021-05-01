@@ -1,4 +1,5 @@
 ﻿using AccountService.Models;
+using Jobs.SharedModel.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,6 @@ using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,7 +26,7 @@ namespace AccountService.Controllers
         [SwaggerResponse(0, "Return AuthInfo = {accessToken, refreshToken} when registration finished successfully", typeof(Tuple<string, string>))]
         public async Task<IActionResult> Authorization()
         {
-            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: new User() { Name = "Test" });
+            var (accessToken, refreshToken, hashToken) = await GenerateToken(user: new User() { Name = "Test", Role = UserRole.SuperAdmin });
             var authInfo = new { accessToken, refreshToken };
             return new OkObjectResult(authInfo);
         }
@@ -35,7 +35,7 @@ namespace AccountService.Controllers
         [HttpGet("UserInfo")]
         public IActionResult UserInfo()
         {
-            return new OkObjectResult(new { User.Identity?.IsAuthenticated, User.Identity?.Name, UserId = User.Claims.FirstOrDefault(c => c.Type == "UserId")?.Value });
+            return new OkObjectResult(new { User.Identity?.IsAuthenticated, UserName = User.GetUserName(), UserId = User.GetUserId(), UserRole = User.GetUserRole(), UserRoleId = User.GetUserRoleId() });
         }
 
         /// <summary>
@@ -72,7 +72,6 @@ namespace AccountService.Controllers
         /// <summary>
         /// This is for creating new Identity by existent old identity or user and claims (IP address, mobile model, mobile id)
         /// </summary>
-        /// <param name="existentIdentity">User's old identity</param>
         /// <param name="user">User info</param>
         /// <param name="paramClaims">Claims (IP address, mobile model, mobile id)</param>
         /// <returns>Return new created ClaimsIdentity</returns>
@@ -85,7 +84,8 @@ namespace AccountService.Controllers
                 List<Claim> claims = new();
                 claims.Add(CreateClaim(ClaimTypes.Name, user.Name));
                 claims.Add(CreateClaim("UserId", user.Id.ToString()));
-                claims.Add(CreateClaim(ClaimTypes.Role, "Admin"));
+                claims.Add(CreateClaim(ClaimTypes.Role, user.Role.GetDisplayName()));
+                claims.Add(CreateClaim("RoleId", ((int)user.Role).ToString()));
 
                 foreach (var (type, value) in paramClaims)
                     claims.Add(CreateClaim(type, value));
