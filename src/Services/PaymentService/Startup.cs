@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
+using Service.SharedModel.Configurations;
 
 namespace PaymentService
 {
@@ -24,7 +25,10 @@ namespace PaymentService
         {
             services.Configure<DatabaseConfiguration>(Configuration.GetSection("DatabaseConfiguration"));
             services.AddScoped<JobsContext>();
-            services.AddControllers();
+
+            services.AddAuthentications();
+            services.AddControllers().AddResponseJsonOptions();
+
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();
@@ -51,7 +55,6 @@ namespace PaymentService
             });
 
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

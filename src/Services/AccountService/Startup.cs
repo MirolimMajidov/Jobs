@@ -8,8 +8,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Service.SharedModel.Configurations;
 using Service.SharedModel.Repository;
 using System;
+using System.Text.Json.Serialization;
 
 namespace AccountService
 {
@@ -31,12 +33,14 @@ namespace AccountService
 #else
             connectionString = Configuration.GetConnectionString("MySQLConnection");
 #endif
-            services.AddDbContext<JobsContext>(o => 
+            services.AddDbContext<JobsContext>(o =>
             o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
-            services.AddControllers();
+            services.AddAuthentications();
+            services.AddControllers().AddResponseJsonOptions();
+
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();

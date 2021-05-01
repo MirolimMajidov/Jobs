@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace Service.SharedModel.Controllers
 {
     [Produces("application/json")]
+    [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
-    public abstract class BaseController<TEntity> : Controller where TEntity : IEntity
+    public abstract class BaseController<TEntity> : ControllerBase where TEntity : IEntity
     {
         private readonly IEntityRepository<TEntity> _pepository;
 

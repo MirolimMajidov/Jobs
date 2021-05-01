@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Service.SharedModel.Configurations;
 using Service.SharedModel.Repository;
 
 namespace JobService
@@ -33,7 +34,9 @@ namespace JobService
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(connectionString));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
-            services.AddControllers();
+            services.AddAuthentications();
+            services.AddControllers().AddResponseJsonOptions();
+
             services.AddSwaggerGen(c =>
             {
                 c.EnableAnnotations();

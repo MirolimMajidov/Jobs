@@ -9,7 +9,11 @@
     <Import_RootNamespace>Service.SharedModel</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations\ResponseJsonOptions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations\Authentications.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\BaseController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Encryptor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Repository\IEntityRepository.cs" />
   </ItemGroup>
