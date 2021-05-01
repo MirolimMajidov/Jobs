@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Service.SharedModel.Configurations
 {
-    public static class ResponseJsonOptions
+    public static class ResponseJsonExtensions
     {
         public static void AddResponseJsonOptions(this IMvcBuilder builder)
         {

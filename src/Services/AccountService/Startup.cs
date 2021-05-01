@@ -7,11 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
 using Service.SharedModel.Configurations;
 using Service.SharedModel.Repository;
 using System;
-using System.Text.Json.Serialization;
 
 namespace AccountService
 {
@@ -40,12 +38,7 @@ namespace AccountService
 
             services.AddAuthentications();
             services.AddControllers().AddResponseJsonOptions();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.EnableAnnotations();
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Account service's RESTful APIs documentation", Version = "v1" });
-            });
+            services.AddSwaggerGen("Account");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,18 +49,8 @@ namespace AccountService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger(o =>
-            {
-                o.RouteTemplate = "docs/{documentName}/docs.json";
-            });
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/docs/v1/docs.json", "RESTful APIs v1");
-                c.RoutePrefix = "docs";
-            });
-
+            app.UseSwaggerDocs();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
