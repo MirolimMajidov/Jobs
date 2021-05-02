@@ -13,8 +13,8 @@ namespace AccountService.Controllers
     {
         public UserController(IEntityRepository<User> pepository) : base(pepository) { }
 
-        [SwaggerOperation(Summary = "To create a new item")]
         [HttpPost]
+        [SwaggerOperation(Summary = "To create a new item")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
         public override async Task<IActionResult> Post([FromBody] User entity)
         {

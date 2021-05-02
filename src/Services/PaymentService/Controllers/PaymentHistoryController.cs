@@ -2,6 +2,8 @@
 using PaymentService.DataProvider;
 using PaymentService.Models;
 using Service.SharedModel.Controllers;
+using Service.SharedModel.Helpers;
+using System.Threading.Tasks;
 
 namespace PaymentService.Controllers
 {
@@ -9,5 +11,12 @@ namespace PaymentService.Controllers
     public class PaymentHistoryController : BaseController<PaymentHistory>
     {
         public PaymentHistoryController(JobsContext context) : base(context.PaymentHistoryRepository) { }
+
+        public override async Task<IActionResult> Post([FromBody] PaymentHistory entity)
+        {
+            entity.UserId = User.GetUserId();
+
+            return await base.Post(entity);
+        }
     }
 }

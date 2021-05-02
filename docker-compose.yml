@@ -1,13 +1,9 @@
 version: '3.4'
 
 services:
-  job-api:
-    container_name: JobService
-    image: ${DOCKER_REGISTRY-}job.api
-
-  job-SqlServerDB:
-    container_name: JobService_SqlServerDB
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
+  ocelot-api-gateway:
+    container_name: OcelotApiGateway
+    image: ${DOCKER_REGISTRY-}ocelot.gateway.api
 
   account-api:
     container_name: AccountService
@@ -17,6 +13,14 @@ services:
     container_name: AccountService_MySqlDB
     image: mysql:5.7
 
+  job-api:
+    container_name: JobService
+    image: ${DOCKER_REGISTRY-}job.api
+
+  job-SqlServerDB:
+    container_name: JobService_SqlServerDB
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+
   payment-api:
     container_name: PaymentService
     image: ${DOCKER_REGISTRY-}payment.api
@@ -24,7 +28,3 @@ services:
   payment-mongoDB:
     container_name: Mongo_NoSqlData
     image: mongo
-
-  ocelot-api-gateway:
-    container_name: OcelotApiGateway
-    image: ${DOCKER_REGISTRY-}ocelot.gateway.api

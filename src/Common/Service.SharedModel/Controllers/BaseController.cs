@@ -1,4 +1,5 @@
 ﻿using Jobs.SharedModel.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Repository;
@@ -11,6 +12,7 @@ namespace Service.SharedModel.Controllers
     [Produces("application/json")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseController<TEntity> : ControllerBase where TEntity : IEntity
     {
         private readonly IEntityRepository<TEntity> _pepository;
@@ -20,18 +22,20 @@ namespace Service.SharedModel.Controllers
             _pepository = pepository;
         }
 
-        [SwaggerOperation(Summary = "To get all the items")]
+        [AllowAnonymous]
         [HttpGet]
-        [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(OkObjectResult))]
+        [SwaggerOperation(Summary = "To get all items")]
+        [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Get()
         {
             var entities = await _pepository.GetEntities();
             return new OkObjectResult(entities);
         }
 
-        [SwaggerOperation(Summary = "To get an item by Id")]
+        [AllowAnonymous]
         [HttpGet("{id}")]
-        [SwaggerResponse(200, "Return the found item if it's finished successfully", typeof(OkObjectResult))]
+        [SwaggerOperation(Summary = "To get an item by Id")]
+        [SwaggerResponse(200, "Return the found item if it's finished successfully", typeof(OkResult))]
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(NotFoundResult))]
         public virtual async Task<IActionResult> Get(Guid id)
         {
@@ -42,8 +46,8 @@ namespace Service.SharedModel.Controllers
             return new OkObjectResult(entity);
         }
 
-        [SwaggerOperation(Summary = "To create a new item")]
         [HttpPost]
+        [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Post([FromBody] TEntity entity)
         {
@@ -51,8 +55,8 @@ namespace Service.SharedModel.Controllers
             return new OkObjectResult(createdEntity);
         }
 
-        [SwaggerOperation(Summary = "To update exists an item")]
         [HttpPut]
+        [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Put([FromBody] TEntity entity)
         {
@@ -64,9 +68,8 @@ namespace Service.SharedModel.Controllers
             return new NoContentResult();
         }
 
-        [Authorize]
-        [SwaggerOperation(Summary = "To delete an item")]
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "To delete an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(OkResult))]
         public virtual async Task<IActionResult> Delete(Guid id)
         {

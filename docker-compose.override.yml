@@ -1,30 +1,29 @@
 version: '3.4'
 
 services:
-  job-api:
+  ocelot-api-gateway:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7001:80"
+      - "6000:80"
     build:
       context: .
-      dockerfile: src/Services/JobService/Dockerfile
+      dockerfile: src/OcelotApiGateway/Dockerfile
     depends_on:
+      - account-MySqlDB
+      - account-api
       - job-SqlServerDB
-
-  job-SqlServerDB:
-    restart: always
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=job_service_password
+      - job-api
+      - payment-mongoDB
+      - payment-api
 
   account-api:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "7002:80"
+      - "6001:80"
     build:
       context: .
       dockerfile: src/Services/AccountService/Dockerfile
@@ -38,6 +37,28 @@ services:
       MYSQL_USER: AccountService
       MYSQL_PASSWORD: account_service_password
       MYSQL_RANDOM_ROOT_PASSWORD: 'account_service_password'
+    ports:
+      - "6011:3306"
+
+  job-api:
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6002:80"
+    build:
+      context: .
+      dockerfile: src/Services/JobService/Dockerfile
+    depends_on:
+      - job-SqlServerDB
+
+  job-SqlServerDB:
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=job_service_password
+    ports:
+      - "6012:1433"
 
   payment-api:
     restart: always
@@ -45,12 +66,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=mongodb://payment-mongoDB
     ports:
-      - "7003:80"
+      - "6003:80"
     build:
       context: .
       dockerfile: src/Services/PaymentService/Dockerfile
-    links:
-      - payment-mongoDB
     depends_on:
       - payment-mongoDB
 
@@ -58,24 +77,7 @@ services:
     volumes:
       - jobs-mongoDB:/data/db
     ports:
-      - "27017:27017"
-
-  ocelot-api-gateway:
-    restart: always
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "7000:80"
-    build:
-      context: .
-      dockerfile: src/OcelotApiGateway/Dockerfile
-    depends_on:
-      - job-SqlServerDB
-      - job-api
-      - account-MySqlDB
-      - account-api
-      - payment-mongoDB
-      - payment-api
+      - "6013:27017"
 
 volumes:
   jobs-mongoDB:

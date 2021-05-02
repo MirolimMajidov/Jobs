@@ -1,4 +1,6 @@
 ﻿using JobService.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Controllers;
 using Service.SharedModel.Repository;
