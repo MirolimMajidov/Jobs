@@ -11,11 +11,8 @@ services:
       context: .
       dockerfile: src/OcelotApiGateway/Dockerfile
     depends_on:
-      - account-MySqlDB
       - account-api
-      - job-SqlServerDB
       - job-api
-      - payment-mongoDB
       - payment-api
 
   account-api:
