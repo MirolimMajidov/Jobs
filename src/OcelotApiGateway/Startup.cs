@@ -33,17 +33,17 @@ namespace OcelotApiGateway
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseRouting();
+            //app.UseRouting();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-                endpoints.MapGet("/status", async context =>
-                {
-                    await context.Response.WriteAsync("Api Gateway service is running!");
-                });
-            }); 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //    endpoints.MapGet("/status", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Api Gateway service is running!");
+            //    });
+            //}); 
             
             await app.UseOcelot();
         }

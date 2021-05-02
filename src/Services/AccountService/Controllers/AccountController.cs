@@ -30,7 +30,7 @@ namespace AccountService.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Auth")]
+        [HttpPost("Authorization")]
         [SwaggerOperation(Summary = "For authorization user to jobs services")]
         [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when authorization finished successfully", typeof(Tuple<string, string>))]
         [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(RequestModel))]
