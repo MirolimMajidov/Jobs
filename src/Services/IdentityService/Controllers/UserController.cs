@@ -1,11 +1,11 @@
-﻿using AccountService.Models;
+﻿using IdentityService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Controllers;
 using Service.SharedModel.Helpers;
 using Service.SharedModel.Repository;
 using System.Threading.Tasks;
 
-namespace AccountService.Controllers
+namespace IdentityService.Controllers
 {
     [Route("api/[controller]")]
     public class UserController : BaseController<User>

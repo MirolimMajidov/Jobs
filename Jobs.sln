@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JobService", "src\Services\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{7915AA37-4E24-4CFB-B929-A1918621F681}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountService", "src\Services\AccountService\AccountService.csproj", "{0686EFE5-3821-421D-8C8E-9761F6FEBBD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "src\Services\IdentityService\IdentityService.csproj", "{0686EFE5-3821-421D-8C8E-9761F6FEBBD3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "src\Services\PaymentService\PaymentService.csproj", "{626FBA16-C7CD-4417-8C34-4E5DBCF17C4F}"
 EndProject

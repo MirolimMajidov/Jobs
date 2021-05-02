@@ -1,4 +1,4 @@
-using AccountService.DataProvider;
+using IdentityService.DataProvider;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +8,7 @@ using NLog.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace AccountService
+namespace IdentityService
 {
     public class Program
     {

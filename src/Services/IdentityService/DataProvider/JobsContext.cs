@@ -1,9 +1,9 @@
-﻿using AccountService.Models;
+﻿using IdentityService.Models;
 using Jobs.SharedModel.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace AccountService.DataProvider
+namespace IdentityService.DataProvider
 {
     public class JobsContext : DbContext
     {

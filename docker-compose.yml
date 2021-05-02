@@ -5,12 +5,12 @@ services:
     container_name: OcelotApiGateway
     image: ${DOCKER_REGISTRY-}ocelot.gateway.api
 
-  account-api:
-    container_name: AccountService
-    image: ${DOCKER_REGISTRY-}account.api
+  identity-api:
+    container_name: IdentityService
+    image: ${DOCKER_REGISTRY-}identity.api
 
-  account-MySqlDB:
-    container_name: AccountService_MySqlDB
+  identity-MySqlDB:
+    container_name: IdentityService_MySqlDB
     image: mysql:5.7
 
   job-api:

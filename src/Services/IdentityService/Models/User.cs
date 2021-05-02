@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
-namespace AccountService.Models
+namespace IdentityService.Models
 {
     public class User : BaseEntity
     {

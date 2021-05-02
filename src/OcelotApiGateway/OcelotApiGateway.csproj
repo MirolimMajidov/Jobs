@@ -13,7 +13,7 @@
     <None Include="Configurations\ocelot.payment.service.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Configurations\ocelot.account.service.json">
+    <None Include="Configurations\ocelot.identity.service.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

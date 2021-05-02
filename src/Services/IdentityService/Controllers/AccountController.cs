@@ -1,5 +1,5 @@
-﻿using AccountService.DataProvider;
-using AccountService.Models;
+﻿using IdentityService.DataProvider;
+using IdentityService.Models;
 using Jobs.SharedModel.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace AccountService.Controllers
+namespace IdentityService.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

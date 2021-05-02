@@ -1,5 +1,5 @@
-using AccountService.DataProvider;
-using AccountService.Repository;
+using IdentityService.DataProvider;
+using IdentityService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,7 +11,7 @@ using Service.SharedModel.Configurations;
 using Service.SharedModel.Repository;
 using System;
 
-namespace AccountService
+namespace IdentityService
 {
     public class Startup
     {

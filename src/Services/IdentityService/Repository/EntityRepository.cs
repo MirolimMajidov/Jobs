@@ -1,4 +1,4 @@
-﻿using AccountService.DataProvider;
+﻿using IdentityService.DataProvider;
 using Jobs.SharedModel.Models;
 using Microsoft.EntityFrameworkCore;
 using Service.SharedModel.Repository;
@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AccountService.Repository
+namespace IdentityService.Repository
 {
     public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
     {

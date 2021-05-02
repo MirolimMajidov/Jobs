@@ -11,11 +11,11 @@ services:
       context: .
       dockerfile: src/OcelotApiGateway/Dockerfile
     depends_on:
-      - account-api
+      - identity-api
       - job-api
       - payment-api
 
-  account-api:
+  identity-api:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -23,17 +23,17 @@ services:
       - "6001:80"
     build:
       context: .
-      dockerfile: src/Services/AccountService/Dockerfile
+      dockerfile: src/Services/IdentityService/Dockerfile
     depends_on:
-      - account-MySqlDB
+      - identity-MySqlDB
       
-  account-MySqlDB:
+  identity-MySqlDB:
     restart: always
     environment:
-      MYSQL_DATABASE: AccountServiceDB
-      MYSQL_USER: AccountService
-      MYSQL_PASSWORD: account_service_password
-      MYSQL_RANDOM_ROOT_PASSWORD: 'account_service_password'
+      MYSQL_DATABASE: IdentityServiceDB
+      MYSQL_USER: IdentityService
+      MYSQL_PASSWORD: identity_service_password
+      MYSQL_RANDOM_ROOT_PASSWORD: 'identity_service_password'
     ports:
       - "6011:3306"
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AccountService.Migrations
+namespace IdentityService.Migrations
 {
     public partial class JobsDatabase : Migration
     {

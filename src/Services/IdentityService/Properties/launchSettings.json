@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AccountService": {
+    "IdentityService": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "docs",

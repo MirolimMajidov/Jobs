@@ -1,4 +1,4 @@
-﻿using AccountService.Models;
+﻿using IdentityService.Models;
 using Jobs.SharedModel.Helpers;
 using Microsoft.Extensions.Logging;
 using Service.SharedModel.Helpers;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AccountService.DataProvider
+namespace IdentityService.DataProvider
 {
     public static class DataSeeder
     {
