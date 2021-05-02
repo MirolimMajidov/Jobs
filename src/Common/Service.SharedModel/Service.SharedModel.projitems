@@ -11,12 +11,14 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Polices.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Swagger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Configurations\ResponseJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations\NewtonsoftJson.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Authentications.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Configurations\SwaggerIgnoreFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\BaseController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Encryptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\RequestModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Repository\IEntityRepository.cs" />
   </ItemGroup>
 </Project>

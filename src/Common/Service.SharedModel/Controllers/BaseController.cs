@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Service.SharedModel.Helpers;
 using Service.SharedModel.Repository;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -25,56 +26,56 @@ namespace Service.SharedModel.Controllers
         [AllowAnonymous]
         [HttpGet]
         [SwaggerOperation(Summary = "To get all items")]
-        [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(OkResult))]
-        public virtual async Task<IActionResult> Get()
+        [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(RequestModel))]
+        public virtual async Task<RequestModel> Get()
         {
             var entities = await _pepository.GetEntities();
-            return new OkObjectResult(entities);
+            return await RequestModel.SuccessAsync(entities);
         }
 
         [AllowAnonymous]
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "To get an item by Id")]
-        [SwaggerResponse(200, "Return the found item if it's finished successfully", typeof(OkResult))]
-        [SwaggerResponse(404, "An item with the specified ID was not found", typeof(NotFoundResult))]
-        public virtual async Task<IActionResult> Get(Guid id)
+        [SwaggerResponse(200, "Return the found item if it's finished successfully", typeof(RequestModel))]
+        [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
+        public virtual async Task<RequestModel> Get(Guid id)
         {
             var entity = await _pepository.GetEntityByID(id);
             if (entity == null)
-                return new NotFoundResult();
+                return await RequestModel.NotFoundAsync();
 
-            return new OkObjectResult(entity);
+            return await RequestModel.SuccessAsync(entity);
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
-        public virtual async Task<IActionResult> Post([FromBody] TEntity entity)
+        public virtual async Task<RequestModel> Post([FromBody] TEntity entity)
         {
             var createdEntity = await _pepository.InsertEntity(entity);
-            return new OkObjectResult(createdEntity);
+            return await RequestModel.SuccessAsync(createdEntity);
         }
 
         [HttpPut]
         [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
-        [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(OkResult))]
-        public virtual async Task<IActionResult> Put([FromBody] TEntity entity)
+        [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(RequestModel))]
+        public virtual async Task<RequestModel> Put([FromBody] TEntity entity)
         {
             if (entity != null)
             {
                 await _pepository.UpdateEntity(entity);
-                return new OkResult();
+                return new RequestModel();
             }
-            return new NoContentResult();
+            return await RequestModel.ErrorRequestAsync("An item can not be null");
         }
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "To delete an item. For this you must be authorized")]
-        [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(OkResult))]
-        public virtual async Task<IActionResult> Delete(Guid id)
+        [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(RequestModel))]
+        public virtual async Task<RequestModel> Delete(Guid id)
         {
             await _pepository.DeleteEntity(id);
-            return new OkResult();
+            return await RequestModel.SuccessAsync();
         }
     }
 }

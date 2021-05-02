@@ -12,7 +12,7 @@ namespace JobService.Controllers
     {
         public JobController(IEntityRepository<Job> pepository) : base(pepository) { }
 
-        public override async Task<IActionResult> Post([FromBody] Job entity)
+        public override async Task<RequestModel> Post([FromBody] Job entity)
         {
             entity.UserId = User.GetUserId();
 

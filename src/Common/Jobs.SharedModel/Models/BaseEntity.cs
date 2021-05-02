@@ -1,8 +1,8 @@
-﻿using System.Text.Json.Serialization;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace Jobs.SharedModel.Models
 {

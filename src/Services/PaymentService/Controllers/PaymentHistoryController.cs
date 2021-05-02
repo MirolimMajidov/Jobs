@@ -12,7 +12,7 @@ namespace PaymentService.Controllers
     {
         public PaymentHistoryController(JobsContext context) : base(context.PaymentHistoryRepository) { }
 
-        public override async Task<IActionResult> Post([FromBody] PaymentHistory entity)
+        public override async Task<RequestModel> Post([FromBody] PaymentHistory entity)
         {
             entity.UserId = User.GetUserId();
 

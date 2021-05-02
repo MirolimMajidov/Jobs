@@ -33,15 +33,15 @@ namespace AccountService.Controllers
         [HttpPost("Auth")]
         [SwaggerOperation(Summary = "For authorization user to jobs services")]
         [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when authorization finished successfully", typeof(Tuple<string, string>))]
-        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(NotFoundResult))]
-        public async Task<IActionResult> Authorization([FromForm, SwaggerParameter("Login of user", Required = true)] string login, [FromForm, SwaggerParameter("Orginal password of user", Required = true)] string password)
+        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(RequestModel))]
+        public async Task<RequestModel> Authorization([FromForm, SwaggerParameter("Login of user", Required = true)] string login, [FromForm, SwaggerParameter("Orginal password of user", Required = true)] string password)
         {
             if (login.IsNullOrEmpty() || password.IsNullOrEmpty())
-                return new NotFoundResult();
+                return await RequestModel.NotAccessAsync();
 
             var user = _context.Users.FirstOrDefault(u => u.Login == login && u.HashPassword == Encryptor.SH1Hash(password));
             if (user == null)
-                return new NotFoundResult();
+                return await RequestModel.NotAccessAsync();
 
             var (accessToken, refreshToken, hashToken) = await GenerateToken(user: user);
             user.Token = hashToken;
@@ -51,7 +51,7 @@ namespace AccountService.Controllers
             await _context.SaveChangesAsync();
 
             var authInfo = new { accessToken, refreshToken };
-            return new OkObjectResult(authInfo);
+            return await RequestModel.SuccessAsync(authInfo);
         }
 
         [Authorize]
@@ -59,14 +59,14 @@ namespace AccountService.Controllers
         [SwaggerOperation(Summary = "For refreshing exist token of user")]
         [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when token updated successfully", typeof(Tuple<string, string>))]
         [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(NotFoundResult))]
-        public async Task<IActionResult> RefreshToken([FromForm, SwaggerParameter("Last refresh token of user", Required = true)] string refreshToken)
+        public async Task<RequestModel> RefreshToken([FromForm, SwaggerParameter("Last refresh token of user", Required = true)] string refreshToken)
         {
             if (refreshToken.IsNullOrEmpty())
-                return new NotFoundResult();
+                return await RequestModel.NotAccessAsync();
 
             var user = _context.Users.FirstOrDefault(u => u.RefreshToken == refreshToken && u.Token == Encryptor.SH1Hash(HttpContext.GetBearerToken()));
             if (user == null)
-                return new NotFoundResult();
+                return await RequestModel.NotFoundAsync();
 
             var (accessToken, refToken, hashToken) = await GenerateToken(user: user);
             user.Token = hashToken;
@@ -77,18 +77,18 @@ namespace AccountService.Controllers
 
             var authInfo = new { accessToken, refreshToken = refToken };
 
-            return new OkObjectResult(authInfo);
+            return await RequestModel.SuccessAsync(authInfo);
         }
 
         [Authorize(Policy = "AllUsers")]
         [HttpPost("LogOut")]
         [SwaggerOperation(Summary = "To log out user from jobs services")]
         [SwaggerResponse(200, "If finished successfully", typeof(OkObjectResult))]
-        public async Task<IActionResult> LogOut()
+        public async Task<RequestModel> LogOut()
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == User.GetUserId());
             if (user == null)
-                return new NotFoundResult();
+                return await RequestModel.NotAccessAsync();
 
             user.Token = string.Empty;
             user.RefreshToken = string.Empty;
@@ -96,13 +96,13 @@ namespace AccountService.Controllers
             _context.Update(user);
             await _context.SaveChangesAsync();
 
-            return new OkResult();
+            return await RequestModel.SuccessAsync();
         }
 
         [HttpGet("UserInfo")]
-        public IActionResult UserInfo()
+        public async Task<RequestModel> UserInfo()
         {
-            return new OkObjectResult(new { User.Identity?.IsAuthenticated, UserName = User.GetUserName(), UserId = User.GetUserId(), UserRole = User.GetUserRole(), UserRoleId = User.GetUserRoleId() });
+            return await RequestModel.SuccessAsync(new { User.Identity?.IsAuthenticated, UserName = User.GetUserName(), UserId = User.GetUserId(), UserRole = User.GetUserRole(), UserRoleId = User.GetUserRoleId() });
         }
 
         /// <summary>

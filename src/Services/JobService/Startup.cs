@@ -34,7 +34,7 @@ namespace JobService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers().AddResponseJsonOptions();
+            services.AddControllers().AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Job");
         }
 

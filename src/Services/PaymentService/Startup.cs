@@ -26,7 +26,7 @@ namespace PaymentService
             services.AddScoped<JobsContext>();
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers().AddResponseJsonOptions();
+            services.AddControllers().AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Payment");
         }
 

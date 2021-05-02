@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 using Jobs.SharedModel.Models;
 using System.Collections.Generic;
 

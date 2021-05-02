@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Service.SharedModel.Controllers;
 using Service.SharedModel.Helpers;
 using Service.SharedModel.Repository;
-using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
 
 namespace AccountService.Controllers
@@ -13,10 +12,7 @@ namespace AccountService.Controllers
     {
         public UserController(IEntityRepository<User> pepository) : base(pepository) { }
 
-        [HttpPost]
-        [SwaggerOperation(Summary = "To create a new item")]
-        [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
-        public override async Task<IActionResult> Post([FromBody] User entity)
+        public override async Task<RequestModel> Post([FromBody] User entity)
         {
             entity.HashPassword = Encryptor.SH1Hash(entity.Password);
 

@@ -12,6 +12,7 @@ namespace Service.SharedModel.Configurations
             {
                 c.EnableAnnotations();
                 c.SwaggerDoc(docName, new OpenApiInfo { Title = $"{serviceName} service's RESTful APIs documentation", Version = versionName });
+                c.SchemaFilter<SwaggerIgnoreFilter>();
             });
         }
 
