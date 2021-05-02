@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace PaymentService.Controllers
 {
     [Route("api/[controller]")]
-    public class PaymentHistoryController : BaseController<PaymentHistory>
+    public class PaymentController : BaseController<Payment>
     {
-        public PaymentHistoryController(JobsContext context) : base(context.PaymentHistoryRepository) { }
+        public PaymentController(JobsContext context) : base(context.PaymentRepository) { }
 
-        public override async Task<RequestModel> Post([FromBody] PaymentHistory entity)
+        public override async Task<RequestModel> Post([FromBody] Payment entity)
         {
             entity.UserId = User.GetUserId();
 

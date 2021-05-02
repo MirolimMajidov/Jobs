@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PaymentService.Models
 {
-    public class PaymentHistory : Disposable, IEntity
+    public class Payment : Disposable, IEntity
     {
         [BsonId]
         public Guid Id { get; set; }

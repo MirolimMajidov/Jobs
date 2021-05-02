@@ -12,7 +12,7 @@ namespace PaymentService.DataProvider
         {
             try
             {
-                var repository = context.PaymentHistoryRepository;
+                var repository = context.PaymentRepository;
                 if (!repository.GetEntities().Result.Any())
                 {
                     await Task.Run(async () =>
@@ -20,7 +20,7 @@ namespace PaymentService.DataProvider
                         var userId = Guid.NewGuid();
                         for (int i = 1; i < 11; i++)
                         {
-                            var payment = new PaymentHistory
+                            var payment = new Payment
                             {
                                 OrderId = i.ToString(),
                                 UserId = userId,

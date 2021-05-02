@@ -19,19 +19,19 @@ namespace PaymentService.DataProvider
             _database = client.GetDatabase(_settings.DatabaseName);
         }
 
-        private IEntityRepository<PaymentHistory> _paymentHistoryRepository;
+        private IEntityRepository<Payment> _paymentRepository;
 
-        public IEntityRepository<PaymentHistory> PaymentHistoryRepository
+        public IEntityRepository<Payment> PaymentRepository
         {
             get
             {
-                if (_paymentHistoryRepository == null)
+                if (_paymentRepository == null)
                 {
-                    var payments = _database.GetCollection<PaymentHistory>(_settings.PaymentsCollectionName);
-                    _paymentHistoryRepository = new EntityRepository<PaymentHistory>(payments);
+                    var payments = _database.GetCollection<Payment>(_settings.PaymentsName);
+                    _paymentRepository = new EntityRepository<Payment>(payments);
                 }
 
-                return _paymentHistoryRepository;
+                return _paymentRepository;
             }
         }
     }
