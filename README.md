@@ -20,6 +20,13 @@ The architecture proposes a microservice oriented architecture implementation wi
   <tbody>
     <tr>
         <td align="center">1.</td>
+        <td>API Gateway(Ocelot)</td>
+        <td>This service is responsible for all other micro-services</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td align="center">2.</td>
         <td>Identity API(JWT Token, Repocitory, CRUD by MySQL)</td>
         <td>Identity management service</td>
         <td>
@@ -28,7 +35,7 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td></td>
     </tr>
     <tr>
-        <td align="center">2.</td>
+        <td align="center">3.</td>
         <td>Jobs API(Repocitory, CRUD by SQL Server)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
@@ -37,7 +44,7 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td></td>
     </tr>
     <tr>
-        <td align="center">3.</td>
+        <td align="center">4.</td>
         <td>Payment API(Repocitory, CRUD by MongoDB)</td>
         <td>Responsible for financial and payments</td>
         <td>
@@ -60,7 +67,7 @@ docker-compose up
 You should be able to browse different components of the application by using the below URLs :
 
 ```
-API Gateway (This service is responsible for all other micro-services): http://localhost:7000/
+API Gateway : http://localhost:7000/
 Identity service :  http://localhost:7001/
 Jobs service :  http://localhost:7002/
 Payment service :  http://localhost:7003/
