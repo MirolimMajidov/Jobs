@@ -32,7 +32,11 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td>
            (soon)
         </td>
-        <td></td>
+        <td> 
+            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/IdentityAPI/v1">
+               View
+            </a>
+       </td>
     </tr>
     <tr>
         <td align="center">3.</td>
