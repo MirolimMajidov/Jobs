@@ -1,5 +1,5 @@
 # Jobs
-Jobs is micro-services application using Docker Containers based on .NET 5.
+Jobs is a micro-services application using Docker Containers based on .NET 5.
 
 ## Architecture overview
 
@@ -27,7 +27,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API(JWT Token, NLog logging, Repocitory, CRUD by MySQL)</td>
+        <td>Identity API(JWT Token, NLog logging, CRUD by MySQL)</td>
         <td>Identity management service</td>
         <td>
            (soon)
@@ -36,7 +36,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Jobs API(NLog logging, Repocitory, CRUD by SQL Server)</td>
+        <td>Jobs API(NLog logging, CRUD by SQL Server)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
            (soon)
