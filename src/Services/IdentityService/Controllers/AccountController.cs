@@ -58,7 +58,7 @@ namespace IdentityService.Controllers
         [HttpPost("RefreshToken")]
         [SwaggerOperation(Summary = "For refreshing exist token of user")]
         [SwaggerResponse(200, "Return AuthInfo = {token, refreshToken} when token updated successfully", typeof(Tuple<string, string>))]
-        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(NotFoundResult))]
+        [SwaggerResponse(404, "A user with the specified login and password was not found", typeof(RequestModel))]
         public async Task<RequestModel> RefreshToken([FromForm, SwaggerParameter("Last refresh token of user", Required = true)] string refreshToken)
         {
             if (refreshToken.IsNullOrEmpty())
@@ -83,7 +83,7 @@ namespace IdentityService.Controllers
         [Authorize(Policy = "AllUsers")]
         [HttpPost("LogOut")]
         [SwaggerOperation(Summary = "To log out user from jobs services")]
-        [SwaggerResponse(200, "If finished successfully", typeof(OkObjectResult))]
+        [SwaggerResponse(200, "If finished successfully")]
         public async Task<RequestModel> LogOut()
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == User.GetUserId());

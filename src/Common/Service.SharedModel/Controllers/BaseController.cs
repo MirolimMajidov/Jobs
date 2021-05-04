@@ -49,7 +49,7 @@ namespace Service.SharedModel.Controllers
 
         [HttpPost]
         [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
-        [SwaggerResponse(200, "Return OK if it's added successfully", typeof(OkResult))]
+        [SwaggerResponse(200, "Return OK if it's added successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> Post([FromBody] TEntity entity)
         {
             var createdEntity = await _pepository.InsertEntity(entity);

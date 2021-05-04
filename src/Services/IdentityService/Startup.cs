@@ -38,7 +38,7 @@ namespace IdentityService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers().AddResponseNewtonsoftJson();
-            services.AddSwaggerGen("Account");
+            services.AddSwaggerGen("Identity");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +60,7 @@ namespace IdentityService
 
             app.Run(async context =>
             {
-                await context.Response.WriteAsync("Welcome to 'Account' service!");
+                await context.Response.WriteAsync("Welcome to 'Identity' service!");
             });
         }
     }
