@@ -40,12 +40,16 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Jobs API(NLog logging, FW Core, CRUD by SQL Server)</td>
+        <td>Job API(NLog logging, FW Core, CRUD by SQL Server)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
            (soon)
         </td>
-        <td></td>
+        <td> 
+            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/JobAPI/1.0.0">
+               View
+            </a>
+       </td>
     </tr>
     <tr>
         <td align="center">4.</td>
@@ -54,7 +58,11 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td>
            (soon)
         </td>
-        <td></td>
+        <td> 
+            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/PaymentAPI/1.0.0">
+               View
+            </a>
+       </td>
     </tr>
   </tbody>  
 </table>
