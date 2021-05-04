@@ -20,14 +20,14 @@ The architecture proposes a microservice oriented architecture implementation wi
   <tbody>
     <tr>
         <td align="center">1.</td>
-        <td>API Gateway(Ocelot)</td>
+        <td>API Gateway (Ocelot)</td>
         <td>This service is responsible for all other micro-services</td>
         <td></td>
         <td></td>
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API(JWT Token, NLog logging, FW Core, CRUD by MySQL)</td>
+        <td>Identity API (JWT Token, NLog logging, FW Core, CRUD by MySQL)</td>
         <td>Identity management service</td>
         <td>
            (soon)
@@ -40,7 +40,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Job API(NLog logging, FW Core, CRUD by SQL Server)</td>
+        <td>Job API (NLog logging, FW Core, CRUD by SQL Server)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
            (soon)
@@ -53,7 +53,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">4.</td>
-        <td>Payment API(Microsoft logging, Repocitory, CRUD by MongoDB)</td>
+        <td>Payment API (Microsoft logging, Repocitory, CRUD by MongoDB)</td>
         <td>Responsible for financial and payments</td>
         <td>
            (soon)
