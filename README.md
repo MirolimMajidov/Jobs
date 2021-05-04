@@ -33,7 +33,7 @@ The architecture proposes a microservice oriented architecture implementation wi
            (soon)
         </td>
         <td> 
-            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/IdentityAPI/v1">
+            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/IdentityAPI/1.0.0">
                View
             </a>
        </td>
