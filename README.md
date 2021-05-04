@@ -5,7 +5,7 @@ Jobs is micro-services application using Docker Containers based on .NET 5.
 
 The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and implementing different approaches within each microservice (simple CRUD) using REST/HTTP as the communication protocol between the client apps, and supports asynchronous communication for data updates propagation across multiple services based on gRPC/HTTP2.
 
-![](img/JobsArchitecture.png)
+![](img/JobsArchitecture.PNG)
 
 ## List of micro-services and infrastructure components
 
