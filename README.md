@@ -1,5 +1,5 @@
 # Jobs
-Jobs is a micro-services application using Docker Containers based on .NET 5.
+Jobs is a open source work marketplace application, powered by micro-services ☸️ architecture and cross-platform development 📱🖥🐳 based on .NET 5.
 
 ## Architecture overview
 
