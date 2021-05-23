@@ -10,7 +10,7 @@ namespace TestGrpcClient
         static async Task Main(string[] args)
         {
             var data = new UserRequest { Id = "Id" };
-            var grpcChannel = GrpcChannel.ForAddress("http://localhost:5005");
+            var grpcChannel = GrpcChannel.ForAddress("http://localhost:5001/");
             var client = new TestUser.TestUserClient(grpcChannel);
             var response = await client.GetByIdAsync(data);
             Console.WriteLine(response);

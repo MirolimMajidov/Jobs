@@ -1,5 +1,6 @@
 using IdentityService.DataProvider;
 using IdentityService.Repository;
+using IdentityService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,7 @@ namespace IdentityService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
+            services.AddGrpc();
             services.AddControllers().AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Identity");
         }
@@ -55,6 +57,7 @@ namespace IdentityService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<UserService>();
                 endpoints.MapControllers();
             });
 
