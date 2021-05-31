@@ -32,13 +32,13 @@ namespace IdentityService
 #else
             connectionString = Configuration.GetConnectionString("MySQLConnection");
 #endif
+            services.AddGrpc();
             services.AddDbContext<JobsContext>(o =>
             o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
-            services.AddGrpc();
             services.AddControllers().AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Identity");
         }

@@ -1,11 +1,15 @@
 using IdentityService.DataProvider;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System;
+using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace IdentityService
@@ -14,7 +18,8 @@ namespace IdentityService
     {
         public static async Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            var configuration = GetConfiguration();
+            var host = CreateHostBuilder(configuration, args).Build();
 
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -38,7 +43,7 @@ namespace IdentityService
             await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(IConfiguration configuration, string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureLogging((hostingContext, logging) =>
                 {
@@ -49,7 +54,32 @@ namespace IdentityService
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                    .ConfigureKestrel(options =>
+                    {
+                        var (httpPort, grpcPort) = GetDefinedPorts(configuration);
+                        options.Listen(IPAddress.Any, httpPort,
+                            listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
+                        options.Listen(IPAddress.Any, grpcPort,
+                            listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
+                    })
+                    .UseStartup<Startup>();
                 });
+
+        private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration configuration)
+        {
+            var grpcPort = configuration.GetValue("GRPC_PORT", 5101);
+            var port = configuration.GetValue("PORT", 5001);
+            return (port, grpcPort);
+        }
+
+        private static IConfigurationRoot GetConfiguration()
+        {
+            return new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", false, true)
+                .AddEnvironmentVariables()
+                .Build();
+        }
     }
 }
