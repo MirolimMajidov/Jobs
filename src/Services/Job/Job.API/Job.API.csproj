@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
@@ -32,13 +32,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.4" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.1" />
   </ItemGroup>
 
-  <Import Project="..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
-  <Import Project="..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
 
 </Project>

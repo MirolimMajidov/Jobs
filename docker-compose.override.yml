@@ -9,7 +9,7 @@ services:
       - "6000:80"
     build:
       context: .
-      dockerfile: src/OcelotApiGateway/Dockerfile
+      dockerfile: src/Ocelot.ApiGateway/Dockerfile
     depends_on:
       - identity-api
       - job-api
@@ -23,7 +23,7 @@ services:
       - "6001:80"
     build:
       context: .
-      dockerfile: src/Services/IdentityService/Dockerfile
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
     depends_on:
       - identity-MySqlDB
       
@@ -45,7 +45,7 @@ services:
       - "6002:80"
     build:
       context: .
-      dockerfile: src/Services/JobService/Dockerfile
+      dockerfile: src/Services/Job/Job.API/Dockerfile
     depends_on:
       - job-SqlServerDB
 
@@ -66,7 +66,7 @@ services:
       - "6003:80"
     build:
       context: .
-      dockerfile: src/Services/PaymentService/Dockerfile
+      dockerfile: src/Services/Payment/Payment.API/Dockerfile
     depends_on:
       - payment-mongoDB
 
