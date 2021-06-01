@@ -4,8 +4,9 @@ option csharp_namespace = "IdentityService.Protos";
 
 package IdentityService;
 
-service TestUser {
-  rpc GetById (UserRequest) returns (UserReply);
+service User {
+  rpc GetUserById (UserRequest) returns (UserReply);
+  rpc GetUsers (UsersRequest) returns (stream UserReply);
 }
 
 message UserRequest {
@@ -15,4 +16,7 @@ message UserRequest {
 message UserReply {
   string Id = 1;
   string Name = 2;
+}
+
+message UsersRequest {
 }
