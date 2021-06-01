@@ -27,7 +27,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API (JWT Token, NLog logging, FW Core, CRUD by MySQL)</td>
+        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL)</td>
         <td>Identity management service</td>
         <td>
            (soon)
@@ -80,7 +80,7 @@ You should be able to browse different components of the application by using th
 
 ```
 API Gateway : http://localhost:7000/
-Identity service :  http://localhost:7001/
+Identity service :  http://localhost:7001/, gRPC :  http://localhost:7101/
 Jobs service :  http://localhost:7002/
 Payment service :  http://localhost:7003/
 ```
