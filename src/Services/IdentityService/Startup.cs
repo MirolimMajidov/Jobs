@@ -1,5 +1,6 @@
-using IdentityService.DataProvider;
+﻿using IdentityService.DataProvider;
 using IdentityService.Repository;
+using IdentityService.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,6 +32,7 @@ namespace IdentityService
 #else
             connectionString = Configuration.GetConnectionString("MySQLConnection");
 #endif
+            services.AddGrpc();
             services.AddDbContext<JobsContext>(o =>
             o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
@@ -55,6 +57,7 @@ namespace IdentityService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapGrpcService<UserService>();
                 endpoints.MapControllers();
             });
 

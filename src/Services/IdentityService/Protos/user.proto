@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option csharp_namespace = "IdentityService.Protos";
+
+package IdentityService;
+
+service User {
+  rpc GetUserById (UserRequest) returns (UserReply);
+  rpc GetUsers (UsersRequest) returns (stream UserReply);
+}
+
+message UserRequest {
+  string Id = 1;
+}
+
+message UserReply {
+  string Id = 1;
+  string Name = 2;
+}
+
+message UsersRequest {
+}
