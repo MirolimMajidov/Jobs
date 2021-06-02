@@ -4,12 +4,12 @@ services:
   ocelot-api-gateway:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "6000:80"
+      - "7000:80"
     build:
       context: .
-      dockerfile: src/OcelotApiGateway/Dockerfile
+      dockerfile: src/Ocelot.ApiGateway/Dockerfile
     depends_on:
       - identity-api
       - job-api
@@ -18,12 +18,13 @@ services:
   identity-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "6001:80"
+      - "7001:80"
+      - "7101:81"
     build:
       context: .
-      dockerfile: src/Services/IdentityService/Dockerfile
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
     depends_on:
       - identity-MySqlDB
       
@@ -35,17 +36,17 @@ services:
       MYSQL_PASSWORD: identity_service_password
       MYSQL_RANDOM_ROOT_PASSWORD: 'identity_service_password'
     ports:
-      - "6011:3306"
+      - "7011:3306"
 
   job-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
-      - "6002:80"
+      - "7002:80"
     build:
       context: .
-      dockerfile: src/Services/JobService/Dockerfile
+      dockerfile: src/Services/Job/Job.API/Dockerfile
     depends_on:
       - job-SqlServerDB
 
@@ -55,18 +56,18 @@ services:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=job_service_password
     ports:
-      - "6012:1433"
+      - "7012:1433"
 
   payment-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionString=mongodb://payment-mongoDB
     ports:
-      - "6003:80"
+      - "7003:80"
     build:
       context: .
-      dockerfile: src/Services/PaymentService/Dockerfile
+      dockerfile: src/Services/Payment/Payment.API/Dockerfile
     depends_on:
       - payment-mongoDB
 
@@ -74,7 +75,7 @@ services:
     volumes:
       - jobs-mongoDB:/data/db
     ports:
-      - "6013:27017"
+      - "7013:27017"
 
 volumes:
   jobs-mongoDB:

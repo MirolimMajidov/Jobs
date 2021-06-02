@@ -4,7 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-    <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerfileContext>..\..\..\..</DockerfileContext>
+    <UserSecretsId>f9a9f0be-aedb-40be-ac2b-338d070ac2c3</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.5" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.1.4" />
@@ -29,7 +31,7 @@
     <Protobuf Include="Protos\user.proto" GrpcServices="Server" />
   </ItemGroup>
 
-  <Import Project="..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
-  <Import Project="..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
+  <Import Project="..\..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
 
 </Project>

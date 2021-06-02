@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Ocelot.DependencyInjection;
-using System.IO;
 
 namespace OcelotApiGateway
 {
