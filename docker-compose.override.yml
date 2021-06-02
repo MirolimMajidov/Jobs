@@ -4,7 +4,7 @@ services:
   ocelot-api-gateway:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "6000:80"
     build:
@@ -18,7 +18,7 @@ services:
   identity-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "6001:80"
     build:
@@ -40,7 +40,7 @@ services:
   job-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "6002:80"
     build:
@@ -60,7 +60,7 @@ services:
   payment-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionString=mongodb://payment-mongoDB
     ports:
       - "6003:80"

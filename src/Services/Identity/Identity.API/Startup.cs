@@ -26,15 +26,9 @@ namespace IdentityService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString;
-#if DEBUG
-            connectionString = Configuration.GetConnectionString("LocalMySQLConnection");
-#else
-            connectionString = Configuration.GetConnectionString("MySQLConnection");
-#endif
             services.AddGrpc();
             services.AddDbContext<JobsContext>(o =>
-            o.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+            o.UseMySql(Configuration.GetConnectionString("DBConnection"), new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 

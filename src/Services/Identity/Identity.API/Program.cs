@@ -68,16 +68,20 @@ namespace IdentityService
 
         private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration configuration)
         {
-            var grpcPort = configuration.GetValue("GRPC_PORT", 5101);
-            var port = configuration.GetValue("PORT", 5001);
+            var grpcPort = configuration.GetValue("GRPC_PORT", 6101);
+            var port = configuration.GetValue("PORT", 6001);
             return (port, grpcPort);
         }
 
         private static IConfigurationRoot GetConfiguration()
         {
+            var fileName = "appsettings.json";
+#if DEBUG
+            fileName = "appsettings.Development.json";
+#endif   
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
+                .AddJsonFile(fileName, false, true)
                 .AddEnvironmentVariables()
                 .Build();
         }
