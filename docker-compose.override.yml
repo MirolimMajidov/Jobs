@@ -21,6 +21,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "6001:80"
+      - "6101:81"
     build:
       context: .
       dockerfile: src/Services/Identity/Identity.API/Dockerfile
