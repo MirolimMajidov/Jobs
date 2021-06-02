@@ -81,6 +81,6 @@ You should be able to browse different components of the application by using th
 ```
 API Gateway: http://localhost:7000/
 Identity service: http://localhost:7001/, gRPC: http://localhost:7101/
-Jobs service:  http://localhost:7002/
-Payment service:  http://localhost:7003/
+Jobs service: http://localhost:7002/
+Payment service: http://localhost:7003/
 ```
