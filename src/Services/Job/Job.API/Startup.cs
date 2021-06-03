@@ -24,13 +24,7 @@ namespace JobService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString;
-#if DEBUG
-            connectionString = Configuration.GetConnectionString("LocalSQLConnection");
-#else
-            connectionString = Configuration.GetConnectionString("SQLConnection");
-#endif
-            services.AddDbContext<JobsContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
