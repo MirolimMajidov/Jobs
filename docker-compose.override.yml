@@ -77,6 +77,12 @@ services:
     ports:
       - "7013:27017"
 
+  rabbitmq:
+    restart: always
+    ports:
+      - "7014:15672"
+      - "7015:5672"
+
 volumes:
   jobs-mongoDB:
     external: false
