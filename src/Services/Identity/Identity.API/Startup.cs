@@ -28,8 +28,8 @@ namespace IdentityService
         {
             services.AddGrpc();
             services.AddDbContext<JobsContext>(o =>
-            o.UseMySql(Configuration.GetConnectionString("DBConnection"), new MySqlServerVersion(new Version(8, 0, 21))).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-            );
+            o.UseMySql(Configuration.GetConnectionString("DBConnection"), new MySqlServerVersion(new Version(8, 0, 21)),
+            sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();

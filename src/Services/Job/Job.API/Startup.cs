@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.SharedModel.Configurations;
 using Service.SharedModel.Repository;
+using System;
 
 namespace JobService
 {
@@ -24,7 +25,7 @@ namespace JobService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
