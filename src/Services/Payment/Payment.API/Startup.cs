@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
 using Service.SharedModel.Configurations;
+using Service.SharedModel.Exceptions;
 
 namespace PaymentService
 {
@@ -26,7 +27,7 @@ namespace PaymentService
             services.AddScoped<JobsContext>();
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers().AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Payment");
         }
 

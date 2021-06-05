@@ -15,6 +15,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\Authentications.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Configurations\SwaggerIgnoreFilter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controllers\BaseController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\JobExceptionFilter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\JobException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Encryptor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\AuthOptions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\Extensions.cs" />

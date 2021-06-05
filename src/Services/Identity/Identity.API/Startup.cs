@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.SharedModel.Configurations;
+using Service.SharedModel.Exceptions;
 using Service.SharedModel.Repository;
 using System;
 
@@ -33,7 +34,7 @@ namespace IdentityService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers().AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
             services.AddSwaggerGen("Identity");
         }
 
