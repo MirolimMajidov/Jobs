@@ -28,6 +28,7 @@ namespace PaymentService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddJobsHealthChecks();
             services.AddSwaggerGen("Payment");
         }
 
@@ -45,6 +46,7 @@ namespace PaymentService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapJobsHealthChecks();
                 endpoints.MapControllers();
             });
 

@@ -23,6 +23,7 @@
     <PackageReference Include="MongoDB.Driver" Version="2.12.2" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.1" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="5.0.1" />
   </ItemGroup>
 
   <Import Project="..\..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />

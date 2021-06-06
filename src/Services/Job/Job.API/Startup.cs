@@ -1,3 +1,4 @@
+using Identity.API.Infrastructure.HealthChecks;
 using JobService.DataProvider;
 using JobService.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,7 @@ namespace JobService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Job");
         }
 
@@ -48,6 +50,7 @@ namespace JobService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapJobsHealthChecks();
                 endpoints.MapControllers();
             });
 
