@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>

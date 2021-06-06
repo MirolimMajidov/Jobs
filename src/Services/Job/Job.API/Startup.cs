@@ -1,3 +1,4 @@
+using Identity.API.Infrastructure.HealthChecks;
 using JobService.DataProvider;
 using JobService.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Service.SharedModel.Configurations;
+using Service.SharedModel.Exceptions;
 using Service.SharedModel.Repository;
 using System;
 
@@ -29,7 +31,8 @@ namespace JobService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers().AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Job");
         }
 
@@ -47,6 +50,7 @@ namespace JobService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapJobsHealthChecks();
                 endpoints.MapControllers();
             });
 
