@@ -1,4 +1,5 @@
-﻿using IdentityService.DataProvider;
+﻿using Identity.API.Infrastructure.HealthChecks;
+using IdentityService.DataProvider;
 using IdentityService.Repository;
 using IdentityService.Services;
 using Microsoft.AspNetCore.Builder;
@@ -35,6 +36,7 @@ namespace IdentityService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Identity");
         }
 
@@ -52,6 +54,7 @@ namespace IdentityService
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapJobsHealthChecks();
                 endpoints.MapGrpcService<UserService>();
                 endpoints.MapControllers();
             });
