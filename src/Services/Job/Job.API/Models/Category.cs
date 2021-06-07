@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Jobs.SharedModel.Models;
+using Jobs.Common.Models;
 using System.Collections.Generic;
 
 namespace JobService.Models

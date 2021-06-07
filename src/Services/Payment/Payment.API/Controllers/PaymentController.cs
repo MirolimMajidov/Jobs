@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PaymentService.DataProvider;
 using PaymentService.Models;
-using Service.SharedModel.Controllers;
-using Service.SharedModel.Helpers;
+using Jobs.Service.Common.Controllers;
+using Jobs.Service.Common.Helpers;
 using System.Threading.Tasks;
 
 namespace PaymentService.Controllers

@@ -1,11 +1,11 @@
 ﻿using IdentityService.DataProvider;
 using IdentityService.Models;
-using Jobs.SharedModel.Helpers;
+using Jobs.Common.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Service.SharedModel.Helpers;
+using Jobs.Service.Common.Helpers;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;

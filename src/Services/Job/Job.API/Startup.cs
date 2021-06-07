@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.SharedModel.Configurations;
-using Service.SharedModel.Exceptions;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Configurations;
+using Jobs.Service.Common.Infrastructure.Exceptions;
+using Jobs.Service.Common.Repository;
 using System;
 
 namespace JobService

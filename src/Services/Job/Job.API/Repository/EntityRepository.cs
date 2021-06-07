@@ -1,8 +1,8 @@
-﻿using Jobs.SharedModel.Models;
+﻿using Jobs.Common.Models;
 using JobService.DataProvider;
 using Microsoft.EntityFrameworkCore;
-using Service.SharedModel.Helpers;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Helpers;
+using Jobs.Service.Common.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

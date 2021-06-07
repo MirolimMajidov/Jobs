@@ -1,5 +1,5 @@
-﻿using Jobs.SharedModel.Helpers;
-using Jobs.SharedModel.Models;
+﻿using Jobs.Common.Helpers;
+using Jobs.Common.Models;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

@@ -1,5 +1,5 @@
-﻿using Jobs.SharedModel.Helpers;
-using Jobs.SharedModel.Models;
+﻿using Jobs.Common.Helpers;
+using Jobs.Common.Models;
 using JobService.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;

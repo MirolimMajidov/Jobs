@@ -1,7 +1,7 @@
 using Grpc.Core;
 using IdentityService.Protos;
 using Microsoft.Extensions.Logging;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Repository;
 using System;
 using System.Threading.Tasks;
 using static IdentityService.Protos.User;

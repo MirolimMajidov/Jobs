@@ -6,8 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
-using Service.SharedModel.Configurations;
-using Service.SharedModel.Exceptions;
+using Jobs.Service.Common.Configurations;
+using Jobs.Service.Common.Infrastructure.Exceptions;
 
 namespace PaymentService
 {

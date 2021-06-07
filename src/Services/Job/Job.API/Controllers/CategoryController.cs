@@ -1,7 +1,7 @@
 ﻿using JobService.Models;
 using Microsoft.AspNetCore.Mvc;
-using Service.SharedModel.Controllers;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Controllers;
+using Jobs.Service.Common.Repository;
 
 namespace JobService.Controllers
 {

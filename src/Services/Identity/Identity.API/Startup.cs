@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Service.SharedModel.Configurations;
-using Service.SharedModel.Exceptions;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Configurations;
+using Jobs.Service.Common.Infrastructure.Exceptions;
+using Jobs.Service.Common.Repository;
 using System;
 
 namespace IdentityService
@@ -35,7 +35,7 @@ namespace IdentityService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddNewtonsoftJson().AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Identity");
         }

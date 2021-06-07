@@ -9,10 +9,6 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E8037851-7962-4AAE-AD39-4387B687175A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Jobs.SharedModel", "src\Common\Jobs.SharedModel\Jobs.SharedModel.shproj", "{B958ED8E-BA65-47B9-9162-5AC02B219679}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Service.SharedModel", "src\Common\Service.SharedModel\Service.SharedModel.shproj", "{DE44A723-43EC-4540-BD59-597EC8208607}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{41618280-0C21-49C3-9893-071375844F8D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{A94D2C5E-0848-4EA2-982C-711E7B4EC338}"
@@ -33,17 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment.API", "src\Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.ApiGateway", "src\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{CCBC9E54-0C2A-49D0-879D-765FFF9072DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs.Common", "src\Common\Jobs.Common\Jobs.Common.csproj", "{99944578-85D6-4FEF-B1EB-09CB3880A2DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs.Service.Common", "src\Common\Jobs.Service.Common\Jobs.Service.Common.csproj", "{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}"
+EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{237138d0-ccec-424a-bc25-eafb145e2475}*SharedItemsImports = 5
-		src\Common\Service.SharedModel\Service.SharedModel.projitems*{237138d0-ccec-424a-bc25-eafb145e2475}*SharedItemsImports = 5
-		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{9f1964c0-bece-4c8f-914c-2d34430147be}*SharedItemsImports = 5
-		src\Common\Service.SharedModel\Service.SharedModel.projitems*{9f1964c0-bece-4c8f-914c-2d34430147be}*SharedItemsImports = 5
-		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{b958ed8e-ba65-47b9-9162-5ac02b219679}*SharedItemsImports = 13
-		src\Common\Jobs.SharedModel\Jobs.SharedModel.projitems*{c542d557-b14c-46d9-a6df-52e150dada9c}*SharedItemsImports = 5
-		src\Common\Service.SharedModel\Service.SharedModel.projitems*{c542d557-b14c-46d9-a6df-52e150dada9c}*SharedItemsImports = 5
-		src\Common\Service.SharedModel\Service.SharedModel.projitems*{de44a723-43ec-4540-bd59-597ec8208607}*SharedItemsImports = 13
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -73,13 +63,19 @@ Global
 		{CCBC9E54-0C2A-49D0-879D-765FFF9072DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBC9E54-0C2A-49D0-879D-765FFF9072DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCBC9E54-0C2A-49D0-879D-765FFF9072DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99944578-85D6-4FEF-B1EB-09CB3880A2DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99944578-85D6-4FEF-B1EB-09CB3880A2DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99944578-85D6-4FEF-B1EB-09CB3880A2DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99944578-85D6-4FEF-B1EB-09CB3880A2DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B958ED8E-BA65-47B9-9162-5AC02B219679} = {E8037851-7962-4AAE-AD39-4387B687175A}
-		{DE44A723-43EC-4540-BD59-597EC8208607} = {E8037851-7962-4AAE-AD39-4387B687175A}
 		{A94D2C5E-0848-4EA2-982C-711E7B4EC338} = {7915AA37-4E24-4CFB-B929-A1918621F681}
 		{C542D557-B14C-46D9-A6DF-52E150DADA9C} = {A94D2C5E-0848-4EA2-982C-711E7B4EC338}
 		{ADD00F06-0764-4B99-83E6-F97C61DCAB6D} = {A94D2C5E-0848-4EA2-982C-711E7B4EC338}
@@ -89,6 +85,8 @@ Global
 		{07F0EB9C-ADC7-45BB-95C7-D454C1C42CE1} = {7915AA37-4E24-4CFB-B929-A1918621F681}
 		{237138D0-CCEC-424A-BC25-EAFB145E2475} = {07F0EB9C-ADC7-45BB-95C7-D454C1C42CE1}
 		{CCBC9E54-0C2A-49D0-879D-765FFF9072DA} = {41618280-0C21-49C3-9893-071375844F8D}
+		{99944578-85D6-4FEF-B1EB-09CB3880A2DD} = {E8037851-7962-4AAE-AD39-4387B687175A}
+		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A} = {E8037851-7962-4AAE-AD39-4387B687175A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97750CB7-F573-4255-B22E-D39F65872393}
