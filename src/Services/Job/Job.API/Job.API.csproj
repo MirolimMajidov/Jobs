@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
     <ProjectReference Include="..\..\..\Common\Jobs.Service.Common\Jobs.Service.Common.csproj" />
   </ItemGroup>
 
