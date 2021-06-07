@@ -6,19 +6,7 @@
     <DockerfileContext>..\..\..\..</DockerfileContext>
     <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="NLog.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="C:\Users\Mirolim\.nuget\packages\nlog.config\4.7.2\contentFiles\any\any\NLog.config" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="NLog.config" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.5" NoWarn="NU1605" />
@@ -40,7 +28,8 @@
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="5.0.1" />
   </ItemGroup>
 
-  <Import Project="..\..\..\Common\Jobs.SharedModel\Jobs.SharedModel.projitems" Label="Shared" />
-  <Import Project="..\..\..\Common\Service.SharedModel\Service.SharedModel.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Jobs.Service.Common\Jobs.Service.Common.csproj" />
+  </ItemGroup>
 
 </Project>

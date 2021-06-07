@@ -1,6 +1,6 @@
-﻿using Jobs.SharedModel.Models;
+﻿using Jobs.Common.Models;
 using MongoDB.Driver;
-using Service.SharedModel.Repository;
+using Jobs.Service.Common.Repository;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
