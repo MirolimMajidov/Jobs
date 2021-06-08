@@ -3,8 +3,7 @@ using System;
 
 namespace Jobs.BuildingBlocks.EventBusRabbitMQ
 {
-    public interface IRabbitMQPersistentConnection
-        : IDisposable
+    public interface IRabbitMQPersistentConnection : IDisposable
     {
         bool IsConnected { get; }
 
