@@ -36,22 +36,28 @@ namespace PaymentService.Repository
         }
 
         /// <summary/>
-        public async Task<TEntity> InsertEntity(TEntity entity)
+        public async Task<TEntity> InsertEntity(TEntity entity, bool autoSave = true)
         {
             await _entities.InsertOneAsync(entity);
             return entity;
         }
 
         /// <summary/>
-        public async Task UpdateEntity(TEntity entity)
+        public async Task UpdateEntity(TEntity entity, bool autoSave = true)
         {
             await _entities.ReplaceOneAsync(c => c.Id == entity.Id, entity);
         }
 
         /// <summary/>
-        public async Task DeleteEntity(Guid entityId)
+        public async Task DeleteEntity(Guid entityId, bool autoSave = true)
         {
             await _entities.DeleteOneAsync(c => c.Id == entityId);
+        }
+
+        /// <summary/>
+        public async Task Save()
+        {
+            throw await Task.FromResult(new NotSupportedException("The MongoDB will not support Save context"));
         }
     }
 }

@@ -37,28 +37,34 @@ namespace JobService.Repository
         }
 
         /// <summary/>
-        public async Task<TEntity> InsertEntity(TEntity entity)
+        public async Task<TEntity> InsertEntity(TEntity entity, bool autoSave = true)
         {
             entity.Id = Guid.NewGuid();
             _dbContext.Add(entity);
-            await Save();
+
+            if (autoSave)
+                await Save();
 
             return entity;
         }
 
         /// <summary/>
-        public async Task UpdateEntity(TEntity entity)
+        public async Task UpdateEntity(TEntity entity, bool autoSave = true)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            await Save();
+
+            if (autoSave)
+                await Save();
         }
 
         /// <summary/>
-        public async Task DeleteEntity(Guid entityId)
+        public async Task DeleteEntity(Guid entityId, bool autoSave = true)
         {
             var entity = _dbContext.Find(typeof(TEntity), entityId);
             _dbContext.Remove(entity);
-            await Save();
+
+            if (autoSave)
+                await Save();
         }
 
         /// <summary/>
