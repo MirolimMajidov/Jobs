@@ -63,6 +63,9 @@ namespace Jobs.Service.Common.Controllers
         {
             if (entity != null)
             {
+                if (await _pepository.GetEntityByID(entity.Id) == null)
+                    return await RequestModel.NotFoundAsync();
+
                 await _pepository.UpdateEntity(entity);
                 return new RequestModel();
             }
@@ -74,6 +77,9 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> Delete(Guid id)
         {
+            if (await _pepository.GetEntityByID(id) == null)
+                return await RequestModel.NotFoundAsync();
+
             await _pepository.DeleteEntity(id);
             return await RequestModel.SuccessAsync();
         }

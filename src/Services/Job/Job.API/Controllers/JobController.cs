@@ -14,9 +14,18 @@ namespace JobService.Controllers
 
         public override async Task<RequestModel> Post([FromBody] Job entity)
         {
-            entity.UserId = User.GetUserId();
+            entity.CreatedByUserId = User.GetUserId();
+            entity.CreatedByUserName = User.GetUserName();
 
             return await base.Post(entity);
+        }
+
+        public override async Task<RequestModel> Put([FromBody] Job entity)
+        {
+            entity.CreatedByUserId = User.GetUserId();
+            entity.CreatedByUserName = User.GetUserName();
+
+            return await base.Put(entity);
         }
     }
 }

@@ -45,6 +45,7 @@ namespace JobService.DataProvider
                         await context.AddRangeAsync(categories);
 
                         var userId = Guid.NewGuid();
+                        var userName = "Test user";
                         var jobs = new List<Job>()
                         {
                             new Job
@@ -55,7 +56,8 @@ namespace JobService.DataProvider
                                 Type = JobType.Hourly,
                                 Duration = JobDuration.FromOneToThreeMonths,
                                 CategoryId = categories[0].Id,
-                                UserId = userId
+                                CreatedByUserId = userId,
+                                CreatedByUserName = userName
                             },
                             new Job
                             {
@@ -65,7 +67,8 @@ namespace JobService.DataProvider
                                 Type = JobType.Hourly,
                                 Duration = JobDuration.LessThanMonth,
                                 CategoryId = categories[0].Id,
-                                UserId = userId
+                                CreatedByUserId = userId,
+                                CreatedByUserName = userName
                             },
                             new Job
                             {
@@ -75,7 +78,8 @@ namespace JobService.DataProvider
                                 Type = JobType.FixedPrice,
                                 Duration = JobDuration.FromOneToThreeMonths,
                                 CategoryId = categories[1].Id,
-                                UserId = userId
+                                CreatedByUserId = userId,
+                                CreatedByUserName = userName
                             },
                             new Job
                             {
@@ -85,7 +89,8 @@ namespace JobService.DataProvider
                                 Type = JobType.Hourly,
                                 Duration = JobDuration.MoreThanSixMonths,
                                 CategoryId = categories[2].Id,
-                                UserId = userId
+                                CreatedByUserId = userId,
+                                CreatedByUserName = userName
                             }
                         };
 
