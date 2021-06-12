@@ -26,16 +26,24 @@ namespace Jobs.Service.Common.Repository
         /// <summary>
         /// To insert new entity to the DB
         /// </summary>
-        Task<TEntity> InsertEntity(TEntity entity);
+        /// <param name="autoSave">If it's true, it will save automatically</param>
+        Task<TEntity> InsertEntity(TEntity entity, bool autoSave = true);
 
         /// <summary>
         /// To update exists entity
         /// </summary>
-        Task UpdateEntity(TEntity entity);
+        /// <param name="autoSave">If it's true, it will save automatically</param>
+        Task UpdateEntity(TEntity entity, bool autoSave = true);
 
         /// <summary>
         /// To delete entity
         /// </summary>
-        Task DeleteEntity(Guid entityId);
+        /// <param name="autoSave">If it's true, it will save automatically</param>
+        Task DeleteEntity(Guid entityId, bool autoSave = true);
+
+        /// <summary>
+        /// To save all changes
+        /// </summary>
+        Task Save();
     }
 }
