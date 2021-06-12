@@ -1,9 +1,10 @@
 ﻿using IdentityService.DataProvider;
 using Jobs.Common.Models;
-using Microsoft.EntityFrameworkCore;
 using Jobs.Service.Common.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace IdentityService.Repository
@@ -21,6 +22,12 @@ namespace IdentityService.Repository
         public async Task<IEnumerable<TEntity>> GetEntities()
         {
             return await _dbContext.GetEntities<TEntity>().ToListAsync();
+        }
+
+        /// <summary/>
+        public IQueryable<TEntity> GetQueryableEntities()
+        {
+            return _dbContext.GetEntities<TEntity>();
         }
 
         /// <summary/>

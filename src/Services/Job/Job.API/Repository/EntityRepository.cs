@@ -1,10 +1,10 @@
 ﻿using Jobs.Common.Models;
+using Jobs.Service.Common.Repository;
 using JobService.DataProvider;
 using Microsoft.EntityFrameworkCore;
-using Jobs.Service.Common.Helpers;
-using Jobs.Service.Common.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace JobService.Repository
@@ -22,6 +22,12 @@ namespace JobService.Repository
         public async Task<IEnumerable<TEntity>> GetEntities()
         {
             return await _dbContext.GetEntities<TEntity>().ToListAsync();
+        }
+
+        /// <summary/>
+        public IQueryable<TEntity> GetQueryableEntities()
+        {
+            return _dbContext.GetEntities<TEntity>();
         }
 
         /// <summary/>

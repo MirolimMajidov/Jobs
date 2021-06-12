@@ -1,8 +1,9 @@
 ﻿using Jobs.Common.Models;
-using MongoDB.Driver;
 using Jobs.Service.Common.Repository;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PaymentService.Repository
@@ -20,6 +21,12 @@ namespace PaymentService.Repository
         public async Task<IEnumerable<TEntity>> GetEntities()
         {
             return await _entities.Find(c => true).ToListAsync();
+        }
+
+        /// <summary/>
+        public IQueryable<TEntity> GetQueryableEntities()
+        {
+            throw new NotSupportedException("The MongoDB will not support IQueryable");
         }
 
         /// <summary/>

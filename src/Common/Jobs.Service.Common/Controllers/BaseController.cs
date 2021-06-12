@@ -1,9 +1,9 @@
 ﻿using Jobs.Common.Models;
+using Jobs.Service.Common.Helpers;
+using Jobs.Service.Common.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Jobs.Service.Common.Helpers;
-using Jobs.Service.Common.Repository;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;

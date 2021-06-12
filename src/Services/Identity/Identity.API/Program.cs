@@ -16,6 +16,8 @@ namespace IdentityService
 {
     public class Program
     {
+        public const string AppName = "Identity service";
+
         public static async Task Main(string[] args)
         {
             var configuration = GetConfiguration();

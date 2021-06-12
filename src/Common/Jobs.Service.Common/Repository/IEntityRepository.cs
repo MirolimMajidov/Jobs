@@ -1,6 +1,7 @@
 ﻿using Jobs.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Jobs.Service.Common.Repository
@@ -11,6 +12,11 @@ namespace Jobs.Service.Common.Repository
         /// Get all entities
         /// </summary>
         Task<IEnumerable<TEntity>> GetEntities();
+
+        /// <summary>
+        /// Get all entities without ToList
+        /// </summary>
+        IQueryable<TEntity> GetQueryableEntities();
 
         /// <summary>
         /// Get entity by ID
