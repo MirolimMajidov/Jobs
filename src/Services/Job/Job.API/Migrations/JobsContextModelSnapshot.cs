@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Job.API.Migrations
+namespace JobService.Migrations
 {
     [DbContext(typeof(JobsContext))]
     partial class JobsContextModelSnapshot : ModelSnapshot
