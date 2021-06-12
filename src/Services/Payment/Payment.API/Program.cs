@@ -11,6 +11,8 @@ namespace PaymentService
 {
     public class Program
     {
+        public const string AppName = "Payment service";
+
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
