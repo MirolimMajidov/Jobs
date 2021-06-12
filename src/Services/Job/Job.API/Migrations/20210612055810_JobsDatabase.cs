@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Job.API.Migrations
+namespace JobService.Migrations
 {
     public partial class JobsDatabase : Migration
     {

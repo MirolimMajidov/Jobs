@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Job.API.Migrations
+namespace JobService.Migrations
 {
     [DbContext(typeof(JobsContext))]
     [Migration("20210612055810_JobsDatabase")]
