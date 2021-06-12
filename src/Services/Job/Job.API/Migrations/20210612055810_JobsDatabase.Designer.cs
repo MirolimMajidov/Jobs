@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace JobService.Migrations
+namespace Job.API.Migrations
 {
     [DbContext(typeof(JobsContext))]
-    [Migration("20210430155452_JobsDatabase")]
+    [Migration("20210612055810_JobsDatabase")]
     partial class JobsDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,6 +56,12 @@ namespace JobService.Migrations
                     b.Property<int>("Cost")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("CreatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedByUserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -73,9 +79,6 @@ namespace JobService.Migrations
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
