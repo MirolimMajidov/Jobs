@@ -49,7 +49,6 @@ namespace IdentityService
             services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Identity");
 
-            //configure autofac
             var container = new ContainerBuilder();
             container.Populate(services);
             return new AutofacServiceProvider(container.Build());
