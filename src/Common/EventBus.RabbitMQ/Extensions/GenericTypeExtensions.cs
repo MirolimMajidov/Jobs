@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
 
-namespace Jobs.BuildingBlocks.EventBus.Extensions
+namespace EventBus.RabbitMQ
 {
     public static class GenericTypeExtensions
     {
+        /// <summary>
+        /// To get name of generic type
+        /// </summary>
         public static string GetGenericTypeName(this Type type)
         {
             var typeName = string.Empty;
@@ -20,11 +23,6 @@ namespace Jobs.BuildingBlocks.EventBus.Extensions
             }
 
             return typeName;
-        }
-
-        public static string GetGenericTypeName(this object @object)
-        {
-            return @object.GetType().GetGenericTypeName();
         }
     }
 }

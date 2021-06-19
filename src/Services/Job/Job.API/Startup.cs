@@ -1,5 +1,13 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using EventBus.RabbitMQ;
 using Identity.API.Infrastructure.HealthChecks;
+using Jobs.Service.Common.Configurations;
+using Jobs.Service.Common.Infrastructure.Exceptions;
+using Jobs.Service.Common.Repository;
 using JobService.DataProvider;
+using JobService.RabbitMQEvents.EventHandlers;
+using JobService.RabbitMQEvents.Events;
 using JobService.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,9 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Jobs.Service.Common.Configurations;
-using Jobs.Service.Common.Infrastructure.Exceptions;
-using Jobs.Service.Common.Repository;
 using System;
 
 namespace JobService
@@ -25,15 +30,23 @@ namespace JobService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public virtual IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
+
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Job");
+
+            //configure autofac
+            var container = new ContainerBuilder();
+            container.Populate(services);
+            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +60,7 @@ namespace JobService
             app.UseSwaggerDocs();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseEventBus();
 
             app.UseEndpoints(endpoints =>
             {
@@ -58,6 +72,15 @@ namespace JobService
             {
                 await context.Response.WriteAsync("Welcome to 'Job' service!");
             });
+        }
+    }
+
+    public static class ApplicationBuilderExtensions
+    {
+        public static void UseEventBus(this IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBusRabbitMQ>();
+            eventBus.Subscribe<UserNameUpdatedEvent, UserNameUpdatedEventHandler>();
         }
     }
 }

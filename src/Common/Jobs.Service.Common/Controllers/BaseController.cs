@@ -16,7 +16,7 @@ namespace Jobs.Service.Common.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseController<TEntity> : ControllerBase where TEntity : IEntity
     {
-        private readonly IEntityRepository<TEntity> _pepository;
+        protected readonly IEntityRepository<TEntity> _pepository;
 
         public BaseController(IEntityRepository<TEntity> pepository)
         {
@@ -67,7 +67,7 @@ namespace Jobs.Service.Common.Controllers
                     return await RequestModel.NotFoundAsync();
 
                 await _pepository.UpdateEntity(entity);
-                return new RequestModel();
+                return await RequestModel.SuccessAsync();
             }
             return await RequestModel.ErrorRequestAsync("An item can not be null");
         }

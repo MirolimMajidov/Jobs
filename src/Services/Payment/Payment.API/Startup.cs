@@ -1,3 +1,6 @@
+using EventBus.RabbitMQ;
+using Jobs.Service.Common.Configurations;
+using Jobs.Service.Common.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,8 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
-using Jobs.Service.Common.Configurations;
-using Jobs.Service.Common.Infrastructure.Exceptions;
 
 namespace PaymentService
 {
@@ -25,6 +26,7 @@ namespace PaymentService
         {
             services.Configure<DatabaseConfiguration>(Configuration.GetSection("DatabaseConfiguration"));
             services.AddScoped<JobsContext>();
+            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
@@ -43,6 +45,7 @@ namespace PaymentService
             app.UseSwaggerDocs();
             app.UseRouting();
             app.UseAuthorization();
+            app.UseEventBus();
 
             app.UseEndpoints(endpoints =>
             {
@@ -54,6 +57,15 @@ namespace PaymentService
             {
                 await context.Response.WriteAsync("Welcome to 'Payment' service!");
             });
+        }
+    }
+
+    public static class ApplicationBuilderExtensions
+    {
+        public static void UseEventBus(this IApplicationBuilder app)
+        {
+            var eventBus = app.ApplicationServices.GetRequiredService<IEventBusRabbitMQ>();
+            //eventBus.Subscribe<Event, EventHandler>(); //To register event with event handler
         }
     }
 }
