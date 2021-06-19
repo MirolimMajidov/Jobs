@@ -15,6 +15,7 @@ namespace PaymentService.DataProvider
                 var repository = context.PaymentRepository;
                 if (!repository.GetEntities().Result.Any())
                 {
+                    var userName = "Admin";
                     await Task.Run(async () =>
                     {
                         var userId = Guid.NewGuid();
@@ -24,6 +25,7 @@ namespace PaymentService.DataProvider
                             {
                                 OrderId = i.ToString(),
                                 UserId = userId,
+                                UserName = userName,
                                 Amount = 100 * i,
                                 Sender = "Payoneer",
                                 Date = DateTime.Now

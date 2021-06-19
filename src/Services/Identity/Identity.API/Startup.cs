@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using System;
+using System.Reflection;
 
 namespace IdentityService
 {
@@ -51,6 +52,7 @@ namespace IdentityService
 
             var container = new ContainerBuilder();
             container.Populate(services);
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
             return new AutofacServiceProvider(container.Build());
         }
 

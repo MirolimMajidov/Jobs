@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Reflection;
 
 namespace JobService
 {
@@ -45,6 +46,7 @@ namespace JobService
 
             var container = new ContainerBuilder();
             container.Populate(services);
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
             return new AutofacServiceProvider(container.Build());
         }
 

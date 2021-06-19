@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
 using System;
+using System.Reflection;
 
 namespace PaymentService
 {
@@ -38,6 +39,7 @@ namespace PaymentService
 
             var container = new ContainerBuilder();
             container.Populate(services);
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
             return new AutofacServiceProvider(container.Build());
         }
 

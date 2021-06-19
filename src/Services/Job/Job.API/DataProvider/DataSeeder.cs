@@ -45,7 +45,7 @@ namespace JobService.DataProvider
                         await context.AddRangeAsync(categories);
 
                         var userId = Guid.NewGuid();
-                        var userName = "Test user";
+                        var userName = "Admin";
                         var jobs = new List<Job>()
                         {
                             new Job
