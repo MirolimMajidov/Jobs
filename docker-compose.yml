@@ -28,3 +28,7 @@ services:
   payment-mongoDB:
     container_name: Mongo_NoSqlData
     image: mongo
+
+  rabbitmq:
+    container_name: RabbitMQ
+    image: rabbitmq:3-management-alpine

@@ -16,7 +16,7 @@ namespace Jobs.Service.Common.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseController<TEntity> : ControllerBase where TEntity : IEntity
     {
-        private readonly IEntityRepository<TEntity> _pepository;
+        protected readonly IEntityRepository<TEntity> _pepository;
 
         public BaseController(IEntityRepository<TEntity> pepository)
         {
@@ -59,6 +59,7 @@ namespace Jobs.Service.Common.Controllers
         [HttpPut]
         [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(RequestModel))]
+        [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
         public virtual async Task<RequestModel> Put([FromBody] TEntity entity)
         {
             if (entity != null)
@@ -67,7 +68,7 @@ namespace Jobs.Service.Common.Controllers
                     return await RequestModel.NotFoundAsync();
 
                 await _pepository.UpdateEntity(entity);
-                return new RequestModel();
+                return await RequestModel.SuccessAsync();
             }
             return await RequestModel.ErrorRequestAsync("An item can not be null");
         }
@@ -75,6 +76,7 @@ namespace Jobs.Service.Common.Controllers
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "To delete an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's deleted successfully", typeof(RequestModel))]
+        [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
         public virtual async Task<RequestModel> Delete(Guid id)
         {
             if (await _pepository.GetEntityByID(id) == null)

@@ -19,6 +19,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - RabbitMQHostName=rabbitmq
     ports:
       - "7001:80"
       - "7101:81"
@@ -27,6 +28,7 @@ services:
       dockerfile: src/Services/Identity/Identity.API/Dockerfile
     depends_on:
       - identity-MySqlDB
+      - rabbitmq
       
   identity-MySqlDB:
     restart: always
@@ -42,6 +44,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - RabbitMQHostName=rabbitmq
     ports:
       - "7002:80"
     build:
@@ -49,6 +52,7 @@ services:
       dockerfile: src/Services/Job/Job.API/Dockerfile
     depends_on:
       - job-SqlServerDB
+      - rabbitmq
 
   job-SqlServerDB:
     restart: always
@@ -63,6 +67,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionString=mongodb://payment-mongoDB
+      - RabbitMQHostName=rabbitmq
     ports:
       - "7003:80"
     build:
@@ -70,12 +75,19 @@ services:
       dockerfile: src/Services/Payment/Payment.API/Dockerfile
     depends_on:
       - payment-mongoDB
+      - rabbitmq
 
   payment-mongoDB:
     volumes:
       - jobs-mongoDB:/data/db
     ports:
       - "7013:27017"
+
+  rabbitmq:
+    restart: always
+    ports:
+      - "7014:15672"
+      - "7015:5672"
 
 volumes:
   jobs-mongoDB:

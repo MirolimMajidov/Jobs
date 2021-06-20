@@ -10,12 +10,13 @@ namespace IdentityService.Models
 {
     public class User : BaseEntity
     {
+        [Required]
         public string Name { get; set; }
 
         [Required]
         public string Login { get; set; }
 
-        [NotMapped, Required]
+        [NotMapped]
         public string Password { get; set; }
 
         /// <summary>

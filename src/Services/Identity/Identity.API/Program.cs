@@ -1,4 +1,5 @@
 using IdentityService.DataProvider;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
@@ -45,8 +46,8 @@ namespace IdentityService
             await host.RunAsync();
         }
 
-        public static IHostBuilder CreateHostBuilder(IConfiguration configuration, string[] args) =>
-            Host.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateHostBuilder(IConfiguration configuration, string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
                 .ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.ClearProviders();
@@ -54,19 +55,15 @@ namespace IdentityService
                     logging.AddDebug();
                     logging.AddNLog();
                 })
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureKestrel(options =>
                 {
-                    webBuilder
-                    .ConfigureKestrel(options =>
-                    {
-                        var (httpPort, grpcPort) = GetDefinedPorts(configuration);
-                        options.Listen(IPAddress.Any, httpPort,
-                            listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
-                        options.Listen(IPAddress.Any, grpcPort,
-                            listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
-                    })
-                    .UseStartup<Startup>();
-                });
+                    var (httpPort, grpcPort) = GetDefinedPorts(configuration);
+                    options.Listen(IPAddress.Any, httpPort,
+                        listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
+                    options.Listen(IPAddress.Any, grpcPort,
+                        listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
+                })
+                .UseStartup<Startup>();
 
         private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration configuration)
         {

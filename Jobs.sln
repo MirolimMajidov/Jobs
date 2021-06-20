@@ -29,9 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payment.API", "src\Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.ApiGateway", "src\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{CCBC9E54-0C2A-49D0-879D-765FFF9072DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs.Common", "src\Common\Jobs.Common\Jobs.Common.csproj", "{99944578-85D6-4FEF-B1EB-09CB3880A2DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobs.Common", "src\Common\Jobs.Common\Jobs.Common.csproj", "{99944578-85D6-4FEF-B1EB-09CB3880A2DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jobs.Service.Common", "src\Common\Jobs.Service.Common\Jobs.Service.Common.csproj", "{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jobs.Service.Common", "src\Common\Jobs.Service.Common\Jobs.Service.Common.csproj", "{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.RabbitMQ", "src\Common\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj", "{C6BBCCB6-AD00-4598-BC92-60B9336D528A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6BBCCB6-AD00-4598-BC92-60B9336D528A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6BBCCB6-AD00-4598-BC92-60B9336D528A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6BBCCB6-AD00-4598-BC92-60B9336D528A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6BBCCB6-AD00-4598-BC92-60B9336D528A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -87,6 +93,7 @@ Global
 		{CCBC9E54-0C2A-49D0-879D-765FFF9072DA} = {41618280-0C21-49C3-9893-071375844F8D}
 		{99944578-85D6-4FEF-B1EB-09CB3880A2DD} = {E8037851-7962-4AAE-AD39-4387B687175A}
 		{A5F2028A-E98F-487E-B1F5-619D75CB8F8A} = {E8037851-7962-4AAE-AD39-4387B687175A}
+		{C6BBCCB6-AD00-4598-BC92-60B9336D528A} = {E8037851-7962-4AAE-AD39-4387B687175A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {97750CB7-F573-4255-B22E-D39F65872393}
