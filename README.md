@@ -27,7 +27,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL)</td>
+        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ)</td>
         <td>Identity management service</td>
         <td>
            (soon)
@@ -40,7 +40,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Job API (NLog logging, FW Core, CRUD by SQL Server)</td>
+        <td>Job API (NLog logging, FW Core, CRUD by SQL Server, RabbitMQ)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
            (soon)
@@ -53,7 +53,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">4.</td>
-        <td>Payment API (Microsoft logging, Repocitory, CRUD by MongoDB)</td>
+        <td>Payment API (Microsoft logging, Repocitory, CRUD by MongoDB, RabbitMQ)</td>
         <td>Responsible for financial and payments</td>
         <td>
            (soon)
@@ -83,4 +83,5 @@ API Gateway: http://localhost:7000/
 Identity service: http://localhost:7001/, gRPC: http://localhost:7101/
 Jobs service: http://localhost:7002/
 Payment service: http://localhost:7003/
+Rabbit MQ Management: http://localhost:7014/
 ```
