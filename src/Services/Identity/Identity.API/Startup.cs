@@ -3,7 +3,6 @@ using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
 using Identity.API.Infrastructure.HealthChecks;
 using IdentityService.DataProvider;
-using IdentityService.RabbitMQEvents.Events;
 using IdentityService.Repository;
 using IdentityService.Services;
 using Jobs.Service.Common.Configurations;
@@ -16,8 +15,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using RabbitMQ.Client;
 using System;
 using System.Reflection;
 
