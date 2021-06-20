@@ -15,6 +15,7 @@ namespace PaymentService.Controllers
         public override async Task<RequestModel> Post([FromBody] Payment entity)
         {
             entity.UserId = User.GetUserId();
+            entity.UserName = User.GetUserName();
 
             return await base.Post(entity);
         }

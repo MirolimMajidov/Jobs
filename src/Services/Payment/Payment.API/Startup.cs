@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
+using PaymentService.RabbitMQEvents.EventHandlers;
+using PaymentService.RabbitMQEvents.Events;
 using System;
 using System.Reflection;
 
@@ -74,7 +76,7 @@ namespace PaymentService
         public static void UseEventBus(this IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBusRabbitMQ>();
-            //eventBus.Subscribe<Event, EventHandler>(); //To register event with event handler
+            eventBus.Subscribe<UserNameUpdatedEvent, UserNameUpdatedEventHandler>();
         }
     }
 }
