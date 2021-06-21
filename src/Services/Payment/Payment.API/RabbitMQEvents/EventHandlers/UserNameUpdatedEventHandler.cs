@@ -24,7 +24,7 @@ namespace PaymentService.RabbitMQEvents.EventHandlers
         {
             _logger.LogInformation("Received {Event} event at {AppName}", @event.GetType().Name, Program.AppName);
 
-            var allPayments =await _pepository.GetEntities();
+            var allPayments = await _pepository.GetEntities();
             var existingPayments = allPayments.Where(j => j.UserId == @event.UserId);
             if (!existingPayments.Any()) return;
 
@@ -33,7 +33,6 @@ namespace PaymentService.RabbitMQEvents.EventHandlers
                 payment.UserName = @event.NewName;
                 await _pepository.UpdateEntity(payment);
             }
-            await _pepository.Save();
         }
     }
 }

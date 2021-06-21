@@ -3,6 +3,8 @@ using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
 using Identity.API.Infrastructure.HealthChecks;
 using IdentityService.DataProvider;
+using IdentityService.RabbitMQEvents.EventHandlers;
+using IdentityService.RabbitMQEvents.Events;
 using IdentityService.Repository;
 using IdentityService.Services;
 using Jobs.Service.Common.Configurations;
@@ -85,7 +87,7 @@ namespace IdentityService
         public static void UseEventBus(this IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBusRabbitMQ>();
-            //eventBus.Subscribe<Event, EventHandler>(); //To register event with event handler
+            eventBus.Subscribe<UserPaymentEvent, UserPaymentEventHandler>();
         }
     }
 }

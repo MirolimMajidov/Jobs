@@ -30,7 +30,7 @@ namespace JobService.RabbitMQEvents.EventHandlers
             foreach (var job in existingJobs.ToList())
             {
                 job.CreatedByUserName = @event.NewName;
-                await _pepository.UpdateEntity(job);
+                await _pepository.UpdateEntity(job, autoSave: false);
             }
             await _pepository.Save();
         }

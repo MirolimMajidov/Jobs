@@ -25,6 +25,8 @@ namespace IdentityService.Models
         [JsonIgnore, MaxLength(40)]
         public string HashPassword { get; set; }
 
+        public double Balance { get; set; }
+
         public UserRole Role { get; set; } = UserRole.User;
 
         public GenderStatus Gender { get; set; } = GenderStatus.NotSelected;
