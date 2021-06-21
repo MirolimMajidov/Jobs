@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
+using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using Jobs.Service.Common.Configurations;
 using Jobs.Service.Common.Infrastructure.Exceptions;
@@ -40,7 +41,9 @@ namespace JobService
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter)))
+                .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Job");
 

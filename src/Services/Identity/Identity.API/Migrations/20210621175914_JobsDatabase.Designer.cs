@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityService.Migrations
 {
     [DbContext(typeof(JobsContext))]
-    [Migration("20210501182822_JobsDatabase")]
+    [Migration("20210621175914_JobsDatabase")]
     partial class JobsDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,13 +17,16 @@ namespace IdentityService.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.5");
+                .HasAnnotation("ProductVersion", "5.0.7");
 
             modelBuilder.Entity("IdentityService.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("double");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -39,7 +42,6 @@ namespace IdentityService.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
