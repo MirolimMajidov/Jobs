@@ -53,7 +53,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">4.</td>
-        <td>Payment API (Microsoft logging, Repocitory, CRUD by MongoDB, RabbitMQ)</td>
+        <td>Payment API (Serilog, Repocitory, CRUD by MongoDB, RabbitMQ)</td>
         <td>Responsible for financial and payments</td>
         <td>
            (soon)
