@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
+using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using IdentityService.DataProvider;
 using IdentityService.RabbitMQEvents.EventHandlers;
@@ -45,7 +46,9 @@ namespace IdentityService
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter))).AddNewtonsoftJson().AddResponseNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter)))
+                .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
+                .AddNewtonsoftJson().AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Identity");
 
