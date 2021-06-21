@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
 using PaymentService.DataProvider;
+using Serilog;
+using Serilog.Events;
+using System;
 using System.Threading.Tasks;
 
 namespace PaymentService
@@ -16,27 +17,49 @@ namespace PaymentService
 
         public static async Task Main(string[] args)
         {
-            var host = CreateHostBuilder(args).Build();
+            try
+            {
+                ConfigureLogging();
+                Log.Information("Starting web host ({ApplicationContext})...", AppName);
 
-            using var scope = host.Services.CreateScope();
-            var services = scope.ServiceProvider;
+                var host = CreateHostBuilder(args).Build();
 
-            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-            var dbContext = services.GetRequiredService<JobsContext>();
-            await dbContext.SeedAsync(logger);
+                using var scope = host.Services.CreateScope();
+                var services = scope.ServiceProvider;
 
-            await host.RunAsync();
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                var dbContext = services.GetRequiredService<JobsContext>();
+                await dbContext.SeedAsync(logger);
+
+                await host.RunAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Host terminated unexpectedly");
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddDebug();
-                    logging.AddNLog();
-                })
+               .UseSerilog()
                .UseStartup<Startup>();
+
+        private static void ConfigureLogging()
+        {
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Debug()
+            .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            .Enrich.FromLogContext()
+            .WriteTo.Debug()
+            .WriteTo.File("Logs/Log.txt",
+                rollOnFileSizeLimit: true,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1))
+            .CreateLogger();
+        }
     }
 }
