@@ -4,7 +4,7 @@ using System;
 
 namespace IdentityService.Validators
 {
-    public class UserValidator : AbstractValidator<User>
+    public class UserValidator : AbstractValidator<UserDTO>
     {
         public UserValidator()
         {

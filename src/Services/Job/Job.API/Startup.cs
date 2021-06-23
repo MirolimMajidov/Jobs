@@ -7,6 +7,7 @@ using Jobs.Service.Common.Configurations;
 using Jobs.Service.Common.Infrastructure.Exceptions;
 using Jobs.Service.Common.Repository;
 using JobService.DataProvider;
+using JobService.Mapping;
 using JobService.RabbitMQEvents.EventHandlers;
 using JobService.RabbitMQEvents.Events;
 using JobService.Repository;
@@ -41,11 +42,12 @@ namespace JobService
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter)))
+            services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
                 .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
             services.AddSwaggerGen("Job");
+            services.AddAutoMapper(typeof(DTOMapper));
 
             var container = new ContainerBuilder();
             container.Populate(services);

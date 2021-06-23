@@ -1,13 +1,14 @@
-﻿using JobService.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
 using Jobs.Service.Common.Controllers;
 using Jobs.Service.Common.Repository;
+using JobService.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobService.Controllers
 {
     [Route("api/[controller]")]
-    public class CategoryController : BaseController<Category>
+    public class CategoryController : BaseController<Category, CategoryDTO>
     {
-        public CategoryController(IEntityRepository<Category> pepository) : base(pepository) { }
+        public CategoryController(IEntityRepository<Category> pepository, IMapper mapper) : base(pepository, mapper) { }
     }
 }

@@ -4,7 +4,7 @@ using JobService.Models;
 
 namespace JobService.Validators
 {
-    public class JobValidator : AbstractValidator<Job>
+    public class JobValidator : AbstractValidator<JobDTO>
     {
         public JobValidator()
         {

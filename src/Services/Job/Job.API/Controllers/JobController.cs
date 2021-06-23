@@ -4,15 +4,16 @@ using Jobs.Service.Common.Controllers;
 using Jobs.Service.Common.Helpers;
 using Jobs.Service.Common.Repository;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace JobService.Controllers
 {
     [Route("api/[controller]")]
-    public class JobController : BaseController<Job>
+    public class JobController : BaseController<Job, JobDTO>
     {
-        public JobController(IEntityRepository<Job> pepository) : base(pepository) { }
+        public JobController(IEntityRepository<Job> pepository, IMapper mapper) : base(pepository, mapper) { }
 
-        public override async Task<RequestModel> Post([FromBody] Job entity)
+        public override async Task<RequestModel> Post([FromBody] JobDTO entity)
         {
             entity.CreatedByUserId = User.GetUserId();
             entity.CreatedByUserName = User.GetUserName();
@@ -20,7 +21,7 @@ namespace JobService.Controllers
             return await base.Post(entity);
         }
 
-        public override async Task<RequestModel> Put([FromBody] Job entity)
+        public override async Task<RequestModel> Put([FromBody] JobDTO entity)
         {
             entity.CreatedByUserId = User.GetUserId();
             entity.CreatedByUserName = User.GetUserName();

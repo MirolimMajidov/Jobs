@@ -1,4 +1,5 @@
-﻿using Jobs.Common.Models;
+﻿using AutoMapper;
+using Jobs.Common.Models;
 using Jobs.Service.Common.Helpers;
 using Jobs.Service.Common.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Jobs.Service.Common.Controllers
@@ -14,13 +16,17 @@ namespace Jobs.Service.Common.Controllers
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public abstract class BaseController<TEntity> : ControllerBase where TEntity : IEntity
+    public abstract class BaseController<TEntity, TEntityDTO> : ControllerBase
+        where TEntity : IEntity
+        where TEntityDTO : BaseEntityDTO
     {
         protected readonly IEntityRepository<TEntity> _pepository;
+        protected readonly IMapper _mapper;
 
-        public BaseController(IEntityRepository<TEntity> pepository)
+        public BaseController(IEntityRepository<TEntity> pepository, IMapper mapper)
         {
             _pepository = pepository;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -29,7 +35,7 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> Get()
         {
-            var entities = await _pepository.GetEntities();
+            var entities =(await _pepository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
             return await RequestModel.SuccessAsync(entities);
         }
 
@@ -44,33 +50,36 @@ namespace Jobs.Service.Common.Controllers
             if (entity == null)
                 return await RequestModel.NotFoundAsync();
 
-            return await RequestModel.SuccessAsync(entity);
+            return await RequestModel.SuccessAsync(_mapper.Map<TEntityDTO>(entity));
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(RequestModel))]
-        public virtual async Task<RequestModel> Post([FromBody] TEntity entity)
+        public virtual async Task<RequestModel> Post([FromBody] TEntityDTO entity)
         {
-            var createdEntity = await _pepository.InsertEntity(entity);
-            return await RequestModel.SuccessAsync(createdEntity);
+            var createdEntity = await _pepository.InsertEntity(_mapper.Map<TEntity>(entity));
+
+            return await RequestModel.SuccessAsync(_mapper.Map<TEntityDTO>(createdEntity));
         }
 
         [HttpPut]
         [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(RequestModel))]
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
-        public virtual async Task<RequestModel> Put([FromBody] TEntity entity)
+        public virtual async Task<RequestModel> Put([FromBody] TEntityDTO entity)
         {
-            if (entity != null)
-            {
-                if (await _pepository.GetEntityByID(entity.Id) == null)
-                    return await RequestModel.NotFoundAsync();
+            if (entity == null)
+                return await RequestModel.ErrorRequestAsync("An item can not be null");
 
-                await _pepository.UpdateEntity(entity);
-                return await RequestModel.SuccessAsync();
-            }
-            return await RequestModel.ErrorRequestAsync("An item can not be null");
+            var oldEntity = await _pepository.GetEntityByID(entity.Id);
+            if (oldEntity == null)
+                return await RequestModel.NotFoundAsync();
+
+            _mapper.Map(entity, oldEntity);
+            await _pepository.UpdateEntity(oldEntity);
+
+            return await RequestModel.SuccessAsync();
         }
 
         [HttpDelete("{id}")]

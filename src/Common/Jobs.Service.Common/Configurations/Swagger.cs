@@ -38,7 +38,6 @@ namespace Jobs.Service.Common.Configurations
                         new List<string>()
                     }
                 });
-                c.SchemaFilter<SwaggerIgnoreFilter>();
             });
         }
 

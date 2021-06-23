@@ -1,12 +1,10 @@
 ﻿using Jobs.Common.Helpers;
 using Jobs.Common.Models;
-using Newtonsoft.Json;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace JobService.Models
 {
-    public class Job : BaseEntity
+    public class JobDTO : BaseEntityDTO
     {
         public string Name { get; set; }
 
@@ -18,14 +16,10 @@ namespace JobService.Models
 
         public JobDuration Duration { get; set; }
 
-        [Required]
         public Guid CreatedByUserId { get; set; }
 
         public string CreatedByUserName { get; set; }
 
         public Guid CategoryId { get; set; }
-
-        [JsonIgnore]
-        public Category Category { get; set; }
     }
 }
