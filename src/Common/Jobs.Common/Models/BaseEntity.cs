@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Jobs.Common.Models
 {
@@ -16,11 +14,8 @@ namespace Jobs.Common.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        [JsonIgnore]
         public bool Status { get; set; } = true;
 
-        [DisplayName("Deleted")]
-        [JsonIgnore]
         public bool IsDeleted { get; set; }
 
         public object this[string propertyName]

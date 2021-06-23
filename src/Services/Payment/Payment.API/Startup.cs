@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PaymentService.Configurations;
 using PaymentService.DataProvider;
+using PaymentService.Mapping;
 using PaymentService.RabbitMQEvents.EventHandlers;
 using PaymentService.RabbitMQEvents.Events;
 using System;
@@ -36,11 +37,12 @@ namespace PaymentService
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
-            services.AddControllers(options => options.Filters.Add(typeof(JobExceptionFilter)))
+            services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
                 .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddResponseNewtonsoftJson();
             services.AddJobsHealthChecks();
             services.AddSwaggerGen("Payment");
+            services.AddAutoMapper(typeof(DTOMapper));
 
             var container = new ContainerBuilder();
             container.Populate(services);

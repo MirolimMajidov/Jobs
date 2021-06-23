@@ -11,7 +11,7 @@ namespace Jobs.Service.Common.Repository
         /// <summary>
         /// Get all entities
         /// </summary>
-        Task<IEnumerable<TEntity>> GetEntities();
+        Task<List<TEntity>> GetEntities();
 
         /// <summary>
         /// Get all entities without ToList

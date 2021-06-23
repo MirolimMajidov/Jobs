@@ -6,11 +6,11 @@ using System.Net;
 
 namespace Jobs.Service.Common.Infrastructure.Exceptions
 {
-    public class JobExceptionFilter : IExceptionFilter
+    public class JobsExceptionFilter : IExceptionFilter
     {
-        private readonly ILogger<JobExceptionFilter> _logger;
+        private readonly ILogger<JobsExceptionFilter> _logger;
 
-        public JobExceptionFilter(ILogger<JobExceptionFilter> logger)
+        public JobsExceptionFilter(ILogger<JobsExceptionFilter> logger)
         {
             _logger = logger;
         }
@@ -21,7 +21,7 @@ namespace Jobs.Service.Common.Infrastructure.Exceptions
             _logger.LogError(new EventId(exceptionContext.Exception.HResult), exceptionContext.Exception, exceptionContext.Exception.Message);
 
             object responseError = null;
-            if (exceptionContext.Exception is JobException exception)
+            if (exceptionContext.Exception is JobsException exception)
             {
                 responseError = new { ExceptionMessage = exception.Message };
                 httpResponse.StatusCode = (int)HttpStatusCode.BadRequest;

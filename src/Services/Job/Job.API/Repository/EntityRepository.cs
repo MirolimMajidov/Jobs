@@ -19,7 +19,7 @@ namespace JobService.Repository
         }
 
         /// <summary/>
-        public async Task<IEnumerable<TEntity>> GetEntities()
+        public async Task<List<TEntity>> GetEntities()
         {
             return await _dbContext.GetEntities<TEntity>().ToListAsync();
         }

@@ -1,14 +1,11 @@
 ﻿using Jobs.Common.Models;
-using System.Collections.Generic;
 
 namespace JobService.Models
 {
-    public class Category : BaseEntity
+    public class CategoryDTO : BaseEntityDTO
     {
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public virtual ICollection<Job> Jobs { get; set; } = new List<Job>();
     }
 }

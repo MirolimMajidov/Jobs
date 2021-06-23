@@ -15,22 +15,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             }
           }
@@ -38,24 +38,6 @@
         "responses": {
           "200": {
             "description": "Return OK if it's added successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RequestModel"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Payment"
-        ],
-        "summary": "To get all items",
-        "responses": {
-          "200": {
-            "description": "Return list of found items if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -75,29 +57,67 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Payment"
+                "$ref": "#/components/schemas/PaymentDTO"
               }
             }
           }
         },
         "responses": {
+          "501": {
+            "description": "We will not support updating paymnet's information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
           "200": {
             "description": "Return OK if it's updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "To get all items",
+        "responses": {
+          "200": {
+            "description": "Return list of found items if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -175,6 +195,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       }
@@ -192,10 +222,7 @@
         "type": "integer",
         "format": "int32"
       },
-      "Payment": {
-        "required": [
-          "userId"
-        ],
+      "PaymentDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -206,7 +233,7 @@
             "type": "string",
             "format": "uuid"
           },
-          "orderId": {
+          "userName": {
             "type": "string",
             "nullable": true
           },
@@ -261,16 +288,15 @@
     },
     "securitySchemes": {
       "Bearer": {
-        "type": "apiKey",
-        "description": "JWT Authorization header using the Bearer scheme. \\r\\n\\r\\n \r\n                      Enter 'Bearer' [space] and then your token in the text input below.\r\n                      \\r\\n\\r\\nExample: 'Bearer 12345abcdef'",
-        "name": "Authorization",
-        "in": "header"
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme.  Enter 'Bearer' [space] and then your token in the text input below. Example: 'Bearer 12345abcdef'",
+        "scheme": "Bearer"
       }
     }
   },
   "security": [
     {
-      "Bearer": [ ]
+      "Bearer": []
     }
   ]
 }

@@ -4,7 +4,7 @@ using System;
 
 namespace PaymentService.Validators
 {
-    public class PaymentValidator : AbstractValidator<Payment>
+    public class PaymentValidator : AbstractValidator<PaymentDTO>
     {
         public PaymentValidator()
         {

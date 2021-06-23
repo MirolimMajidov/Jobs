@@ -18,7 +18,7 @@ namespace PaymentService.Repository
         }
 
         /// <summary/>
-        public async Task<IEnumerable<TEntity>> GetEntities()
+        public async Task<List<TEntity>> GetEntities()
         {
             return await _entities.Find(c => true).ToListAsync();
         }

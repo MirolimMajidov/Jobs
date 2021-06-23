@@ -112,7 +112,7 @@ namespace EventBus.RabbitMQ
 
             try
             {
-                _connection.Dispose();
+                _connection?.Dispose();
             }
             catch (IOException ex)
             {

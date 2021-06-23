@@ -4,7 +4,7 @@ using System;
 
 namespace JobService.Validators
 {
-    public class CategoryValidator : AbstractValidator<Category>
+    public class CategoryValidator : AbstractValidator<CategoryDTO>
     {
         public CategoryValidator()
         {

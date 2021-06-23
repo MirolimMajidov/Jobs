@@ -19,7 +19,7 @@ namespace IdentityService.Repository
         }
 
         /// <summary/>
-        public async Task<IEnumerable<TEntity>> GetEntities()
+        public async Task<List<TEntity>> GetEntities()
         {
             return await _dbContext.GetEntities<TEntity>().ToListAsync();
         }
@@ -51,7 +51,7 @@ namespace IdentityService.Repository
         /// <summary/>
         public async Task UpdateEntity(TEntity entity, bool autoSave = true)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Update(entity);
 
             if (autoSave)
                 await Save();

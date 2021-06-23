@@ -33,22 +33,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             }
           }
@@ -75,22 +75,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/CategoryDTO"
               }
             }
           }
@@ -98,6 +98,16 @@
         "responses": {
           "200": {
             "description": "Return OK if it's updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -175,6 +185,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       }
@@ -189,22 +209,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             }
           }
@@ -212,24 +232,6 @@
         "responses": {
           "200": {
             "description": "Return OK if it's added successfully",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RequestModel"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Job"
-        ],
-        "summary": "To get all items",
-        "responses": {
-          "200": {
-            "description": "Return list of found items if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -249,22 +251,22 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Job"
+                "$ref": "#/components/schemas/JobDTO"
               }
             }
           }
@@ -272,6 +274,34 @@
         "responses": {
           "200": {
             "description": "Return OK if it's updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "To get all items",
+        "responses": {
+          "200": {
+            "description": "Return list of found items if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -349,6 +379,16 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "An item with the specified ID was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       }
@@ -356,7 +396,7 @@
   },
   "components": {
     "schemas": {
-      "Category": {
+      "CategoryDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -374,10 +414,7 @@
         },
         "additionalProperties": false
       },
-      "Job": {
-        "required": [
-          "userId"
-        ],
+      "JobDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -402,9 +439,13 @@
           "duration": {
             "$ref": "#/components/schemas/JobDuration"
           },
-          "userId": {
+          "createdByUserId": {
             "type": "string",
             "format": "uuid"
+          },
+          "createdByUserName": {
+            "type": "string",
+            "nullable": true
           },
           "categoryId": {
             "type": "string",
@@ -452,16 +493,15 @@
     },
     "securitySchemes": {
       "Bearer": {
-        "type": "apiKey",
-        "description": "JWT Authorization header using the Bearer scheme. \\r\\n\\r\\n \r\n                      Enter 'Bearer' [space] and then your token in the text input below.\r\n                      \\r\\n\\r\\nExample: 'Bearer 12345abcdef'",
-        "name": "Authorization",
-        "in": "header"
+        "type": "http",
+        "description": "JWT Authorization header using the Bearer scheme.  Enter 'Bearer' [space] and then your token in the text input below. Example: 'Bearer 12345abcdef'",
+        "scheme": "Bearer"
       }
     }
   },
   "security": [
     {
-      "Bearer": [ ]
+      "Bearer": []
     }
   ]
 }
