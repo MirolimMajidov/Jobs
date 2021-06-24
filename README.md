@@ -27,7 +27,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ, FluentValidation)</td>
+        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ, FluentValidation, DTO, AutoMapper)</td>
         <td>Identity management service</td>
         <td>
            (soon)
@@ -40,7 +40,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">3.</td>
-        <td>Job API (NLog logging, FW Core, CRUD by SQL Server, RabbitMQ, FluentValidation)</td>
+        <td>Job API (NLog logging, FW Core, CRUD by SQL Server, RabbitMQ, FluentValidation, DTO, AutoMapper)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
            (soon)
@@ -53,7 +53,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">4.</td>
-        <td>Payment API (Serilog logging, Repocitory, CRUD by MongoDB, RabbitMQ, FluentValidation)</td>
+        <td>Payment API (Serilog logging, Repocitory, CRUD by MongoDB, RabbitMQ, FluentValidation, DTO, AutoMapper)</td>
         <td>Responsible for financial and payments</td>
         <td>
            (soon)
@@ -77,11 +77,10 @@ docker-compose up
 ```
 
 You should be able to browse different components of the application by using the below URLs :
-
-```
-API Gateway: http://localhost:7000/
-Identity service: http://localhost:7001/, gRPC: http://localhost:7101/
-Jobs service: http://localhost:7002/
-Payment service: http://localhost:7003/
-RabbitMQ Management: http://localhost:7014/
-```
+<ul>
+   <li><a href="http://localhost:7000/" rel="nofollow">API Gateway</a></li>
+   <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a></li>
+   <li><a href="http://localhost:7002/" rel="nofollow">Jobs service</a></li>
+   <li><a href="http://localhost:7003/" rel="nofollow">Payment service</a></li>
+   <li><a href="http://localhost:7014/" rel="nofollow">RabbitMQ Management</a></li>
+</ul>
