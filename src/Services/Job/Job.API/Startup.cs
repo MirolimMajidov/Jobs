@@ -36,7 +36,7 @@ namespace JobService
         public virtual IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
+            services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration["ConnectionString"], sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
 
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
@@ -45,7 +45,7 @@ namespace JobService
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
                 .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddResponseNewtonsoftJson();
-            services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration.GetConnectionString("DBConnection")));
+            services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Job");
             services.AddAutoMapper(typeof(DTOMapper));
 

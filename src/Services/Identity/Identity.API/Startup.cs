@@ -40,7 +40,7 @@ namespace IdentityService
             services.AddGrpc();
 
             services.AddDbContext<JobsContext>(o =>
-            o.UseMySql(Configuration.GetConnectionString("DBConnection"), new MySqlServerVersion(new Version(8, 0, 21)),
+            o.UseMySql(Configuration["ConnectionString"], new MySqlServerVersion(new Version(8, 0, 21)),
             sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
@@ -50,7 +50,7 @@ namespace IdentityService
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
                 .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddNewtonsoftJson().AddResponseNewtonsoftJson();
-            services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration.GetConnectionString("DBConnection")));
+            services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Identity");
             services.AddAutoMapper(typeof(DTOMapper));
 

@@ -32,7 +32,15 @@ namespace PaymentService
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.Configure<DatabaseConfiguration>(Configuration.GetSection("DatabaseConfiguration"));
+            services.Configure<DatabaseConfiguration>(options =>
+            {
+                var databaseSection = Configuration.GetSection(nameof(DatabaseConfiguration));
+                var databaseInfo = databaseSection.Get<DatabaseConfiguration>();
+
+                options.DatabaseName = databaseInfo.DatabaseName;
+                options.PaymentsName = databaseInfo.PaymentsName;
+                options.ConnectionString = Configuration["ConnectionString"];
+            });
             services.AddScoped<JobsContext>();
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
