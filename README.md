@@ -33,7 +33,7 @@ The architecture proposes a microservice oriented architecture implementation wi
            (soon)
         </td>
         <td> 
-            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/IdentityAPI/1.0.0">
+            <a href="https://app.swaggerhub.com/apis-docs/mirolimmajidov/IdentityAPI/1.0.0">
                View
             </a>
        </td>
@@ -46,7 +46,7 @@ The architecture proposes a microservice oriented architecture implementation wi
            (soon)
         </td>
         <td> 
-            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/JobAPI/1.0.0">
+            <a href="https://app.swaggerhub.com/apis-docs/mirolimmajidov/JobAPI/1.0.0">
                View
             </a>
        </td>
@@ -59,7 +59,7 @@ The architecture proposes a microservice oriented architecture implementation wi
            (soon)
         </td>
         <td> 
-            <a href="https://app.swaggerhub.com/apis-docs/majidovmirolimjon/PaymentAPI/1.0.0">
+            <a href="https://app.swaggerhub.com/apis-docs/mirolimmajidov/PaymentAPI/1.0.0">
                View
             </a>
        </td>
