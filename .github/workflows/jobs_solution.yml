@@ -1,4 +1,4 @@
-name: .NET
+name: Build Jobs solution
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-2019
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Jobs.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build Jobs.sln --configuration Release --no-restore
     - name: Run Tests
       run: dotnet test --no-build --verbosity normal
