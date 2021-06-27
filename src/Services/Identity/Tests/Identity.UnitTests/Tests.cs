@@ -18,7 +18,7 @@ namespace Identity.UnitTests
         [DataRow(4)]
         public void MultiTests(int number)
         {
-            Assert.AreEqual(0, number % 2, $"{number} - number");
+            Assert.IsTrue(number > 0);
         }
     }
 }
