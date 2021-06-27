@@ -1,0 +1,21 @@
+name: Payment service
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
+    - name: Run tests
+      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --no-restore --verbosity normal

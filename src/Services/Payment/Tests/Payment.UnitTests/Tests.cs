@@ -17,7 +17,7 @@ namespace Payment.UnitTests
         [InlineData(4)]
         public void MultiTests(int number)
         {
-            Assert.Equal(0, number % 2);
+            Assert.True(number > 0);
         }
     }
 }
