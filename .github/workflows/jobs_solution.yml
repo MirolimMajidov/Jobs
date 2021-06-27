@@ -19,7 +19,7 @@ jobs:
         dotnet-version: 5.0.x
     - name: Restore dependencies
       run: dotnet restore Jobs.sln
-    - name: Build
+    - name: Build Jobs solution on Release mode
       run: dotnet build Jobs.sln --configuration Release --no-restore
     - name: Run Tests
-      run: dotnet test Jobs.sln --configuration Debug --no-build --verbosity normal
+      run: dotnet test Jobs.sln --no-build --verbosity normal
