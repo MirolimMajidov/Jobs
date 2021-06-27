@@ -1,4 +1,5 @@
 # Jobs
+<img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Job%20service/master?label=Jobs%20solution%20build">
 Jobs is a open source work marketplace application, powered by micro-services ☸️ architecture and cross-platform development 📱🖥🐳 based on .NET 5.
 
 ## Architecture overview
