@@ -1,5 +1,5 @@
 # Jobs
-<img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Build%20Jobs%20solution/master?label=Build%20Jobs%20solution">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Identity%20service?label=Identity%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Job%20service?label=Job%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Payment%20service?label=Payment%20service%20tests">
+<img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Build%20Jobs%20solution/master?label=Build%20Jobs%20solution">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Identity%20service/master?label=Identity%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Job%20service/master?label=Job%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Payment%20service/master?label=Payment%20service%20tests">
 
 Jobs is a open source work marketplace application, powered by micro-services ☸️ architecture and cross-platform development 📱🖥🐳 based on .NET 5.
 
@@ -32,7 +32,9 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with MSTest)</td>
         <td>Identity management service</td>
         <td>
-           (soon)
+            <a href="https://github.com/MirolimMajidov/Jobs/actions?query=workflow%3AIdentity%20service">
+                <img src="https://github.com/MirolimMajidov/Jobs/workflows/Identity%20service/badge.svg?branch=master">
+            </a>
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Identity/Identity.API/Swagger/v1/docs.json">
@@ -45,7 +47,9 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td>Job API (NLog logging, FW Core, CRUD by SQL Server, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with NUnit)</td>
         <td>This service is responsible for the main part of the current application. All CRUD operations related to Jobs will be here.</td>
         <td>
-           (soon)
+            <a href="https://github.com/MirolimMajidov/Jobs/actions?query=workflow%3AJob%20service">
+                <img src="https://github.com/MirolimMajidov/Jobs/workflows/Job%20service/badge.svg?branch=master">
+            </a>
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Job/Job.API/Swagger/v1/docs.json">
@@ -58,7 +62,9 @@ The architecture proposes a microservice oriented architecture implementation wi
         <td>Payment API (Serilog logging, Repocitory, CRUD by MongoDB, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with xTest)</td>
         <td>Responsible for financial and payments</td>
         <td>
-           (soon)
+            <a href="https://github.com/MirolimMajidov/Jobs/actions?query=workflow%3APayment%20service">
+                <img src="https://github.com/MirolimMajidov/Jobs/workflows/Payment%20service/badge.svg?branch=master">
+            </a>
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Payment/Payment.API/Swagger/v1/docs.json">
