@@ -21,5 +21,3 @@ jobs:
       run: dotnet restore Jobs.sln
     - name: Build Jobs solution on Release mode
       run: dotnet build Jobs.sln --configuration Release --no-restore
-    - name: Run Tests
-      run: dotnet test Jobs.sln --no-build --verbosity normal
