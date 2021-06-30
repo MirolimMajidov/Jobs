@@ -5,15 +5,19 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
+WORKDIR /source
+
+COPY ["Jobs.sln", "Jobs.sln"]
 COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/"]
-RUN dotnet restore "src/Services/Payment/Payment.API/Payment.API.csproj"
+
+RUN dotnet restore "Kangaroo.sln"
+
 COPY . .
-WORKDIR "/src/src/Services/Payment/Payment.API"
-RUN dotnet build "Payment.API.csproj" -c Release -o /app/build
+WORKDIR "/source/src/Services/Payment/Payment.API"
+RUN dotnet build "Payment.API.csproj" -c Release
 
 FROM build AS publish
-RUN dotnet publish "Payment.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Payment.API.csproj" -c Release -o /app/publish --no-build
 
 FROM base AS final
 WORKDIR /app

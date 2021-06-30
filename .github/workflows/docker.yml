@@ -15,7 +15,7 @@ on:
 
 env:
   REGISTRY: mirolimmajidov
-  IMAGE_NAME: identityapi
+  IMAGE_NAME: paymentapi
   
 jobs:
   push_to_registry:
@@ -39,8 +39,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./src/Services/Identity/Identity.API/
-          file: ./src/Services/Identity/Identity.API/Dockerfile
+          context: ./src/Services/Payment/Payment.API/
+          file: ./src/Services/Payment/Payment.API/Dockerfile
           push: true
-          image: mirolimmajidov/identityapi
+          image: mirolimmajidov/paymentapi
           tags: latest
