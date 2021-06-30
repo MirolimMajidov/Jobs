@@ -33,4 +33,4 @@ jobs:
           
       - name: Build Identity service
         run: |
-          dotnet build ./src/Services/Identity/Identity.API -t mirolimmajidov/identityapi:1.0.0
+          docker build ./src/Services/Identity/Identity.API -t mirolimmajidov/identityapi:1.0.0
