@@ -41,7 +41,7 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          context: ./src/Services/Identity/Identity.API/
+          context: src/Services/Identity/Identity.API/
           push: true
           tags: mirolimmajidov/identityapi:latest
           
