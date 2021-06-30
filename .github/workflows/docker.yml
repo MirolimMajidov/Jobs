@@ -43,5 +43,5 @@ jobs:
         with:
           context: ./src/Services/Identity/Identity.API/
           push: true
-          tags: ${{ env.mirolimmajidov }}/${{ env.identityapi }}:latest
+          tags: mirolimmajidov/identityapi:latest
           
