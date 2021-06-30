@@ -35,3 +35,7 @@ jobs:
         run: |
           docker build ./src/Services/Identity/Identity.API -t mirolimmajidov/identityapi:1.0.0
           
+      - name: Docker push images
+        run: |
+          docker push mirolimmajidov/identityapi:1.0.0
+          
