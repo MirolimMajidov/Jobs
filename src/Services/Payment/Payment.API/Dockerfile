@@ -10,7 +10,7 @@ WORKDIR /source
 COPY ["Jobs.sln", "Jobs.sln"]
 COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/"]
 
-RUN dotnet restore "Kangaroo.sln"
+RUN dotnet restore "Jobs.sln"
 
 COPY . .
 WORKDIR "/source/src/Services/Payment/Payment.API"
