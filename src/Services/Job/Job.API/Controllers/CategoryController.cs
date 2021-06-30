@@ -9,6 +9,6 @@ namespace JobService.Controllers
     [Route("api/[controller]")]
     public class CategoryController : BaseController<Category, CategoryDTO>
     {
-        public CategoryController(IEntityRepository<Category> pepository, IMapper mapper) : base(pepository, mapper) { }
+        public CategoryController(IEntityRepository<Category> repository, IMapper mapper) : base(repository, mapper) { }
     }
 }

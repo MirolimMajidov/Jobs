@@ -16,7 +16,7 @@ namespace IdentityService.Controllers
     {
         private readonly IEventBusRabbitMQ _eventBus;
 
-        public UserController(IEntityRepository<User> pepository, IMapper mapper, IEventBusRabbitMQ eventBus) : base(pepository, mapper)
+        public UserController(IEntityRepository<User> repository, IMapper mapper, IEventBusRabbitMQ eventBus) : base(repository, mapper)
         {
             _eventBus = eventBus;
         }
@@ -40,7 +40,7 @@ namespace IdentityService.Controllers
         {
             User oldUser = null;
             if (entity != null)
-                oldUser = await _pepository.GetEntityByID(entity.Id);
+                oldUser = await _repository.GetEntityByID(entity.Id);
 
             if (oldUser == null)
                 return await RequestModel.NotFoundAsync();
@@ -54,7 +54,7 @@ namespace IdentityService.Controllers
             else
                 oldUser.HashPassword = Encryptor.SH1Hash(entity.Password);
 
-            await _pepository.UpdateEntity(oldUser);
+            await _repository.UpdateEntity(oldUser);
 
             if (oldName != entity.Name)
             {

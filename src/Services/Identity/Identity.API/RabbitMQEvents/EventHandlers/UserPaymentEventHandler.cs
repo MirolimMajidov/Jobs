@@ -9,12 +9,12 @@ namespace IdentityService.RabbitMQEvents.EventHandlers
 {
     public class UserPaymentEventHandler : IRabbitMQEventHandler<UserPaymentEvent>
     {
-        private readonly IEntityRepository<User> _pepository;
+        private readonly IEntityRepository<User> _repository;
         private readonly ILogger<UserPaymentEventHandler> _logger;
 
         public UserPaymentEventHandler(IEntityRepository<User> repository, ILogger<UserPaymentEventHandler> logger)
         {
-            _pepository = repository;
+            _repository = repository;
             _logger = logger;
         }
 
@@ -22,11 +22,11 @@ namespace IdentityService.RabbitMQEvents.EventHandlers
         {
             _logger.LogInformation("Received {Event} event at {AppName}", @event.GetType().Name, Program.AppName);
 
-            var user = await _pepository.GetEntityByID(@event.UserId);
+            var user = await _repository.GetEntityByID(@event.UserId);
             if (user == null) return;
 
             user.Balance += @event.NewBalance;
-            await _pepository.UpdateEntity(user);
+            await _repository.UpdateEntity(user);
         }
     }
 }

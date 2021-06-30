@@ -10,13 +10,13 @@ namespace JobService.RabbitMQEvents.EventHandlers
 {
     public class UserNameUpdatedEventHandler : IRabbitMQEventHandler<UserNameUpdatedEvent>
     {
-        private readonly IEntityRepository<Job> _pepository;
+        private readonly IEntityRepository<Job> _repository;
         private readonly ILogger<UserNameUpdatedEventHandler> _logger;
 
-        public UserNameUpdatedEventHandler(IEntityRepository<Job> pepository,
+        public UserNameUpdatedEventHandler(IEntityRepository<Job> repository,
             ILogger<UserNameUpdatedEventHandler> logger)
         {
-            _pepository = pepository;
+            _repository = repository;
             _logger = logger;
         }
 
@@ -24,15 +24,15 @@ namespace JobService.RabbitMQEvents.EventHandlers
         {
             _logger.LogInformation("Received {Event} event at {AppName}", @event.GetType().Name, Program.AppName);
 
-            var existingJobs = _pepository.GetQueryableEntities().Where(j => j.CreatedByUserId == @event.UserId);
+            var existingJobs = _repository.GetQueryableEntities().Where(j => j.CreatedByUserId == @event.UserId);
             if (!existingJobs.Any()) return;
 
             foreach (var job in existingJobs.ToList())
             {
                 job.CreatedByUserName = @event.NewName;
-                await _pepository.UpdateEntity(job, autoSave: false);
+                await _repository.UpdateEntity(job, autoSave: false);
             }
-            await _pepository.Save();
+            await _repository.Save();
         }
     }
 }

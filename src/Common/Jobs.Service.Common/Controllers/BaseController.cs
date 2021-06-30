@@ -20,12 +20,12 @@ namespace Jobs.Service.Common.Controllers
         where TEntity : IEntity
         where TEntityDTO : BaseEntityDTO
     {
-        protected readonly IEntityRepository<TEntity> _pepository;
+        protected readonly IEntityRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
 
-        public BaseController(IEntityRepository<TEntity> pepository, IMapper mapper)
+        public BaseController(IEntityRepository<TEntity> repository, IMapper mapper)
         {
-            _pepository = pepository;
+            _repository = repository;
             _mapper = mapper;
         }
 
@@ -35,7 +35,7 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> Get()
         {
-            var entities =(await _pepository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
+            var entities =(await _repository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
             return await RequestModel.SuccessAsync(entities);
         }
 
@@ -46,7 +46,7 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
         public virtual async Task<RequestModel> Get(Guid id)
         {
-            var entity = await _pepository.GetEntityByID(id);
+            var entity = await _repository.GetEntityByID(id);
             if (entity == null)
                 return await RequestModel.NotFoundAsync();
 
@@ -58,7 +58,7 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> Post([FromBody] TEntityDTO entity)
         {
-            var createdEntity = await _pepository.InsertEntity(_mapper.Map<TEntity>(entity));
+            var createdEntity = await _repository.InsertEntity(_mapper.Map<TEntity>(entity));
 
             return await RequestModel.SuccessAsync(_mapper.Map<TEntityDTO>(createdEntity));
         }
@@ -72,12 +72,12 @@ namespace Jobs.Service.Common.Controllers
             if (entity == null)
                 return await RequestModel.ErrorRequestAsync("An item can not be null");
 
-            var oldEntity = await _pepository.GetEntityByID(entity.Id);
+            var oldEntity = await _repository.GetEntityByID(entity.Id);
             if (oldEntity == null)
                 return await RequestModel.NotFoundAsync();
 
             _mapper.Map(entity, oldEntity);
-            await _pepository.UpdateEntity(oldEntity);
+            await _repository.UpdateEntity(oldEntity);
 
             return await RequestModel.SuccessAsync();
         }
@@ -88,10 +88,10 @@ namespace Jobs.Service.Common.Controllers
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
         public virtual async Task<RequestModel> Delete(Guid id)
         {
-            if (await _pepository.GetEntityByID(id) == null)
+            if (await _repository.GetEntityByID(id) == null)
                 return await RequestModel.NotFoundAsync();
 
-            await _pepository.DeleteEntity(id);
+            await _repository.DeleteEntity(id);
             return await RequestModel.SuccessAsync();
         }
     }

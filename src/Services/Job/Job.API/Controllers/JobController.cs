@@ -11,7 +11,7 @@ namespace JobService.Controllers
     [Route("api/[controller]")]
     public class JobController : BaseController<Job, JobDTO>
     {
-        public JobController(IEntityRepository<Job> pepository, IMapper mapper) : base(pepository, mapper) { }
+        public JobController(IEntityRepository<Job> repository, IMapper mapper) : base(repository, mapper) { }
 
         public override async Task<RequestModel> Post([FromBody] JobDTO entity)
         {

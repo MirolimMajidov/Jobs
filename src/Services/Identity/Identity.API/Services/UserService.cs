@@ -10,13 +10,13 @@ namespace IdentityService.Services
 {
     public class UserService : UserBase
     {
-        private readonly IEntityRepository<Models.User> _pepository;
+        private readonly IEntityRepository<Models.User> _repository;
         private readonly ILogger _logger;
 
-        public UserService(ILogger<UserService> logger, IEntityRepository<Models.User> pepository)
+        public UserService(ILogger<UserService> logger, IEntityRepository<Models.User> repository)
         {
             _logger = logger;
-            _pepository = pepository;
+            _repository = repository;
         }
 
         public override async Task<UserReply> GetUserById(UserRequest request, ServerCallContext context)
@@ -25,7 +25,7 @@ namespace IdentityService.Services
 
             if (Guid.TryParse(request.Id, out Guid userId))
             {
-                var user = await _pepository.GetEntityByID(userId);
+                var user = await _repository.GetEntityByID(userId);
                 if (user == null)
                 {
                     context.Status = new Status(StatusCode.NotFound, $"User with id {userId} do not exist");
@@ -45,7 +45,7 @@ namespace IdentityService.Services
         {
             _logger.LogInformation("Begin grpc call UserService.GetUsers");
 
-            var users = await _pepository.GetEntities();
+            var users = await _repository.GetEntities();
             foreach (var user in users)
                 await responseStream.WriteAsync(ConvertToGRPCUser(user));
         }
