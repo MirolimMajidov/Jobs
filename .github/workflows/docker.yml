@@ -43,5 +43,4 @@ jobs:
           file: ./src/Services/Identity/Identity.API/Dockerfile
           push: true
           image: mirolimmajidov/identityapi
-          tags: v1, latest
-          
+          tags: latest
