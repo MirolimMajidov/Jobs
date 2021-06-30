@@ -7,7 +7,8 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
-RUN dotnet restore "Payment.API.csproj"
+COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/"]
+RUN dotnet restore "src/Services/Payment/Payment.API/Payment.API.csproj"
 
 COPY . .
 WORKDIR "/source/src/Services/Payment/Payment.API"
