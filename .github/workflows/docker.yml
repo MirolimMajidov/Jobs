@@ -25,7 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Login to Docker
+      - name: Login to Docker Hub
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -34,3 +34,4 @@ jobs:
       - name: Build Identity service
         run: |
           docker build ./src/Services/Identity/Identity.API -t mirolimmajidov/identityapi:1.0.0
+          
