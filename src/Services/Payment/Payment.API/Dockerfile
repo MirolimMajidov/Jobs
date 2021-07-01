@@ -8,8 +8,9 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 COPY "Jobs.sln" "Jobs.sln"
 
+COPY ["src/Common/Jobs.Common/Jobs.Common.csproj", "src/Common/Jobs.Common/Jobs.Common.csproj"]
 COPY ["src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj", "src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj"]
-COPY ["../Payment.API.csproj", "src/Services/Payment/Payment.API/"]
+COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/Payment.API.csproj"]
 RUN dotnet restore "src/Services/Payment/Payment.API/Payment.API.csproj"
 
 COPY . .
