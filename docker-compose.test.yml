@@ -7,6 +7,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "7000:80"
+    build:
+      context: .
+      dockerfile: src/Ocelot.ApiGateway/Dockerfile
     depends_on:
       - identity-api
       - job-api
@@ -23,6 +26,9 @@ services:
     ports:
       - "7001:80"
       - "7101:81"
+    build:
+      context: .
+      dockerfile: src/Services/Identity/Identity.API/Dockerfile
     depends_on:
       - identity-MySqlDB
       - rabbitmq
@@ -45,6 +51,9 @@ services:
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
     ports:
       - "7002:80"
+    build:
+      context: .
+      dockerfile: src/Services/Job/Job.API/Dockerfile
     depends_on:
       - job-SqlServerDB
       - rabbitmq
@@ -65,6 +74,9 @@ services:
       - RabbitMQHostName=rabbitmq
     ports:
       - "7003:80"
+    build:
+      context: .
+      dockerfile: src/Services/Payment/Payment.API/Dockerfile
     depends_on:
       - payment-mongoDB
       - rabbitmq

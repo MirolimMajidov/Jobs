@@ -3,11 +3,11 @@ version: '3.4'
 services:
   ocelot-api-gateway:
     container_name: OcelotApiGateway
-    image: ${DOCKER_REGISTRY-}ocelot.gateway.api
+    image: mirolimmajidov/ocelot.apigateway:latest
 
   identity-api:
     container_name: IdentityService
-    image: ${DOCKER_REGISTRY-}identity.api
+    image: mirolimmajidov/identity.api:latest
 
   identity-MySqlDB:
     container_name: IdentityService_MySqlDB
@@ -15,7 +15,7 @@ services:
 
   job-api:
     container_name: JobService
-    image: ${DOCKER_REGISTRY-}job.api
+    image: mirolimmajidov/job.api:latest
 
   job-SqlServerDB:
     container_name: JobService_SqlServerDB
@@ -23,7 +23,7 @@ services:
 
   payment-api:
     container_name: PaymentService
-    image: ${DOCKER_REGISTRY-}payment.api
+    image: mirolimmajidov/payment.api:latest
 
   payment-mongoDB:
     container_name: Mongo_NoSqlData
