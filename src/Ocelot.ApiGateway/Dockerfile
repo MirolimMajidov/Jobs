@@ -5,11 +5,13 @@ WORKDIR /app
 EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["src/Ocelot.ApiGateway/Ocelot.ApiGateway.csproj", "src/Ocelot.ApiGateway/"]
+WORKDIR /source
+
+COPY ["src/Ocelot.ApiGateway/Ocelot.ApiGateway.csproj", "src/Ocelot.ApiGateway/Ocelot.ApiGateway.csproj"]
 RUN dotnet restore "src/Ocelot.ApiGateway/Ocelot.ApiGateway.csproj"
+
 COPY . .
-WORKDIR "/src/src/Ocelot.ApiGateway"
+WORKDIR "/source/src/Ocelot.ApiGateway"
 RUN dotnet build "Ocelot.ApiGateway.csproj" -c Release -o /app/build
 
 FROM build AS publish

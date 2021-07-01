@@ -13,9 +13,10 @@ on:
 
 env:
   REGISTRY: mirolimmajidov
-  IDENTITY_IMAGE_NAME: identity-api
-  JOB_IMAGE_NAME: job-api
-  PAYMENT_IMAGE_NAME: payment-api
+  IDENTITY_IMAGE_NAME: identity.api
+  JOB_IMAGE_NAME: job.api
+  PAYMENT_IMAGE_NAME: payment.api
+  APIGATEWAYS_IMAGE_NAME: ocelot.apigateway
   
 jobs:
   push_to_registry:
@@ -57,3 +58,12 @@ jobs:
           file: ./src/Services/Payment/Payment.API/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.PAYMENT_IMAGE_NAME }}:latest
+                
+      - name: Build and push Ocelot ApiGateway docker image
+        id: docker_build_apigateway
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./src/Ocelot.ApiGateway/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.APIGATEWAYS_IMAGE_NAME }}:latest
