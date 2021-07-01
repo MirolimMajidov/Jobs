@@ -80,8 +80,7 @@ The architecture proposes a microservice oriented architecture implementation wi
 Make sure you have installed and configured [Docker for Windows](https://docs.docker.com/docker-for-windows/install/) in your machine. After that, you can run the below commands from the the main Jobs directory and get started with the `Jobs` immediately.
 
 ```powershell
-docker-compose build
-docker-compose up
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
 You should be able to browse different components of the application by using the below URLs :
