@@ -6,8 +6,13 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
-COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/"]
+
+COPY ["src/Common/Jobs.Common/Jobs.Common.csproj", "src/Common/Jobs.Common/Jobs.Common.csproj"]
+COPY ["src/Common/EventBus.RabbitMQ/EventBus.RabbitMQ.csproj", "src/Common/EventBus.RabbitMQ/EventBus.RabbitMQ.csproj"]
+COPY ["src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj", "src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj"]
+COPY ["src/Services/Payment/Payment.API/Payment.API.csproj", "src/Services/Payment/Payment.API/Payment.API.csproj"]
 RUN dotnet restore "src/Services/Payment/Payment.API/Payment.API.csproj"
+
 COPY . .
 WORKDIR "/source/src/Services/Payment/Payment.API"
 RUN dotnet build "Payment.API.csproj" -c Release -o /app/build
