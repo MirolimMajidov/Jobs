@@ -15,7 +15,9 @@ on:
 
 env:
   REGISTRY: mirolimmajidov
-  IMAGE_NAME: paymentapi
+  IDENTITY_IMAGE_NAME: identity-api
+  JOB_IMAGE_NAME: job-api
+  PAYMENT_IMAGE_NAME: payment-api
   
 jobs:
   push_to_registry:
@@ -31,11 +33,29 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
                 
-      - name: Build and push Docker images
-        id: docker_build
+      - name: Build and push Identity-api docker image
+        id: docker_build_identity
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./src/Services/Identity/Identity.API/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IDENTITY_IMAGE_NAME }}:latest
+                
+      - name: Build and push Job-api docker image
+        id: docker_build_job
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./src/Services/Job/Job.API/Dockerfile
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
+                
+      - name: Build and push Payment-api docker image
+        id: docker_build_payment
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./src/Services/Payment/Payment.API/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ env.PAYMENT_IMAGE_NAME }}:latest
