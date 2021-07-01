@@ -38,4 +38,4 @@ jobs:
           context: .
           file: ./src/Services/Payment/Payment.API/Dockerfile
           push: true
-          tags: mirolimmajidov/paymentapi:${{ github.sha }}
+          tags: ${{ env.mirolimmajidov }}/${{ env.IMAGE_NAME }}:latest
