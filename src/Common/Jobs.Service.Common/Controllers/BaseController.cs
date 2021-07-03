@@ -33,7 +33,7 @@ namespace Jobs.Service.Common.Controllers
         [HttpGet]
         [SwaggerOperation(Summary = "To get all items")]
         [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(RequestModel))]
-        public virtual async Task<RequestModel> Get()
+        public virtual async Task<RequestModel> GetAll()
         {
             var entities =(await _repository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
             return await RequestModel.SuccessAsync(entities);
@@ -56,8 +56,12 @@ namespace Jobs.Service.Common.Controllers
         [HttpPost]
         [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(RequestModel))]
-        public virtual async Task<RequestModel> Post([FromBody] TEntityDTO entity)
+        [SwaggerResponse(400, "Entity can't be null", typeof(RequestModel))]
+        public virtual async Task<RequestModel> Create([FromBody] TEntityDTO entity)
         {
+            if (entity == null)
+                return await RequestModel.ErrorRequestAsync("An item can not be null");
+
             var createdEntity = await _repository.InsertEntity(_mapper.Map<TEntity>(entity));
 
             return await RequestModel.SuccessAsync(_mapper.Map<TEntityDTO>(createdEntity));
@@ -66,8 +70,9 @@ namespace Jobs.Service.Common.Controllers
         [HttpPut]
         [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(RequestModel))]
+        [SwaggerResponse(400, "Entity can'tbe null", typeof(RequestModel))]
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
-        public virtual async Task<RequestModel> Put([FromBody] TEntityDTO entity)
+        public virtual async Task<RequestModel> Update([FromBody] TEntityDTO entity)
         {
             if (entity == null)
                 return await RequestModel.ErrorRequestAsync("An item can not be null");
