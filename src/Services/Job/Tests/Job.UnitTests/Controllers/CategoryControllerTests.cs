@@ -15,7 +15,7 @@ namespace JobService.UnitTests
         [Test]
         public void GetAllCategories_ResponseDataShouldContainAllCreatedEntities()
         {
-            List<Category> entities = TestCategories();
+            List<Category> entities = GetTestEntities();
             IEnumerable<CategoryDTO> dtoEntities = entities.Select(u => new CategoryDTO { Id = u.Id, Name = u.Name, Description = u.Description });
 
             mockRepository.Setup(p => p.GetEntities()).ReturnsAsync(entities);
@@ -41,7 +41,7 @@ namespace JobService.UnitTests
         [Test]
         public void GetCategoryById_ResponseDataShouldNotBeNull()
         {
-            var serverEntity = TestCategories().First();
+            var serverEntity = GetTestEntities().First();
             var clientEntity = new CategoryDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
 
             mockRepository.Setup(p => p.GetEntityByID(serverEntity.Id)).ReturnsAsync(serverEntity);
@@ -65,7 +65,7 @@ namespace JobService.UnitTests
         [Test]
         public void CreateCategory_EntityShouldBeCreatedSuccessfully()
         {
-            var serverEntity = TestCategories().First();
+            var serverEntity = GetTestEntities().First();
             var clientEntity = new CategoryDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
 
             mockRepository.Setup(p => p.InsertEntity(serverEntity, true)).ReturnsAsync(serverEntity);
@@ -90,7 +90,7 @@ namespace JobService.UnitTests
         [Test]
         public void UpdateCategory_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var serverEntity = TestCategories().First();
+            var serverEntity = GetTestEntities().First();
             var clientEntity = new CategoryDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
 
             Category entity = null;
@@ -103,7 +103,7 @@ namespace JobService.UnitTests
         [Test]
         public void UpdateCategory_EntityShouldBeUpdatedSuccessfully()
         {
-            var serverEntity = TestCategories().First();
+            var serverEntity = GetTestEntities().First();
             var clientEntity = new CategoryDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
 
             mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(serverEntity);
@@ -125,7 +125,7 @@ namespace JobService.UnitTests
         [Test]
         public void DeleteCategoryById_EntityShouldBeDeletedSuccessfully()
         {
-            var serverEntity = TestCategories().First();
+            var serverEntity = GetTestEntities().First();
             var entityId = Guid.NewGuid();
             mockRepository.Setup(p => p.GetEntityByID(entityId)).ReturnsAsync(serverEntity);
             mockRepository.Setup(p => p.DeleteEntity(entityId, true));
@@ -135,7 +135,7 @@ namespace JobService.UnitTests
             response.Should().NotBeNull();
         }
 
-        List<Category> TestCategories()
+        List<Category> GetTestEntities()
         {
             return new List<Category>()
                         {

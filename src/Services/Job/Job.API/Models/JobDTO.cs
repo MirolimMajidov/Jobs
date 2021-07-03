@@ -16,7 +16,7 @@ namespace JobService.Models
 
         public JobDuration Duration { get; set; }
 
-        public Guid CreatedByUserId { get; set; }
+        public Guid? CreatedByUserId { get; set; }
 
         public string CreatedByUserName { get; set; }
 
