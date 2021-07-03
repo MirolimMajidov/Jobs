@@ -14,9 +14,12 @@ namespace PaymentService.DataProvider
 
         public JobsContext(IOptions<DatabaseConfiguration> settings)
         {
-            _settings = settings.Value;
-            var client = new MongoClient(_settings.ConnectionString);
-            _database = client.GetDatabase(_settings.DatabaseName);
+            if (settings != null)
+            {
+                _settings = settings.Value;
+                var client = new MongoClient(_settings.ConnectionString);
+                _database = client.GetDatabase(_settings.DatabaseName);
+            }
         }
 
         private IEntityRepository<Payment> _paymentRepository;
@@ -33,6 +36,12 @@ namespace PaymentService.DataProvider
 
                 return _paymentRepository;
             }
+#if DEBUG
+            set
+            {
+                _paymentRepository = value;
+            }
+#endif
         }
     }
 }
