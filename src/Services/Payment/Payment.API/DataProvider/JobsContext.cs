@@ -7,7 +7,7 @@ using Jobs.Service.Common.Repository;
 
 namespace PaymentService.DataProvider
 {
-    public class JobsContext
+    public class JobsContext : IJobsContext
     {
         private readonly IMongoDatabase _database;
         private readonly DatabaseConfiguration _settings;

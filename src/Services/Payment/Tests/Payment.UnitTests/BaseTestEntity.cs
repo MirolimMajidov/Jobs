@@ -1,17 +1,38 @@
-﻿using System;
+﻿using AutoMapper;
+using Jobs.Common.Models;
+using Jobs.Service.Common.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+using PaymentService.DataProvider;
+using PaymentService.Models;
+using System;
 
-namespace Payment.UnitTests
+namespace PaymentService.UnitTests
 {
-    public class BaseTestEntity : IDisposable
+    public class BaseTestEntity<TEntity, TController>
+        where TEntity : IEntity
+        where TController : ControllerBase
     {
+        protected Mock<IEntityRepository<TEntity>> mockRepository;
+        protected Mock<IMapper> mockMapper;
+        protected TController controller;
+
         public BaseTestEntity()
         {
-            // Setup here
+            mockRepository = new Mock<IEntityRepository<TEntity>>();
+            mockMapper = new Mock<IMapper>();
+            var context = new Mock<IJobsContext>();
+            if (mockRepository.Object is IEntityRepository<Payment> repository)
+                context.Setup(c => c.PaymentRepository).Returns(repository);
+
+            controller = (TController)Activator.CreateInstance(typeof(TController), context.Object, mockMapper.Object);
         }
 
         public void Dispose()
         {
-            // Cleanup here
+            mockRepository = null;
+            mockMapper = null;
+            controller = null;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PaymentService.Controllers
     [Route("api/[controller]")]
     public class PaymentController : BaseController<Payment, PaymentDTO>
     {
-        public PaymentController(JobsContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
+        public PaymentController(IJobsContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
 
         public override async Task<RequestModel> Post([FromBody] PaymentDTO entity)
         {
