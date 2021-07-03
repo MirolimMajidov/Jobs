@@ -34,7 +34,7 @@ namespace PaymentService.UnitTests
         public void GetPaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
             var response = controller.Get(Guid.NewGuid()).Result;
-            response.ErrorId.Equals(404);
+            Assert.Equal(404, response.ErrorId);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace PaymentService.UnitTests
             mockMapper.Setup(p => p.Map<PaymentDTO>(serverEntity)).Returns(clientEntity);
 
             var response = controller.Get(serverEntity.Id).Result;
-            response.ErrorId.Equals(0);
+            Assert.Equal(0, response.ErrorId);
             response.Should().NotBeNull();
 
             var entityFromServer = response.Result as PaymentDTO;
@@ -58,7 +58,7 @@ namespace PaymentService.UnitTests
         public void CreatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
             var response = controller.Create(null).Result;
-            response.ErrorId.Equals(400);
+            Assert.Equal(400, response.ErrorId);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace PaymentService.UnitTests
             mockMapper.Setup(p => p.Map<PaymentDTO>(serverEntity)).Returns(clientEntity);
 
             var response = controller.Create(clientEntity).Result;
-            response.ErrorId.Equals(0);
+            Assert.Equal(0, response.ErrorId);
             response.Should().NotBeNull();
 
             var entityFromServer = response.Result as PaymentDTO;
@@ -83,11 +83,11 @@ namespace PaymentService.UnitTests
         public void UpdatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
             var response = controller.Update(null).Result;
-            response.ErrorId.Equals(400);
+            Assert.Equal(501, response.ErrorId);
         }
 
         [Fact]
-        public void UpdatePayment_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public void UpdatePayment_ThereShouldBeErrorMessage_BecauseWeWillNotSupportUpdaingPaymentInfo()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new PaymentDTO() { Id = serverEntity.Id, Amount = serverEntity.Amount, Sender = serverEntity.Sender };
@@ -96,29 +96,14 @@ namespace PaymentService.UnitTests
             mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(entity);
 
             var response = controller.Update(clientEntity).Result;
-            response.ErrorId.Equals(404);
-        }
-
-        [Fact]
-        public void UpdatePayment_EntityShouldBeUpdatedSuccessfully()
-        {
-            var serverEntity = GetTestEntities().First();
-            var clientEntity = new PaymentDTO() { Id = serverEntity.Id, Amount = serverEntity.Amount, Sender = serverEntity.Sender };
-
-            mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(serverEntity);
-            mockMapper.Setup(p => p.Map(clientEntity, serverEntity)).Returns(serverEntity);
-            mockRepository.Setup(p => p.UpdateEntity(serverEntity, true));
-
-            var response = controller.Update(clientEntity).Result;
-            response.ErrorId.Equals(0);
-            response.Should().NotBeNull();
+            Assert.Equal(501, response.ErrorId);
         }
 
         [Fact]
         public void DeletePaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
             var response = controller.Delete(Guid.NewGuid()).Result;
-            response.ErrorId.Equals(404);
+            response.ErrorId.Should().Be(404);
         }
 
         [Fact]
@@ -130,12 +115,12 @@ namespace PaymentService.UnitTests
             mockRepository.Setup(p => p.DeleteEntity(entityId, true));
 
             var response = controller.Delete(entityId).Result;
-            response.ErrorId.Equals(0);
+            response.ErrorId.Should().Be(0);
             response.Should().NotBeNull();
         }
 
         [Fact]
-        public void GetJobByCategoryId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
+        public void GetPaymentByUserId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
         {
             List<Payment> entities = GetTestEntities();
             IEnumerable<PaymentDTO> dtoEntities = entities.Select(u => new PaymentDTO { Id = u.Id, Amount = u.Amount, Sender = u.Sender });
@@ -146,7 +131,7 @@ namespace PaymentService.UnitTests
 
             var response = controller.GetPaymentsByUserId(Guid.NewGuid()).Result;
             response.Should().NotBeNull();
-            response.ErrorId.Should().Equals(0);
+            response.ErrorId.Should().Be(0);
 
             var entitiesFromServer = response.Result as IEnumerable<PaymentDTO>;
             entitiesFromServer.Should().NotBeNull();
@@ -154,7 +139,7 @@ namespace PaymentService.UnitTests
         }
 
         [Fact]
-        public void GetJobByCategoryId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
+        public void GetPaymentByUserId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
         {
             var userId = Guid.NewGuid();
             List<Payment> entities = GetTestEntities();

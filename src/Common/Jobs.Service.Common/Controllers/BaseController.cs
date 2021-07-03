@@ -56,7 +56,7 @@ namespace Jobs.Service.Common.Controllers
         [HttpPost]
         [SwaggerOperation(Summary = "To add a new item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's added successfully", typeof(RequestModel))]
-        [SwaggerResponse(400, "Entity can'tbe null", typeof(RequestModel))]
+        [SwaggerResponse(400, "Entity can't be null", typeof(RequestModel))]
         public virtual async Task<RequestModel> Create([FromBody] TEntityDTO entity)
         {
             if (entity == null)
