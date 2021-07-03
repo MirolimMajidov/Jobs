@@ -74,13 +74,9 @@ namespace IdentityService
 
         private static IConfigurationRoot GetConfiguration()
         {
-            var fileName = "appsettings.json";
-#if DEBUG
-            fileName = "appsettings.Development.json";
-#endif   
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(fileName, false, true)
+                .AddJsonFile("appsettings.json", false, true)
                 .AddEnvironmentVariables()
                 .Build();
         }

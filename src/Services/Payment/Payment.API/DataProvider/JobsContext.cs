@@ -7,19 +7,16 @@ using Jobs.Service.Common.Repository;
 
 namespace PaymentService.DataProvider
 {
-    public class JobsContext
+    public class JobsContext : IJobsContext
     {
         private readonly IMongoDatabase _database;
         private readonly DatabaseConfiguration _settings;
 
         public JobsContext(IOptions<DatabaseConfiguration> settings)
         {
-            if (settings != null)
-            {
-                _settings = settings.Value;
-                var client = new MongoClient(_settings.ConnectionString);
-                _database = client.GetDatabase(_settings.DatabaseName);
-            }
+            _settings = settings.Value;
+            var client = new MongoClient(_settings.ConnectionString);
+            _database = client.GetDatabase(_settings.DatabaseName);
         }
 
         private IEntityRepository<Payment> _paymentRepository;
@@ -36,12 +33,6 @@ namespace PaymentService.DataProvider
 
                 return _paymentRepository;
             }
-#if DEBUG
-            set
-            {
-                _paymentRepository = value;
-            }
-#endif
         }
     }
 }

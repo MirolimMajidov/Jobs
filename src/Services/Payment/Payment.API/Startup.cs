@@ -41,7 +41,7 @@ namespace PaymentService
                 options.PaymentsName = databaseInfo.PaymentsName;
                 options.ConnectionString = Configuration["ConnectionString"];
             });
-            services.AddScoped<JobsContext>();
+            services.AddScoped<IJobsContext, JobsContext>();
             services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();

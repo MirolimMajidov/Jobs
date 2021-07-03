@@ -15,16 +15,15 @@ namespace PaymentService.UnitTests
     {
         protected Mock<IEntityRepository<TEntity>> mockRepository;
         protected Mock<IMapper> mockMapper;
-        protected Mock<JobsContext> context;
         protected TController controller;
 
         public BaseTestEntity()
         {
             mockRepository = new Mock<IEntityRepository<TEntity>>();
             mockMapper = new Mock<IMapper>();
-            context = new Mock<JobsContext>(null);
+            var context = new Mock<IJobsContext>();
             if (mockRepository.Object is IEntityRepository<Payment> repository)
-                context.Object.PaymentRepository = repository;
+                context.Setup(c => c.PaymentRepository).Returns(repository);
 
             controller = (TController)Activator.CreateInstance(typeof(TController), context.Object, mockMapper.Object);
         }
