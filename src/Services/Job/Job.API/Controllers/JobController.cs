@@ -41,7 +41,7 @@ namespace JobService.Controllers
 
         [AllowAnonymous]
         [HttpGet("{categoryId}")]
-        [SwaggerOperation(Summary = "To get job by category Id")]
+        [SwaggerOperation(Summary = "To get jobs by category Id")]
         [SwaggerResponse(200, "Return the found items if it's finished successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> GetJobsByCategoryId(Guid categoryId)
         {
