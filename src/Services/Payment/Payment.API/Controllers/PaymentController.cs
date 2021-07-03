@@ -14,16 +14,16 @@ namespace PaymentService.Controllers
     {
         public PaymentController(IJobsContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
 
-        public override async Task<RequestModel> Post([FromBody] PaymentDTO entity)
+        public override async Task<RequestModel> Create([FromBody] PaymentDTO entity)
         {
             entity.UserId = User.GetUserId();
             entity.UserName = User.GetUserName();
 
-            return await base.Post(entity);
+            return await base.Create(entity);
         }
 
         [SwaggerResponse(501, "We will not support updating paymnet's information", typeof(RequestModel))]
-        public override async Task<RequestModel> Put([FromBody] PaymentDTO entity)
+        public override async Task<RequestModel> Update([FromBody] PaymentDTO entity)
         {
             return await RequestModel.ErrorRequestAsync("We will not support updating paymnet's information", 501);
         }
