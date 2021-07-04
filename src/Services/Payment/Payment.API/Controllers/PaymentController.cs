@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Jobs.Service.Common.Controllers;
-using Jobs.Service.Common.Helpers;
+using Jobs.Service.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentService.DataProvider;

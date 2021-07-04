@@ -1,8 +1,6 @@
-﻿using Jobs.Common.Helpers;
-using Microsoft.Extensions.DependencyInjection;
-using Jobs.Service.Common.Helpers;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Jobs.Service.Common.Configurations
+namespace Jobs.Service.Common
 {
     public static class PolicesExtensions
     {

@@ -1,5 +1,5 @@
 ﻿using IdentityService.Models;
-using Jobs.Common.Models;
+using Jobs.Service.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 

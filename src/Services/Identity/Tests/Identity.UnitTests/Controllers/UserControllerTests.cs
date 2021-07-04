@@ -1,14 +1,14 @@
 ﻿using FluentAssertions;
 using IdentityService.Controllers;
 using IdentityService.Models;
-using Jobs.Common.Helpers;
+using Jobs.Service.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Identity.UnitTests
+namespace IdentityService.UnitTests
 {
     [TestClass]
     public class UserControllerTests : BaseTestEntity<User, UserController>

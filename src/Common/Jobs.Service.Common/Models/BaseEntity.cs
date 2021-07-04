@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Jobs.Common.Models
+namespace Jobs.Service.Common
 {
     /// <summary>
     /// Root entity of all entities

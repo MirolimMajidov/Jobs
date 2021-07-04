@@ -1,4 +1,4 @@
-﻿using Jobs.Common.Models;
+﻿using Jobs.Service.Common;
 using System.Collections.Generic;
 
 namespace JobService.Models

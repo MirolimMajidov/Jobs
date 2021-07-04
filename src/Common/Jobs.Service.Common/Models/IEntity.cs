@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jobs.Common.Models
+namespace Jobs.Service.Common
 {
     /// <summary>
     /// An interface for all entities

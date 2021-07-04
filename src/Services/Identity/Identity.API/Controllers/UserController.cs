@@ -1,13 +1,11 @@
-﻿using IdentityService.Models;
+﻿using AutoMapper;
+using EventBus.RabbitMQ;
+using IdentityService.Models;
+using IdentityService.RabbitMQEvents.Events;
+using Jobs.Service.Common;
 using Microsoft.AspNetCore.Mvc;
-using Jobs.Service.Common.Controllers;
-using Jobs.Service.Common.Helpers;
-using Jobs.Service.Common.Repository;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Threading.Tasks;
-using EventBus.RabbitMQ;
-using IdentityService.RabbitMQEvents.Events;
-using AutoMapper;
 
 namespace IdentityService.Controllers
 {

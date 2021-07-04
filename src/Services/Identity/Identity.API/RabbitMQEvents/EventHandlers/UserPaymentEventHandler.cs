@@ -1,7 +1,7 @@
 ﻿using EventBus.RabbitMQ;
 using IdentityService.Models;
 using IdentityService.RabbitMQEvents.Events;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 

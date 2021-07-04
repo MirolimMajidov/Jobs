@@ -1,10 +1,9 @@
-﻿using Jobs.Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jobs.Service.Common.Repository
+namespace Jobs.Service.Common
 {
     public interface IEntityRepository<TEntity> where TEntity : IEntity
     {

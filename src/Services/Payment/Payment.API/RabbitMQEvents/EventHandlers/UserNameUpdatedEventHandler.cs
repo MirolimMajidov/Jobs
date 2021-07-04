@@ -1,5 +1,5 @@
 ﻿using EventBus.RabbitMQ;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using Microsoft.Extensions.Logging;
 using PaymentService.DataProvider;
 using PaymentService.Models;

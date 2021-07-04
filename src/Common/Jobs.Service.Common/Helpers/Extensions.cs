@@ -1,5 +1,4 @@
-﻿using Jobs.Common.Helpers;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,10 +6,21 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
-namespace Jobs.Service.Common.Helpers
+namespace Jobs.Service.Common
 {
     public static class Extensions
     {
+        public static bool IsNullOrEmpty(this string str)
+        {
+            return string.IsNullOrEmpty(str);
+        }
+
+        public static string ToLowerFirstChar(this string value)
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+            return char.ToLowerInvariant(value[0]) + value.Substring(1);
+        }
+
         /// <summary>
         /// This is for get user Id from User of Context
         /// </summary>

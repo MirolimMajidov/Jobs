@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Jobs.Common.Helpers;
+using Jobs.Service.Common;
 using JobService.Controllers;
 using JobService.Models;
 using Moq;

@@ -1,5 +1,4 @@
-﻿using Jobs.Common.Helpers;
-using Jobs.Common.Models;
+﻿using Jobs.Service.Common;
 
 namespace IdentityService.Models
 {

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Jobs.Service.Common;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using PaymentService.Configurations;
 using PaymentService.Models;
 using PaymentService.Repository;
-using Jobs.Service.Common.Repository;
 
 namespace PaymentService.DataProvider
 {

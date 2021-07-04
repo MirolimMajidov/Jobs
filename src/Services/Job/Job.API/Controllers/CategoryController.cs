@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Jobs.Service.Common.Controllers;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using JobService.Models;
 using Microsoft.AspNetCore.Mvc;
 

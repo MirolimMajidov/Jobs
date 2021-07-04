@@ -1,4 +1,4 @@
-﻿using Jobs.Common.Helpers;
+﻿using Jobs.Service.Common;
 using JobService.Models;
 using Microsoft.Extensions.Logging;
 using System;

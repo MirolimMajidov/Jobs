@@ -1,5 +1,4 @@
-﻿using Jobs.Common.Models;
-using Jobs.Service.Common.Repository;
+﻿using Jobs.Service.Common;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;

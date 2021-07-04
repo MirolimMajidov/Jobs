@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 
-namespace Jobs.Service.Common.Configurations
+namespace Jobs.Service.Common
 {
     public static class SwaggerExtensions
     {

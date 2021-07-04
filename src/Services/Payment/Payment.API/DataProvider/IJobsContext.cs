@@ -1,4 +1,4 @@
-﻿using Jobs.Service.Common.Repository;
+﻿using Jobs.Service.Common;
 using PaymentService.Models;
 
 namespace PaymentService.DataProvider

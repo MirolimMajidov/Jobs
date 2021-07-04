@@ -1,6 +1,5 @@
 ﻿using IdentityService.DataProvider;
-using Jobs.Common.Models;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

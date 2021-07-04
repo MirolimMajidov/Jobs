@@ -1,9 +1,8 @@
-using Jobs.Common.Helpers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Jobs.Service.Common.Helpers
+namespace Jobs.Service.Common
 {
     public class RequestModel
     {

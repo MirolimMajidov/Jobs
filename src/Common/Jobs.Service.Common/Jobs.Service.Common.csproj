@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventBus.RabbitMQ\EventBus.RabbitMQ.csproj" />
-    <ProjectReference Include="..\Jobs.Common\Jobs.Common.csproj" />
   </ItemGroup>
 
 </Project>

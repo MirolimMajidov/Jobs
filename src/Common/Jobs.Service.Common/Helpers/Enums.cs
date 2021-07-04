@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Jobs.Common.Helpers
+namespace Jobs.Service.Common
 {
     public enum UserRole
     {
