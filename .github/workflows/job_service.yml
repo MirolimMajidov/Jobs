@@ -18,9 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --logger trx --results-directory "TestResults"
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v2
-        with:
-           name: dotnet-results
-           path: TestResults
+      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --logger
