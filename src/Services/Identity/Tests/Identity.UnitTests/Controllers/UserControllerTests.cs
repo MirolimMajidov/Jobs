@@ -50,7 +50,6 @@ namespace IdentityService.UnitTests
 
             var response = controller.Get(serverEntity.Id).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as UserDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -85,7 +84,6 @@ namespace IdentityService.UnitTests
 
             var response = controller.Create(clientEntity).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as UserDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -123,7 +121,6 @@ namespace IdentityService.UnitTests
 
             var response = controller.Update(clientEntity).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
         }
 
         [TestMethod]
@@ -143,7 +140,6 @@ namespace IdentityService.UnitTests
 
             var response = controller.Delete(entityId).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
         }
 
         List<User> GetTestEntities()

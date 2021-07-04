@@ -48,7 +48,6 @@ namespace PaymentService.UnitTests
 
             var response = controller.Get(serverEntity.Id).Result;
             Assert.Equal(0, response.ErrorId);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as PaymentDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -73,7 +72,6 @@ namespace PaymentService.UnitTests
 
             var response = controller.Create(clientEntity).Result;
             Assert.Equal(0, response.ErrorId);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as PaymentDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -116,7 +114,6 @@ namespace PaymentService.UnitTests
 
             var response = controller.Delete(entityId).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
         }
 
         [Fact]
