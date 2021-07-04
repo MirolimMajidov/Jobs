@@ -7,6 +7,16 @@ on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
     branches: [ master ]
+    paths:
+    - src/**
+    - .github/workflows/docker_service.yml
+
+  pull_request:
+    branches: [ master ]
+    paths:
+    - src/**
+    - .github/workflows/docker_service.yml
+
 
 env:
   REGISTRY: mirolimmajidov
