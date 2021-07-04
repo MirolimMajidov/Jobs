@@ -18,4 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --logger "trx;LogFileName=abc.trx"
+      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --logger "trx;LogFileName=abc.trx" --blame
