@@ -18,4 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --logger "console;" --blame
+      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --logger "console;verbosity=detailed" --blame

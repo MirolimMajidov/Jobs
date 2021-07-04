@@ -20,4 +20,4 @@ jobs:
     - name: Build
       run: dotnet build src/Services/Identity/IdentityService.sln --configuration Debug --no-restore
     - name: Run tests
-      run: dotnet test src/Services/Identity/IdentityService.sln
+      run: dotnet test src/Services/Identity/IdentityService.sln --logger "console;verbosity=detailed" --blame
