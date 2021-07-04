@@ -18,4 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj --logger "console;verbosity=detailed" --blame

@@ -14,8 +14,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: '5.0.x'
     - name: Restore dependencies
       run: dotnet restore src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --logger "console;verbosity=detailed" --blame

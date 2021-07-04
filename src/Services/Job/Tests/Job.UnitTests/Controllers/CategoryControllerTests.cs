@@ -49,7 +49,6 @@ namespace JobService.UnitTests
 
             var response = controller.Get(serverEntity.Id).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as CategoryDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -74,7 +73,6 @@ namespace JobService.UnitTests
 
             var response = controller.Create(clientEntity).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
 
             var entityFromServer = response.Result as CategoryDTO;
             entityFromServer.Should().Be(clientEntity);
@@ -112,7 +110,6 @@ namespace JobService.UnitTests
 
             var response = controller.Update(clientEntity).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
         }
 
         [Test]
@@ -132,7 +129,6 @@ namespace JobService.UnitTests
 
             var response = controller.Delete(entityId).Result;
             response.ErrorId.Should().Be(0);
-            response.Should().NotBeNull();
         }
 
         List<Category> GetTestEntities()

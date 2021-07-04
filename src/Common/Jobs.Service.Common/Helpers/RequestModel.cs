@@ -41,17 +41,9 @@ namespace Jobs.Service.Common
             return await ErrorRequestAsync(error, errorId);
         }
 
-        public static string GenaretJson(object textJson)
+        public static string GenaretJson(object model)
         {
-            return JsonConvert.SerializeObject(textJson, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, ContractResolver = new CamelCasePropertyNamesContractResolver() });
-        }
-    }
-
-    public static class RequestModelExtensions
-    {
-        public static string GenaretJson(this RequestModel requestModel)
-        {
-            return RequestModel.GenaretJson(requestModel);
+            return JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore, ContractResolver = new CamelCasePropertyNamesContractResolver() });
         }
     }
 }

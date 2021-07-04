@@ -42,7 +42,9 @@ namespace IdentityService
             sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
-            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
+
+            int eventBusRetryCount = Configuration.GetSection("Environment").Value == "Test" ? 0 : int.Parse(Configuration["EventBusRetryCount"]);
+            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], eventBusRetryCount);
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
@@ -69,6 +71,7 @@ namespace IdentityService
             app.UseSwaggerDocs();
             app.UseRouting();
             app.UseAuthorization();
+
             app.UseEventBus();
 
             app.UseEndpoints(endpoints =>

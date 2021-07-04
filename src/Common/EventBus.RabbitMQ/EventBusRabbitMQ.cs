@@ -27,6 +27,8 @@ namespace EventBus.RabbitMQ
         private IModel _consumerChannel;
         private string _queueName;
 
+        private bool canConnecte => _connection.RetryCount > 0;
+
         public EventBusRabbitMQ(IRabbitMQConnection connection, IEventBusSubscriptionsManager subscriptionsManager, ILifetimeScope autofac, ILogger<EventBusRabbitMQ> logger, string queueName)
         {
             _subscriptionsManager = subscriptionsManager;
@@ -34,7 +36,7 @@ namespace EventBus.RabbitMQ
             _autofac = autofac;
             _logger = logger;
             _queueName = queueName;
-            _consumerChannel = CreateConsumerChannel();
+            _consumerChannel = canConnecte ? null : CreateConsumerChannel();
 
             _subscriptionsManager.OnEventRemoved += SubscriptionsManager_OnEventRemoved;
         }
@@ -42,6 +44,8 @@ namespace EventBus.RabbitMQ
         /// <summary/>
         public void Publish(RabbitMQEvent @event)
         {
+            if (!canConnecte) return;
+
             OpenRabbitMQConnectionIfItIsNotOpened();
 
             var policy = Policy.Handle<BrokerUnreachableException>().Or<SocketException>()
@@ -78,6 +82,8 @@ namespace EventBus.RabbitMQ
             where TEvent : RabbitMQEvent
             where TEventHandler : IRabbitMQEventHandler<TEvent>
         {
+            if (!canConnecte) return;
+
             var eventName = _subscriptionsManager.GetEventKey<TEvent>();
             if (!_subscriptionsManager.HasSubscription(eventName))
             {
@@ -98,6 +104,8 @@ namespace EventBus.RabbitMQ
             where TEvent : RabbitMQEvent
             where TEventHandler : IRabbitMQEventHandler<TEvent>
         {
+            if (!canConnecte) return;
+
             var eventName = _subscriptionsManager.GetEventKey<TEvent>();
             _logger.LogTrace("Unsubscribing from event {EventName}", eventName);
 
@@ -111,6 +119,8 @@ namespace EventBus.RabbitMQ
         private IModel CreateConsumerChannel()
         {
             OpenRabbitMQConnectionIfItIsNotOpened();
+
+            if (!_connection.IsConnected) return null;
 
             _logger.LogTrace("Creating RabbitMQ consumer channel");
 
@@ -220,7 +230,14 @@ namespace EventBus.RabbitMQ
         void OpenRabbitMQConnectionIfItIsNotOpened()
         {
             if (!_connection.IsConnected)
-                _connection.TryConnect();
+            {
+                try
+                {
+                    _connection.TryConnect();
+                }
+                catch (Exception)
+                { }
+            }
         }
 
         /// <summary>
