@@ -22,6 +22,7 @@ namespace IdentityService.FunctionalTests
             var path = Assembly.GetAssembly(typeof(Startup)).Location;
 
             var hostBuilder = new WebHostBuilder()
+                .UseEnvironment("Test")
                 .UseContentRoot(Path.GetDirectoryName(path))
                 .ConfigureAppConfiguration(contextBuilder =>
                 {

@@ -69,7 +69,9 @@ namespace IdentityService
             app.UseSwaggerDocs();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEventBus();
+
+            if (!env.IsEnvironment("Test"))
+                app.UseEventBus();
 
             app.UseEndpoints(endpoints =>
             {

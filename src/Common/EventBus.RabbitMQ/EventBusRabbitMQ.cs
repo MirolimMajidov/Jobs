@@ -112,6 +112,8 @@ namespace EventBus.RabbitMQ
         {
             OpenRabbitMQConnectionIfItIsNotOpened();
 
+            if (!_connection.IsConnected) return null;
+
             _logger.LogTrace("Creating RabbitMQ consumer channel");
 
             var channel = _connection.CreateModel();
@@ -220,7 +222,14 @@ namespace EventBus.RabbitMQ
         void OpenRabbitMQConnectionIfItIsNotOpened()
         {
             if (!_connection.IsConnected)
-                _connection.TryConnect();
+            {
+                try
+                {
+                    _connection.TryConnect();
+                }
+                catch (Exception)
+                { }
+            }
         }
 
         /// <summary>
