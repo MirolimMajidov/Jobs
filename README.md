@@ -29,7 +29,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">2.</td>
-        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with MSTest)</td>
+        <td>Identity API (JWT Token, NLog logging, FW Core, gRPC, CRUD by MySQL, RabbitMQ, FluentValidation, DTO, AutoMapper, Functionality and Unit testing with MSTest)</td>
         <td>Identity management service</td>
         <td>
             <a href="https://github.com/MirolimMajidov/Jobs/actions?query=workflow%3AIdentity%20service">
