@@ -16,8 +16,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore src/Services/Identity/IdentityService.sln
-    - name: Build
-      run: dotnet build src/Services/Identity/IdentityService.sln --configuration Debug --no-restore
+      run: dotnet restore src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Identity/IdentityService.sln --logger "console;verbosity=detailed" --blame
+      run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj --logger "console;verbosity=detailed" --blame
