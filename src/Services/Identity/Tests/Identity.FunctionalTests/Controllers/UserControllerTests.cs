@@ -12,8 +12,10 @@ namespace IdentityService.FunctionalTests
     [TestClass]
     public class UserControllerTests : BaseTestEntity
     {
+        private readonly string BaseApiUri = "api/user";
+
         [TestMethod]
-        public async Task GetAllCategories_ResponseDataShouldContainAllCreatedEntities()
+        public async Task GetAllUsers_ResponseDataShouldContainAllCreatedEntities()
         {
             var httpResponse = await Client.GetAsync(BaseApiUri);
             var response = await httpResponse.GetResponseModel();

@@ -13,7 +13,6 @@ namespace IdentityService.FunctionalTests
 {
     public abstract class BaseTestEntity
     {
-        protected const string BaseApiUri = "api/user";
         protected TestServer Server; 
         protected HttpClient Client;
 
