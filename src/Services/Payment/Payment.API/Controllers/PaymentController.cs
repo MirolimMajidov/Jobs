@@ -34,7 +34,7 @@ namespace PaymentService.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("{userId}")]
+        [HttpGet("PaymentsByUserId/{userId}")]
         [SwaggerOperation(Summary = "To get payments by user Id")]
         [SwaggerResponse(200, "Return the found payments if it's finished successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> GetPaymentsByUserId(Guid userId)
