@@ -16,6 +16,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore IdentityService.sln
+      run: dotnet restore src/Services/Identity/IdentityService.sln
     - name: Run tests
-      run: dotnet test IdentityService.sln --no-restore --verbosity normal
+      run: dotnet test src/Services/Identity/IdentityService.sln --no-restore --verbosity normal
