@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jobs.Service.Common.Infrastructure.Exceptions
+namespace Jobs.Service.Common
 {
     public class JobsException : Exception
     {

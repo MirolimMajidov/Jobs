@@ -7,7 +7,6 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /source
 
-COPY ["src/Common/Jobs.Common/Jobs.Common.csproj", "src/Common/Jobs.Common/Jobs.Common.csproj"]
 COPY ["src/Common/EventBus.RabbitMQ/EventBus.RabbitMQ.csproj", "src/Common/EventBus.RabbitMQ/EventBus.RabbitMQ.csproj"]
 COPY ["src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj", "src/Common/Jobs.Service.Common/Jobs.Service.Common.csproj"]
 COPY ["src/Services/Job/Job.API/Job.API.csproj", "src/Services/Job/Job.API/Job.API.csproj"]

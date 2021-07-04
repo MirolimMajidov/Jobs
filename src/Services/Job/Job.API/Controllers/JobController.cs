@@ -1,14 +1,12 @@
-﻿using JobService.Models;
+﻿using AutoMapper;
+using Jobs.Service.Common;
+using JobService.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Jobs.Service.Common.Controllers;
-using Jobs.Service.Common.Helpers;
-using Jobs.Service.Common.Repository;
-using System.Threading.Tasks;
-using AutoMapper;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
-using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JobService.Controllers
 {

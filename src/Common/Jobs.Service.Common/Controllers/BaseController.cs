@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using Jobs.Common.Models;
-using Jobs.Service.Common.Helpers;
-using Jobs.Service.Common.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Jobs.Service.Common.Controllers
+namespace Jobs.Service.Common
 {
     [Produces("application/json")]
     [ApiController]

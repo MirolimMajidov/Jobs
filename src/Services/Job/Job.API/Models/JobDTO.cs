@@ -1,5 +1,4 @@
-﻿using Jobs.Common.Helpers;
-using Jobs.Common.Models;
+﻿using Jobs.Service.Common;
 using System;
 
 namespace JobService.Models

@@ -1,5 +1,5 @@
 ﻿using EventBus.RabbitMQ;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using JobService.Models;
 using JobService.RabbitMQEvents.Events;
 using Microsoft.Extensions.Logging;

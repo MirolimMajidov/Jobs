@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
-using Jobs.Common.Models;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using PaymentService.DataProvider;

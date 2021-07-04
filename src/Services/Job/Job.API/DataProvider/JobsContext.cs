@@ -1,8 +1,6 @@
-﻿using Jobs.Common.Helpers;
-using Jobs.Common.Models;
+﻿using Jobs.Service.Common;
 using JobService.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace JobService.DataProvider

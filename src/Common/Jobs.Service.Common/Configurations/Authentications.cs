@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Jobs.Service.Common.Helpers;
 using System;
 
-namespace Jobs.Service.Common.Configurations
+namespace Jobs.Service.Common
 {
     public static class AuthenticationExtensions
     {

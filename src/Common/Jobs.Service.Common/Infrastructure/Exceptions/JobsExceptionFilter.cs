@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using Jobs.Service.Common.Helpers;
 using System.Net;
 
-namespace Jobs.Service.Common.Infrastructure.Exceptions
+namespace Jobs.Service.Common
 {
     public class JobsExceptionFilter : IExceptionFilter
     {

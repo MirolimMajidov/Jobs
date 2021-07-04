@@ -1,7 +1,6 @@
 ﻿using IdentityService.Models;
-using Jobs.Common.Helpers;
+using Jobs.Service.Common;
 using Microsoft.Extensions.Logging;
-using Jobs.Service.Common.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

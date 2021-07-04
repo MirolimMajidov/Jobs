@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Jobs.Service.Common.Configurations
+namespace Jobs.Service.Common
 {
     public static class NewtonsoftJsonExtensions
     {

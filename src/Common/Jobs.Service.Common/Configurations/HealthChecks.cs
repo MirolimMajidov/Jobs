@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Jobs.Service.Common.Infrastructure.HealthChecks;
 using System.Threading.Tasks;
 
-namespace Jobs.Service.Common.Configurations
+namespace Jobs.Service.Common
 {
     public static class HealthCheckExtensions
     {

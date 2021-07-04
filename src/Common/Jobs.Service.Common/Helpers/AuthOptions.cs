@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Jobs.Service.Common.Helpers
+namespace Jobs.Service.Common
 {
     public class AuthOptions
     {

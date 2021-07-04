@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Jobs.Service.Common.Infrastructure.HealthChecks
+namespace Jobs.Service.Common
 {
     public class MemoryHealthCheck : IHealthCheck
     {

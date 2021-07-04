@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Jobs.Service.Common.Helpers
+namespace Jobs.Service.Common
 {
     public static class Encryptor
     {

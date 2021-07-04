@@ -1,5 +1,4 @@
-﻿using Jobs.Common.Models;
-using Jobs.Service.Common.Repository;
+﻿using Jobs.Service.Common;
 using JobService.DataProvider;
 using Microsoft.EntityFrameworkCore;
 using System;

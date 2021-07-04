@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using EventBus.RabbitMQ;
 using IdentityService.Controllers;
-using Jobs.Common.Models;
-using Jobs.Service.Common.Repository;
+using Jobs.Service.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 
-namespace Identity.UnitTests
+namespace IdentityService.UnitTests
 {
     public abstract class BaseTestEntity<TEntity, TController>
         where TEntity : IEntity
