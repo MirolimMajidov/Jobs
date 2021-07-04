@@ -25,6 +25,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj
+      run: dotnet restore src/Services/Identity/Tests/Identity.FunctionalTests/Identity.FunctionalTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj --logger "console;verbosity=detailed" --blame
+      run: dotnet test src/Services/Identity/Tests/Identity.FunctionalTests/Identity.FunctionalTests.csproj --logger "console;verbosity=detailed" --blame

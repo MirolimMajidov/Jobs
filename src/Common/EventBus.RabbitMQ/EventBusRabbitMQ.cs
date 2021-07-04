@@ -36,7 +36,7 @@ namespace EventBus.RabbitMQ
             _autofac = autofac;
             _logger = logger;
             _queueName = queueName;
-            _consumerChannel = canConnecte ? null : CreateConsumerChannel();
+            _consumerChannel = canConnecte ? CreateConsumerChannel() : null;
 
             _subscriptionsManager.OnEventRemoved += SubscriptionsManager_OnEventRemoved;
         }

@@ -1,5 +1,5 @@
 ﻿using Grpc.Net.Client;
-using IdentityService.Protos;
+using IdentityClient.Protos;
 using System;
 using System.Threading.Tasks;
 
@@ -9,7 +9,7 @@ namespace TestGrpcClient
     {
         static async Task Main(string[] args)
         {
-            var grpcChannel = GrpcChannel.ForAddress("http://localhost:7101/");
+            var grpcChannel = GrpcChannel.ForAddress("http://localhost:5101/");
             var client = new User.UserClient(grpcChannel);
             using (var clientData = client.GetUsers(new UsersRequest()))
             {
