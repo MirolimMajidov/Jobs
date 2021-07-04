@@ -9,13 +9,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '5.0.x' ]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: ${{ matrix.dotnet-version }}
     - name: Restore dependencies
       run: dotnet restore src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
+      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-results-${{ matrix.dotnet-version }}
+        path: TestResults-${{ matrix.dotnet-version }}
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
