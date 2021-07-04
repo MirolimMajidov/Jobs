@@ -42,8 +42,8 @@ namespace IdentityService.FunctionalTests
         [TestCleanup]
         public void TearDown()
         {
-            Server.Dispose();
-            Client.Dispose();
+            Server?.Dispose();
+            Client?.Dispose();
             Server = null;
             Client = null;
         }
