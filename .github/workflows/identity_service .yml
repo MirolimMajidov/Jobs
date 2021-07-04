@@ -16,6 +16,6 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj
+      run: dotnet restore Jobs.sln
     - name: Run tests
-      run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test Jobs.sln --no-restore --verbosity normal
