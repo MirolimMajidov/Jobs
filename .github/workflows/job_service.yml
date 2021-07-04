@@ -24,5 +24,3 @@ jobs:
         with:
            name: dotnet-results
            path: TestResults
-          # Use always() to always run this step to publish test results when there are test failures
-          if: ${{ always() }}

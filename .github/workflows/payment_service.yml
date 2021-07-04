@@ -18,13 +18,4 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj --no-restore --verbosity normal
-    - name: Generate coverage report
-      run: |
-        cd src/Services/Payment/Tests/Payment.UnitTests/
-        dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
-    - name: Publish coverage report to coveralls.io
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: src/Services/Payment/Tests/Payment.UnitTests/TestResults/coverage.info 
+      run: dotnet test src/Services/Payment/Tests/Payment.UnitTests/Payment.UnitTests.csproj
