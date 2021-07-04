@@ -27,7 +27,7 @@ namespace EventBus.RabbitMQ
         private IModel _consumerChannel;
         private string _queueName;
 
-        private bool canConnecte => _connection.RetryCount > 0;
+        private bool canConnect => _connection.RetryCount > 0;
 
         public EventBusRabbitMQ(IRabbitMQConnection connection, IEventBusSubscriptionsManager subscriptionsManager, ILifetimeScope autofac, ILogger<EventBusRabbitMQ> logger, string queueName)
         {
@@ -36,7 +36,7 @@ namespace EventBus.RabbitMQ
             _autofac = autofac;
             _logger = logger;
             _queueName = queueName;
-            _consumerChannel = canConnecte ? CreateConsumerChannel() : null;
+            _consumerChannel = canConnect ? CreateConsumerChannel() : null;
 
             _subscriptionsManager.OnEventRemoved += SubscriptionsManager_OnEventRemoved;
         }
@@ -44,7 +44,7 @@ namespace EventBus.RabbitMQ
         /// <summary/>
         public void Publish(RabbitMQEvent @event)
         {
-            if (!canConnecte) return;
+            if (!canConnect) return;
 
             OpenRabbitMQConnectionIfItIsNotOpened();
 
@@ -82,7 +82,7 @@ namespace EventBus.RabbitMQ
             where TEvent : RabbitMQEvent
             where TEventHandler : IRabbitMQEventHandler<TEvent>
         {
-            if (!canConnecte) return;
+            if (!canConnect) return;
 
             var eventName = _subscriptionsManager.GetEventKey<TEvent>();
             if (!_subscriptionsManager.HasSubscription(eventName))
@@ -104,7 +104,7 @@ namespace EventBus.RabbitMQ
             where TEvent : RabbitMQEvent
             where TEventHandler : IRabbitMQEventHandler<TEvent>
         {
-            if (!canConnecte) return;
+            if (!canConnect) return;
 
             var eventName = _subscriptionsManager.GetEventKey<TEvent>();
             _logger.LogTrace("Unsubscribing from event {EventName}", eventName);
