@@ -18,4 +18,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj
     - name: Run tests
-      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --no-restore --verbosity normal
+      run: dotnet test src/Services/Job/Tests/Job.UnitTests/Job.UnitTests.csproj --logger trx --results-directory "TestResults"
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
+        with:
+           name: dotnet-results
+           path: TestResults
+          # Use always() to always run this step to publish test results when there are test failures
+          if: ${{ always() }}
