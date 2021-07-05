@@ -38,7 +38,7 @@ The architecture proposes a microservice oriented architecture implementation wi
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Identity/Identity.API/Swagger/v1/docs.json">
-               View
+               APIs
             </a>
        </td>
     </tr>
@@ -53,7 +53,7 @@ The architecture proposes a microservice oriented architecture implementation wi
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Job/Job.API/Swagger/v1/docs.json">
-               View
+               APIs
             </a>
        </td>
     </tr>
@@ -68,7 +68,7 @@ The architecture proposes a microservice oriented architecture implementation wi
         </td>
         <td> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Payment/Payment.API/Swagger/v1/docs.json">
-               View
+               APIs
             </a>
        </td>
     </tr>
