@@ -75,7 +75,7 @@ The architecture proposes a microservice oriented architecture implementation wi
   </tbody>  
 </table>
 
-Each microservice has its own image with the latest code of master branch on my [Docker Hub](https://hub.docker.com/u/mirolimmajidov/) with :latest tag.
+Each microservice has its own docker image file with the latest code of master branch on my [Docker Hub](https://hub.docker.com/u/mirolimmajidov/) with :latest tag.
 
 ## Getting Started
 
