@@ -5,7 +5,7 @@ Jobs is a open source work marketplace application, powered by micro-services â˜
 
 ## Architecture overview
 
-The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and has one shared project to work with Repocitory and Controller for CRUD operations, but implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps, and supports asynchronous communication for data updates propagation across multiple services based on gRPC/HTTP2. All microservices are created with SOLID Design Principles and used some modern technologies. Also, configured CI/CD pipelines using Github Actions for building and testing the code and publishing docker image file to the Docker Hub.
+The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and has one shared project to work with Repocitory and Controller for CRUD operations, but implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps, and supports asynchronous communication for data updates propagation across multiple services based on gRPC/HTTP2. All microservices are based on SOLID design principles and used popular modern technologies. Also, configured CI/CD pipelines using Github Actions for building and testing the code and publishing docker image file to the Docker Hub.
 
 <center><img src="img/JobsArchitecture.png"/></center>
 
