@@ -75,6 +75,8 @@ The architecture proposes a microservice oriented architecture implementation wi
   </tbody>  
 </table>
 
+Each microservice has its own image with the latest code of master branch on my [Docker Hub](https://hub.docker.com/u/mirolimmajidov/) with :latest tag.
+
 ## Getting Started
 
 Make sure you have installed and configured [Docker for Windows](https://docs.docker.com/docker-for-windows/install/) in your machine. After that, you can run the below commands from the the main Jobs directory and get started with the `Jobs` immediately.
