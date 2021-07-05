@@ -36,7 +36,7 @@ The architecture proposes a microservice oriented architecture implementation wi
                 <img src="https://github.com/MirolimMajidov/Jobs/workflows/Identity%20service/badge.svg?branch=master">
             </a>
         </td>
-        <td> 
+        <td align="center"> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Identity/Identity.API/Swagger/v1/docs.json">
                APIs
             </a>
@@ -51,7 +51,7 @@ The architecture proposes a microservice oriented architecture implementation wi
                 <img src="https://github.com/MirolimMajidov/Jobs/workflows/Job%20service/badge.svg?branch=master">
             </a>
         </td>
-        <td> 
+        <td align="center"> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Job/Job.API/Swagger/v1/docs.json">
                APIs
             </a>
@@ -66,7 +66,7 @@ The architecture proposes a microservice oriented architecture implementation wi
                 <img src="https://github.com/MirolimMajidov/Jobs/workflows/Payment%20service/badge.svg?branch=master">
             </a>
         </td>
-        <td> 
+        <td align="center"> 
             <a href="https://petstore.swagger.io/?url=https://raw.githubusercontent.com/MirolimMajidov/Jobs/master/src/Services/Payment/Payment.API/Swagger/v1/docs.json">
                APIs
             </a>
