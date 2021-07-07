@@ -63,6 +63,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Entity can't be null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       },
@@ -98,6 +108,16 @@
         "responses": {
           "200": {
             "description": "Return OK if it's updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Entity can'tbe null",
             "content": {
               "application/json": {
                 "schema": {
@@ -239,6 +259,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Entity can't be null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       },
@@ -282,6 +312,16 @@
               }
             }
           },
+          "400": {
+            "description": "Entity can'tbe null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
           "404": {
             "description": "An item with the specified ID was not found",
             "content": {
@@ -302,6 +342,37 @@
         "responses": {
           "200": {
             "description": "Return list of found items if it's finished successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Job/JobsByCategoryId/{categoryId}": {
+      "get": {
+        "tags": [
+          "Job"
+        ],
+        "summary": "To get jobs by category Id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the found items if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -441,7 +512,8 @@
           },
           "createdByUserId": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "createdByUserName": {
             "type": "string",

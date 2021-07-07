@@ -45,6 +45,16 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Entity can't be null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
           }
         }
       },
@@ -98,6 +108,16 @@
               }
             }
           },
+          "400": {
+            "description": "Entity can'tbe null",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          },
           "404": {
             "description": "An item with the specified ID was not found",
             "content": {
@@ -118,6 +138,37 @@
         "responses": {
           "200": {
             "description": "Return list of found items if it's finished successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Payment/PaymentsByUserId/{userId}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "summary": "To get payments by user Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return the found payments if it's finished successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -231,7 +282,8 @@
           },
           "userId": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "nullable": true
           },
           "userName": {
             "type": "string",
