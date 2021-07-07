@@ -88,7 +88,7 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 You should be able to browse different components of the application by using the below URLs :
 <ul>
    <li><a href="http://localhost:7000/" rel="nofollow">API Gateway</a></li>
-   <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a></li>
+   <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a> | <a href="http://localhost:7101/" rel="nofollow">Identity service for gRPC</a></li>
    <li><a href="http://localhost:7002/" rel="nofollow">Jobs service</a></li>
    <li><a href="http://localhost:7003/" rel="nofollow">Payment service</a></li>
    <li><a href="http://localhost:7014/" rel="nofollow">RabbitMQ Management</a></li>
