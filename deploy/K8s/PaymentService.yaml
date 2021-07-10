@@ -21,7 +21,7 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionString
-              value: mongodb://payment-mongo-service
+              value: mongodb://payment-mongo-persistent
             - name: RabbitMQHostName
               value: rabbitmq-service
             - name: EventBusRetryCount

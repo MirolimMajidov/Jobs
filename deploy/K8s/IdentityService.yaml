@@ -21,7 +21,7 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionString
-              value: Server=identity-mysql-service; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
+              value: Server=identity-mysql-persistent; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
             - name: RabbitMQHostName
               value: rabbitmq-service
             - name: EventBusRetryCount
@@ -39,10 +39,6 @@ spec:
   type: ClusterIP
   selector:
     component: identity-api
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8001
   ports:
     - protocol: TCP
       port: 80

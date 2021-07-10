@@ -1,6 +1,6 @@
 echo "Deleting k8s services..."
 kubectl delete -f PaymentService.yaml
-kubectl create -f IdentityService.yaml
+kubectl delete -f IdentityService.yaml
 kubectl delete -f JobService.yaml
 kubectl delete -f OcelotApiGatewayService.yaml
 kubectl delete -f RabbitMQ.yaml
