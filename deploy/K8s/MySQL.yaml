@@ -3,11 +3,12 @@ kind: PersistentVolumeClaim
 metadata:
   name: identity-mysql-persistent
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 3Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -18,6 +19,8 @@ spec:
   selector:
     matchLabels:
       component: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -32,25 +35,25 @@ spec:
           image: mysql:5.7
           ports:
             - containerPort: 3306
-          volumeMounts:
-            - name: mysql-storage
-              mountPath: /var/opt/mysql
           env:
             - name: MYSQL_DATABASE
-              value: 'IdentityServiceDB'
+              value: "IdentityServiceDB"
             - name: MYSQL_USER
-              value: 'IdentityService'
+              value: "IdentityService"
             - name: MYSQL_PASSWORD
-              value: 'identity_service_password'
-            - name: MYSQL_RANDOM_ROOT_PASSWORD
-              value: 'identity_service_password'
+              value: "identity_service_password"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "identity_service_password"
+		  volumeMounts:
+			- name: mysql-storage
+			  mountPath: /var/lib/mysql
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: identity-mysql-service
 spec:
-  type: ClusterIP
+  clusterIP: None
   selector:
     component: mysql
   ports:

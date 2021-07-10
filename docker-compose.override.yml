@@ -33,7 +33,7 @@ services:
       MYSQL_DATABASE: IdentityServiceDB
       MYSQL_USER: IdentityService
       MYSQL_PASSWORD: 'identity_service_password'
-      MYSQL_RANDOM_ROOT_PASSWORD: 'identity_service_password'
+      MYSQL_ROOT_PASSWORD: 'identity_service_password'
     ports:
       - "7011:3306"
 

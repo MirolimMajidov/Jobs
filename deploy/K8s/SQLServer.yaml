@@ -7,7 +7,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 3Gi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,14 +32,16 @@ spec:
           image: mcr.microsoft.com/mssql/server:2019-latest
           ports:
             - containerPort: 1433
-          volumeMounts:
-            - name: mssql-storage
-              mountPath: /var/opt/mssql
           env:
+			- name: MSSQL_PID
+			  value: "Developer"
             - name: SA_PASSWORD
-              value: 'job_service_password'
+              value: "job_service_password"
             - name: ACCEPT_EULA
-              value: 'Y'
+              value: "Y
+      volumeMounts:
+        - name: mssql-storage
+          mountPath: /var/opt/mssql
 ---
 apiVersion: v1
 kind: Service
@@ -52,3 +54,4 @@ spec:
   ports:
     - port: 1433
       targetPort: 7012
+  type: LoadBalancer

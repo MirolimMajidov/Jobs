@@ -21,7 +21,7 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionString
-              value: Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
+              value: Server=job-mssql-service; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
             - name: RabbitMQHostName
               value: rabbitmq-service
             - name: EventBusRetryCount
