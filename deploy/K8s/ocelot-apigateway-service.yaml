@@ -8,8 +8,8 @@ spec:
     component: ocelotapigateway
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 80
+      targetPort: 8000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -27,7 +27,7 @@ spec:
       labels:
         component: ocelotapigateway
     spec:
-      containers:
+      containers: 
         - name: apigateway
           image: mirolimmajidov/ocelot.apigateway:latest
           ports:
