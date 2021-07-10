@@ -7,3 +7,6 @@ kubectl create -f PaymentService.yaml
 kubectl create -f IdentityService.yaml
 kubectl create -f JobService.yaml
 kubectl create -f OcelotApiGatewayService.yaml
+
+sleep 2
+echo "Completed"
