@@ -24,6 +24,8 @@ spec:
               value: mongodb://payment-mongo-service
             - name: RabbitMQHostName
               value: rabbitmq-service
+            - name: EventBusRetryCount
+              value: "0"
 ---
 apiVersion: v1
 kind: Service
