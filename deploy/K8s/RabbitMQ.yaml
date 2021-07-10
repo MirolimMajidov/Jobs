@@ -31,6 +31,8 @@ spec:
     - protocol: TCP
       port: 15672
       targetPort: 8014
+      name: defaultport1
     - protocol: TCP
       port: 5672
       targetPort: 8015
+      name: defaultport2
