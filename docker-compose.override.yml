@@ -70,6 +70,7 @@ services:
       - rabbitmq
 
   payment-mongoDB:
+    restart: always
     volumes:
       - jobs-mongoDB:/data/db
     ports:
