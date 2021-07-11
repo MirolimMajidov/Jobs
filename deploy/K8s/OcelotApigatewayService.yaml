@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ocelot-apigateway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: ocelotapigateway
+  template:
+    metadata:
+      labels:
+        component: ocelotapigateway
+    spec:
+      containers: 
+        - name: apigateway
+          image: mirolimmajidov/ocelot.apigateway:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Development
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ocelot-apigateway-service
+spec:
+  type: ClusterIP
+  selector:
+    component: ocelotapigateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000

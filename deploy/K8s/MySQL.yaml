@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: identity-mysql-volume
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 3Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: identity-mysql-persistent
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-mysql-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:5.7
+        env:
+            - name: MYSQL_DATABASE
+              value: "IdentityServiceDB"
+            - name: MYSQL_USER
+              value: "IdentityService"
+            - name: MYSQL_PASSWORD
+              value: "identity_service_password"
+            - name: MYSQL_ROOT_PASSWORD
+              value: "identity_service_password"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+            claimName: identity-mysql-persistent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-mysql-service
+spec:
+  ports:
+  - port: 3306
+    targetPort: 7011
+  selector:
+    app: mysql
+  clusterIP: None
