@@ -92,8 +92,6 @@ services:
     restart: always
     volumes:
       - jobs-redisDB:/data
-    ports:
-      - "6379:6379"
 
   rabbitmq:
     restart: always
@@ -103,4 +101,6 @@ services:
 
 volumes:
   jobs-mongoDB:
+    external: false
+  jobs-redisDB:
     external: false
