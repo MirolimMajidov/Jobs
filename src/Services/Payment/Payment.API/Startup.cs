@@ -40,8 +40,8 @@ namespace PaymentService
                 options.PaymentsName = databaseInfo.PaymentsName;
                 options.ConnectionString = Configuration["ConnectionString"];
             });
-            services.AddScoped<IJobsContext, JobsContext>();
-            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
+            services.AddScoped<IJobsMongoDBContext, JobsMongoDBContext>();
+            services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))

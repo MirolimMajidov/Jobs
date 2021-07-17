@@ -44,7 +44,7 @@ namespace IdentityService
             services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
             int eventBusRetryCount = Configuration.GetSection("Environment").Value == "Test" ? 0 : int.Parse(Configuration["EventBusRetryCount"]);
-            services.UseEventBusRabbitMQ(Configuration["RabbitMQHostName"], Configuration["SubscriptionClientName"], eventBusRetryCount);
+            services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], eventBusRetryCount);
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))

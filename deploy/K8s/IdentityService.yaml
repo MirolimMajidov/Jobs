@@ -22,7 +22,7 @@ spec:
               value: Development
             - name: ConnectionString
               value: Server=identity-mysql-persistent; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
-            - name: RabbitMQHostName
+            - name: RabbitMQConnection
               value: rabbitmq-service
             - name: EventBusRetryCount
               value: "0"

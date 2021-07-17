@@ -22,7 +22,7 @@ spec:
               value: Development
             - name: ConnectionString
               value: Server=job-mssql-persistent; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
-            - name: RabbitMQHostName
+            - name: RabbitMQConnection
               value: rabbitmq-service
             - name: EventBusRetryCount
               value: "0"

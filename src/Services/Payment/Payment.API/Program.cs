@@ -28,7 +28,7 @@ namespace PaymentService
                 var services = scope.ServiceProvider;
 
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                var dbContext = services.GetRequiredService<IJobsContext>() as JobsContext;
+                var dbContext = services.GetRequiredService<IJobsMongoDBContext>() as JobsMongoDBContext;
                 await dbContext.SeedAsync(logger);
 
                 await host.RunAsync();

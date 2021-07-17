@@ -19,7 +19,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQHostName=rabbitmq
+      - RabbitMQConnection=rabbitmq
       - ConnectionString=Server=identity-MySqlDB; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
       - PORT=80
       - GRPC_PORT=81
@@ -47,7 +47,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - RabbitMQHostName=rabbitmq
+      - RabbitMQConnection=rabbitmq
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
     ports:
       - "7002:80"
@@ -71,7 +71,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=mongodb://payment-mongoDB
-      - RabbitMQHostName=rabbitmq
+      - RabbitMQConnection=rabbitmq
     ports:
       - "7003:80"
     build:

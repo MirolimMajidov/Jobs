@@ -8,7 +8,7 @@ namespace PaymentService.DataProvider
 {
     public static class DataSeeder
     {
-        public static async Task SeedAsync(this JobsContext context, ILogger logger)
+        public static async Task SeedAsync(this JobsMongoDBContext context, ILogger logger)
         {
             try
             {

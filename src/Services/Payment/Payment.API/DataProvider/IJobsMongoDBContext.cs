@@ -3,7 +3,7 @@ using PaymentService.Models;
 
 namespace PaymentService.DataProvider
 {
-    public interface IJobsContext
+    public interface IJobsMongoDBContext
     {
         public IEntityRepository<Payment> PaymentRepository { get; }
     }

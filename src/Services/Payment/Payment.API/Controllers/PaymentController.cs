@@ -14,7 +14,7 @@ namespace PaymentService.Controllers
     [Route("api/[controller]")]
     public class PaymentController : BaseController<Payment, PaymentDTO>
     {
-        public PaymentController(IJobsContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
+        public PaymentController(IJobsMongoDBContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
 
         public override async Task<RequestModel> Create([FromBody] PaymentDTO entity)
         {
