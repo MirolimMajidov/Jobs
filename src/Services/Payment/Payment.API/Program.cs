@@ -1,9 +1,11 @@
+using Jobs.Service.Common;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PaymentService.DataProvider;
+using PaymentService.Models;
 using Serilog;
 using Serilog.Events;
 using System;
@@ -28,8 +30,9 @@ namespace PaymentService
                 var services = scope.ServiceProvider;
 
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-                var dbContext = services.GetRequiredService<IJobsContext>() as JobsContext;
-                await dbContext.SeedAsync(logger);
+                var dbContext = services.GetRequiredService<IJobsMongoContext>() as JobsMongoContext;
+                var transactionRepository = services.GetRequiredService<IEntityRepository<Transaction>>();
+                await dbContext.SeedAsync(logger, transactionRepository);
 
                 await host.RunAsync();
             }

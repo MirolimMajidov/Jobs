@@ -7,25 +7,25 @@ using System.Threading.Tasks;
 
 namespace IdentityService.RabbitMQEvents.EventHandlers
 {
-    public class UserPaymentEventHandler : IRabbitMQEventHandler<UserPaymentEvent>
+    public class UserTransactionEventHandler : IRabbitMQEventHandler<UserTransactionEvent>
     {
         private readonly IEntityQueryableRepository<User> _repository;
-        private readonly ILogger<UserPaymentEventHandler> _logger;
+        private readonly ILogger<UserTransactionEventHandler> _logger;
 
-        public UserPaymentEventHandler(IEntityQueryableRepository<User> repository, ILogger<UserPaymentEventHandler> logger)
+        public UserTransactionEventHandler(IEntityQueryableRepository<User> repository, ILogger<UserTransactionEventHandler> logger)
         {
             _repository = repository;
             _logger = logger;
         }
 
-        public async Task Handle(UserPaymentEvent @event)
+        public async Task Handle(UserTransactionEvent @event)
         {
             _logger.LogInformation("Received {Event} event at {AppName}", @event.GetType().Name, Program.AppName);
 
             var user = await _repository.GetEntityByID(@event.UserId);
             if (user == null) return;
 
-            user.Balance += @event.Amount;
+            user.Balance -= @event.Amount;
             await _repository.UpdateEntity(user);
         }
     }

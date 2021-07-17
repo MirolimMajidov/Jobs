@@ -13,14 +13,14 @@ namespace IdentityService.UnitTests
         where TEntity : IEntity
         where TController : ControllerBase
     {
-        protected Mock<IEntityRepository<TEntity>> mockRepository;
+        protected Mock<IEntityQueryableRepository<TEntity>> mockRepository;
         protected Mock<IMapper> mockMapper;
         protected Mock<IEventBusRabbitMQ> mockEventBus;
         protected TController controller;
 
         public BaseTestEntity()
         {
-            mockRepository = new Mock<IEntityRepository<TEntity>>();
+            mockRepository = new Mock<IEntityQueryableRepository<TEntity>>();
             mockMapper = new Mock<IMapper>();
             mockEventBus = new Mock<IEventBusRabbitMQ>();
 

@@ -1,9 +1,9 @@
 ﻿using EventBus.RabbitMQ;
 using System;
 
-namespace PaymentService.RabbitMQEvents.Events
+namespace IdentityService.RabbitMQEvents.Events
 {
-    public class UserPaymentEvent : RabbitMQEvent
+    public class UserTransactionEvent : RabbitMQEvent
     {
         public Guid UserId { get; set; }
         public double Amount { get; set; }

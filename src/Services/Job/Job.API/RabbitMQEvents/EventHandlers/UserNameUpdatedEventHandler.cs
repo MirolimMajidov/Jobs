@@ -10,10 +10,10 @@ namespace JobService.RabbitMQEvents.EventHandlers
 {
     public class UserNameUpdatedEventHandler : IRabbitMQEventHandler<UserNameUpdatedEvent>
     {
-        private readonly IEntityRepository<Job> _repository;
+        private readonly IEntityQueryableRepository<Job> _repository;
         private readonly ILogger<UserNameUpdatedEventHandler> _logger;
 
-        public UserNameUpdatedEventHandler(IEntityRepository<Job> repository,
+        public UserNameUpdatedEventHandler(IEntityQueryableRepository<Job> repository,
             ILogger<UserNameUpdatedEventHandler> logger)
         {
             _repository = repository;

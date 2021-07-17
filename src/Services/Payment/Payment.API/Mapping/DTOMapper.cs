@@ -8,6 +8,7 @@ namespace PaymentService.Mapping
         public DTOMapper()
         {
             CreateMap<Payment, PaymentDTO>().ReverseMap();
+            CreateMap<Transaction, TransactionDTO>().ReverseMap();
         }
     }
 }

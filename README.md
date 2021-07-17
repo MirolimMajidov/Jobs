@@ -59,7 +59,7 @@ The architecture proposes a microservice oriented architecture implementation wi
     </tr>
     <tr>
         <td align="center">4.</td>
-        <td>Payment API (Serilog logging, Repocitory, CRUD by MongoDB, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with xTest)</td>
+        <td>Payment API (Serilog logging, Repocitory, CRUD by MongoDB and Redis, RabbitMQ, FluentValidation, DTO, AutoMapper, Unit Testing with xTest)</td>
         <td>Responsible for financial and payments</td>
         <td>
             <a href="https://github.com/MirolimMajidov/Jobs/actions?query=workflow%3APayment%20service">

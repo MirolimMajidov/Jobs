@@ -12,13 +12,13 @@ namespace JobService.UnitTests
         where TEntity : IEntity
         where TController : ControllerBase
     {
-        protected Mock<IEntityRepository<TEntity>> mockRepository;
+        protected Mock<IEntityQueryableRepository<TEntity>> mockRepository;
         protected Mock<IMapper> mockMapper;
         protected TController controller;
 
         public BaseTestEntity()
         {
-            mockRepository = new Mock<IEntityRepository<TEntity>>();
+            mockRepository = new Mock<IEntityQueryableRepository<TEntity>>();
             mockMapper = new Mock<IMapper>();
             controller = (TController)Activator.CreateInstance(typeof(TController), mockRepository.Object, mockMapper.Object);
         }
