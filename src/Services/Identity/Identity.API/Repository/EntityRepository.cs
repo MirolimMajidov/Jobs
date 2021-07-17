@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IdentityService.Repository
 {
-    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
+    public class EntityRepository<TEntity> : IEntityQueryableRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly JobsContext _dbContext;
 

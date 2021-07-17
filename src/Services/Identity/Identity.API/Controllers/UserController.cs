@@ -14,7 +14,7 @@ namespace IdentityService.Controllers
     {
         private readonly IEventBusRabbitMQ _eventBus;
 
-        public UserController(IEntityRepository<User> repository, IMapper mapper, IEventBusRabbitMQ eventBus) : base(repository, mapper)
+        public UserController(IEntityQueryableRepository<User> repository, IMapper mapper, IEventBusRabbitMQ eventBus) : base(repository, mapper)
         {
             _eventBus = eventBus;
         }

@@ -29,6 +29,10 @@ services:
     container_name: Mongo_NoSqlData
     image: mongo
 
+  payment-redisDB:
+    container_name: Redis_NoSqlData
+    image: redis:alpine
+
   rabbitmq:
     container_name: RabbitMQ
     image: rabbitmq:3-management-alpine

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using EventBus.RabbitMQ;
 using Jobs.Service.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PaymentService.DataProvider;
 using PaymentService.Models;
+using PaymentService.RabbitMQEvents.Events;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Linq;
@@ -14,7 +16,12 @@ namespace PaymentService.Controllers
     [Route("api/[controller]")]
     public class PaymentController : BaseController<Payment, PaymentDTO>
     {
-        public PaymentController(IJobsMongoDBContext context, IMapper mapper) : base(context.PaymentRepository, mapper) { }
+        private readonly IEventBusRabbitMQ _eventBus;
+
+        public PaymentController(IJobsMongoContext context, IMapper mapper, IEventBusRabbitMQ eventBus) : base(context.PaymentRepository, mapper)
+        {
+            _eventBus = eventBus;
+        }
 
         public override async Task<RequestModel> Create([FromBody] PaymentDTO entity)
         {
@@ -24,7 +31,15 @@ namespace PaymentService.Controllers
             entity.UserId = User?.GetUserId();
             entity.UserName = User?.GetUserName();
 
-            return await base.Create(entity);
+            var result = await base.Create(entity);
+
+            if (result.ErrorId == 0)
+            {
+                var newPayment = new UserPaymentEvent() { UserId = entity.Id, Amount = entity.Amount };
+                _eventBus.Publish(newPayment);
+            }
+
+            return result;
         }
 
         [SwaggerResponse(501, "We will not support updating paymnet's information", typeof(RequestModel))]

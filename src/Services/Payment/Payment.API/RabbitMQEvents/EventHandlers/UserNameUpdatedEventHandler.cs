@@ -11,12 +11,14 @@ namespace PaymentService.RabbitMQEvents.EventHandlers
 {
     public class UserNameUpdatedEventHandler : IRabbitMQEventHandler<UserNameUpdatedEvent>
     {
-        private readonly IEntityRepository<Payment> _repository;
+        private readonly IEntityRepository<Payment> _paymentRepository;
+        private readonly IEntityRepository<Transaction> _transactionRepository;
         private readonly ILogger<UserNameUpdatedEventHandler> _logger;
 
-        public UserNameUpdatedEventHandler(JobsMongoDBContext context, ILogger<UserNameUpdatedEventHandler> logger)
+        public UserNameUpdatedEventHandler(JobsMongoContext context, IEntityRepository<Transaction> transactionRepository, ILogger<UserNameUpdatedEventHandler> logger)
         {
-            _repository = context.PaymentRepository;
+            _paymentRepository = context.PaymentRepository;
+            _transactionRepository = transactionRepository;
             _logger = logger;
         }
 
@@ -24,15 +26,25 @@ namespace PaymentService.RabbitMQEvents.EventHandlers
         {
             _logger.LogInformation("Received {Event} event at {AppName}", @event.GetType().Name, Program.AppName);
 
-            var allPayments = await _repository.GetEntities();
-            var existingPayments = allPayments.Where(j => j.UserId == @event.UserId);
-            if (!existingPayments.Any()) return;
+            var allPayments = (await _paymentRepository.GetEntities()).Where(j => j.UserId == @event.UserId);
+            if (!allPayments.Any()) return;
 
-            foreach (var payment in existingPayments.ToList())
+            foreach (var payment in allPayments.ToList())
             {
                 payment.UserName = @event.NewName;
-                await _repository.UpdateEntity(payment);
+                await _paymentRepository.UpdateEntity(payment);
             }
+
+            var allTransactions = (await _transactionRepository.GetEntities()).Where(j => j.UserId == @event.UserId);
+            if (!allTransactions.Any()) return;
+
+            foreach (var transaction in allTransactions.ToList())
+            {
+                transaction.UserName = @event.NewName;
+                await _transactionRepository.UpdateEntity(transaction, autoSave: false);
+            }
+
+            await _transactionRepository.Save();
         }
     }
 }

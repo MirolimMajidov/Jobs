@@ -8,6 +8,6 @@ namespace JobService.Controllers
     [Route("api/[controller]")]
     public class CategoryController : BaseController<Category, CategoryDTO>
     {
-        public CategoryController(IEntityRepository<Category> repository, IMapper mapper) : base(repository, mapper) { }
+        public CategoryController(IEntityQueryableRepository<Category> repository, IMapper mapper) : base(repository, mapper) { }
     }
 }

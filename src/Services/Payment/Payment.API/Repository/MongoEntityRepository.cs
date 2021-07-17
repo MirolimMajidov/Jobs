@@ -2,16 +2,15 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PaymentService.Repository
 {
-    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : IEntity
+    public class MongoEntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : IEntity
     {
         private readonly IMongoCollection<TEntity> _entities;
 
-        public EntityRepository(IMongoCollection<TEntity> entities)
+        public MongoEntityRepository(IMongoCollection<TEntity> entities)
         {
             _entities = entities;
         }
@@ -20,12 +19,6 @@ namespace PaymentService.Repository
         public async Task<List<TEntity>> GetEntities()
         {
             return await _entities.Find(c => true).ToListAsync();
-        }
-
-        /// <summary/>
-        public IQueryable<TEntity> GetQueryableEntities()
-        {
-            throw new NotSupportedException("The MongoDB will not support IQueryable");
         }
 
         /// <summary/>

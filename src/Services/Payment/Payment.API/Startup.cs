@@ -14,6 +14,7 @@ using PaymentService.DataProvider;
 using PaymentService.Mapping;
 using PaymentService.RabbitMQEvents.EventHandlers;
 using PaymentService.RabbitMQEvents.Events;
+using PaymentService.Repository;
 using System;
 using System.Reflection;
 
@@ -40,7 +41,11 @@ namespace PaymentService
                 options.PaymentsName = databaseInfo.PaymentsName;
                 options.ConnectionString = Configuration["ConnectionString"];
             });
-            services.AddScoped<IJobsMongoDBContext, JobsMongoDBContext>();
+
+            services.AddStackExchangeRedisCache(options => options.Configuration = Configuration["RedisConnectionString"]);
+
+            services.AddScoped<IJobsMongoContext, JobsMongoContext>();
+            services.AddTransient(typeof(IEntityRepository<>), typeof(RedisEntityRepository<>));
             services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();

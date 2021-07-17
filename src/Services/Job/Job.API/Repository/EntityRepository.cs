@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JobService.Repository
 {
-    public class EntityRepository<TEntity> : IEntityRepository<TEntity> where TEntity : BaseEntity
+    public class EntityRepository<TEntity> : IEntityQueryableRepository<TEntity> where TEntity : BaseEntity
     {
         private readonly JobsContext _dbContext;
 
@@ -50,7 +50,7 @@ namespace JobService.Repository
         /// <summary/>
         public async Task UpdateEntity(TEntity entity, bool autoSave = true)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Update(entity);
 
             if (autoSave)
                 await Save();

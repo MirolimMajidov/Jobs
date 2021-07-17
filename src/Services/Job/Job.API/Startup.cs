@@ -36,7 +36,7 @@ namespace JobService
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration["ConnectionString"], sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
 
-            services.AddTransient(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+            services.AddTransient(typeof(IEntityQueryableRepository<>), typeof(EntityRepository<>));
             services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
 
             services.AddAuthenticationsAndPolices();

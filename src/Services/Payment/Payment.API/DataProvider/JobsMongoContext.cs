@@ -7,12 +7,12 @@ using PaymentService.Repository;
 
 namespace PaymentService.DataProvider
 {
-    public class JobsMongoDBContext : IJobsMongoDBContext
+    public class JobsMongoContext : IJobsMongoContext
     {
         private readonly IMongoDatabase _database;
         private readonly DatabaseConfiguration _settings;
 
-        public JobsMongoDBContext(IOptions<DatabaseConfiguration> settings)
+        public JobsMongoContext(IOptions<DatabaseConfiguration> settings)
         {
             _settings = settings.Value;
             var client = new MongoClient(_settings.ConnectionString);
@@ -28,13 +28,13 @@ namespace PaymentService.DataProvider
                 if (_paymentRepository == null)
                 {
                     var payments = _database.GetCollection<Payment>(_settings.PaymentsName);
-                    _paymentRepository = new EntityRepository<Payment>(payments);
+                    _paymentRepository = new MongoEntityRepository<Payment>(payments);
                 }
 
                 return _paymentRepository;
             }
         }
 
-        //If we want to add new table for MongoDB we need to just create new collection repository with table name like PaymentRepository
+        //If we want to add new table for MongoDB, we need to just to create a new collection repository with table name like PaymentRepository
     }
 }

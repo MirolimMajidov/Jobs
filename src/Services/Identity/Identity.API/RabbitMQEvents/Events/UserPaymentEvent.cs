@@ -6,6 +6,6 @@ namespace IdentityService.RabbitMQEvents.Events
     public class UserPaymentEvent : RabbitMQEvent
     {
         public Guid UserId { get; set; }
-        public double NewBalance { get; set; }
+        public double Amount { get; set; }
     }
 }

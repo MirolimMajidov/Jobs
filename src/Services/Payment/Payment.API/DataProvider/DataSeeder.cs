@@ -3,12 +3,13 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Jobs.Service.Common;
 
 namespace PaymentService.DataProvider
 {
     public static class DataSeeder
     {
-        public static async Task SeedAsync(this JobsMongoDBContext context, ILogger logger)
+        public static async Task SeedAsync(this JobsMongoContext context, ILogger logger, IEntityRepository<Transaction> transactionRepository)
         {
             try
             {
@@ -27,11 +28,33 @@ namespace PaymentService.DataProvider
                                 UserId = userId,
                                 UserName = userName,
                                 Amount = 100 * i,
-                                Sender = "Payoneer",
+                                Sender = "MasterCard",
                                 Date = DateTime.Now
                             };
                             await repository.InsertEntity(payment);
                         }
+                    });
+                }
+
+                if (!transactionRepository.GetEntities().Result.Any())
+                {
+                    var userName = "Admin";
+                    await Task.Run(async () =>
+                    {
+                        var userId = Guid.NewGuid();
+                        for (int i = 1; i < 5; i++)
+                        {
+                            var payment = new Transaction
+                            {
+                                UserId = userId,
+                                UserName = userName,
+                                Amount = 5 * i,
+                                Receiver = "PayPal",
+                                Date = DateTime.Now
+                            };
+                            await transactionRepository.InsertEntity(payment, autoSave: false);
+                        }
+                        await transactionRepository.Save();
                     });
                 }
             }

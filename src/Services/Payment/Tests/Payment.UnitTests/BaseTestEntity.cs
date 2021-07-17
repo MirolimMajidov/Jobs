@@ -20,7 +20,7 @@ namespace PaymentService.UnitTests
         {
             mockRepository = new Mock<IEntityRepository<TEntity>>();
             mockMapper = new Mock<IMapper>();
-            var context = new Mock<IJobsMongoDBContext>();
+            var context = new Mock<IJobsMongoContext>();
             if (mockRepository.Object is IEntityRepository<Payment> repository)
                 context.Setup(c => c.PaymentRepository).Returns(repository);
 

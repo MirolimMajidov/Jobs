@@ -71,6 +71,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionString=mongodb://payment-mongoDB
+      - RedisConnectionString=payment-redisDB
       - RabbitMQConnection=rabbitmq
     ports:
       - "7003:80"
@@ -86,6 +87,13 @@ services:
       - jobs-mongoDB:/data/db
     ports:
       - "7013:27017"
+
+  payment-redisDB:
+    restart: always
+    volumes:
+      - jobs-redisDB:/data
+    ports:
+      - "6379:6379"
 
   rabbitmq:
     restart: always
