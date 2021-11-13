@@ -14,10 +14,8 @@ namespace Jobs.Service.Common
         public static string SH1Hash(string str)
         {
             if (string.IsNullOrEmpty(str)) return string.Empty;
-            using (SHA1Managed sha1 = new SHA1Managed())
-            {
-                return string.Join("", sha1.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
-            }
+            using SHA1 hash = SHA1.Create();
+            return string.Join("", hash.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
         }
 
         /// <summary>
@@ -28,10 +26,8 @@ namespace Jobs.Service.Common
         public static string MD5Hash(string str)
         {
             if (string.IsNullOrEmpty(str)) return string.Empty;
-            using (MD5 sha1 = new MD5CryptoServiceProvider())
-            {
-                return string.Join("", sha1.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
-            }
+            using MD5 hash = MD5.Create();
+            return string.Join("", hash.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
         }
 
         /// <summary>
@@ -40,23 +36,21 @@ namespace Jobs.Service.Common
         public static string Sha256Hash(string str)
         {
             if (string.IsNullOrEmpty(str)) return string.Empty;
-            using (SHA256 hash = SHA256.Create())
-            {
-                return string.Join("", hash.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
-            }
+            using SHA256 hash = SHA256.Create();
+            return string.Join("", hash.ComputeHash(Encoding.UTF8.GetBytes(str)).Select(b => b.ToString("x2")).ToArray());
         }
 
         public static string MD5Hash2(string text)
         {
-            MD5 md5 = new MD5CryptoServiceProvider();
+            MD5 md5 = MD5.Create();
 
             //compute hash from the bytes of text  
-            md5.ComputeHash(ASCIIEncoding.ASCII.GetBytes(text));
+            md5.ComputeHash(Encoding.ASCII.GetBytes(text));
 
             //get hash result after compute it  
             byte[] result = md5.Hash;
 
-            StringBuilder strBuilder = new StringBuilder();
+            StringBuilder strBuilder = new();
             for (int i = 0; i < result.Length; i++)
             {
                 //change it into 2 hexadecimal digits  
