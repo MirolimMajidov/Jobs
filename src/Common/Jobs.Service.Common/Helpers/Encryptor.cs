@@ -43,7 +43,6 @@ namespace Jobs.Service.Common
         public static string MD5Hash2(string text)
         {
             MD5 md5 = MD5.Create();
-
             //compute hash from the bytes of text  
             md5.ComputeHash(Encoding.ASCII.GetBytes(text));
 
@@ -53,8 +52,7 @@ namespace Jobs.Service.Common
             StringBuilder strBuilder = new();
             for (int i = 0; i < result.Length; i++)
             {
-                //change it into 2 hexadecimal digits  
-                //for each byte  
+                //change it into 2 hexadecimal digits for each byte  
                 strBuilder.Append(result[i].ToString("x2"));
             }
 
