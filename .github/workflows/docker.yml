@@ -9,13 +9,13 @@ on:
     branches: [ master ]
     paths:
     - src/**
-    - .github/workflows/docker_service.yml
+    - .github/workflows/docker.yml
 
   pull_request:
     branches: [ master ]
     paths:
     - src/**
-    - .github/workflows/docker_service.yml
+    - .github/workflows/docker.yml
 
 
 env:
