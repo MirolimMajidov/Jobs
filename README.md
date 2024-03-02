@@ -1,7 +1,7 @@
 # Jobs
 <img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Build%20Jobs%20solution/master?label=Build%20Jobs%20solution">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Identity%20service/master?label=Identity%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Job%20service/master?label=Job%20service%20tests">  <img alt="GitHub Workflow Status" src="https://img.shields.io/github/workflow/status/MirolimMajidov/Jobs/Payment%20service/master?label=Payment%20service%20tests">
 
-Jobs is an open-source job marketplace application, powered by micro-services ☸️ architecture and cross-platform development 📱🖥🐳 based on .NET 6.
+Jobs is an open-source job marketplace application, powered by micro-services ☸️ architecture and cross-platform developed 📱🖥🐳 based on .NET 6.
 
 ## Architecture overview
 
