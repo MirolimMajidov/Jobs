@@ -28,7 +28,7 @@ namespace PaymentService.UnitTests
             var entitiesFromServer = response.Result as IEnumerable<PaymentDTO>;
             entitiesFromServer.Should().NotBeNull();
             entitiesFromServer.Should().HaveCount(dtoEntities.Count());
-            entitiesFromServer.First().Should().Equals(dtoEntities.First());
+            entitiesFromServer.First().Id.Should().Be(dtoEntities.First().Id);
         }
 
         [Fact]
@@ -163,6 +163,7 @@ namespace PaymentService.UnitTests
             {
                 var payment = new Payment
                 {
+                    Id = Guid.NewGuid(),
                     OrderId = i.ToString(),
                     Amount = 100 * i,
                     Sender = "Payoneer"
