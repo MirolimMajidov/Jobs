@@ -38,7 +38,7 @@ namespace IdentityService.FunctionalTests
         [TestMethod]
         public async Task GetUserById_ResponseDataShouldNotBeNull()
         {
-            //Loadding entities to get correct user id
+            //Loading entities to get correct user id
             var httpResponseToGetEntities = await Client.GetAsync(BaseApiUri);
             var responseToGetEntities = await httpResponseToGetEntities.GetResponseModel();
             var clientEntity = responseToGetEntities.GetResponseFromResult<List<UserDTO>>().First();

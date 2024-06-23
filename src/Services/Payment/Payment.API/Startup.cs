@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Jobs.Service.Common;
 using Microsoft.AspNetCore.Builder;
@@ -50,8 +51,8 @@ namespace PaymentService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
-                .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddResponseNewtonsoftJson();
+            services.AddValidatorsFromAssembly(typeof(Program).Assembly);
             services.AddJobsHealthChecks();
             services.AddSwaggerGen("Payment");
             services.AddAutoMapper(typeof(DTOMapper));

@@ -5,6 +5,7 @@ using PaymentService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace PaymentService.UnitTests
@@ -12,7 +13,7 @@ namespace PaymentService.UnitTests
     public class PaymentControllerTests : BaseTestEntity<Payment, PaymentController>
     {
         [Fact]
-        public void GetAllPayments_ResponseDataShouldContainAllCreatedEntities()
+        public async Task GetAllPayments_ResponseDataShouldContainAllCreatedEntities()
         {
             List<Payment> entities = GetTestEntities();
             IEnumerable<PaymentDTO> dtoEntities = entities.Select(u => new PaymentDTO { Id = u.Id, Amount = u.Amount, Sender = u.Sender });
@@ -21,24 +22,24 @@ namespace PaymentService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<PaymentDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetAll().Result;
+            var response = await controller.GetAll();
             response.Should().NotBeNull();
 
             var entitiesFromServer = response.Result as IEnumerable<PaymentDTO>;
             entitiesFromServer.Should().NotBeNull();
             entitiesFromServer.Should().HaveCount(dtoEntities.Count());
-            entitiesFromServer.First().Should().Equals(dtoEntities.First());
+            entitiesFromServer.First().Id.Should().Be(dtoEntities.First().Id);
         }
 
         [Fact]
-        public void GetPaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task GetPaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Get(Guid.NewGuid()).Result;
+            var response = await controller.Get(Guid.NewGuid());
             Assert.Equal(404, response.ErrorId);
         }
 
         [Fact]
-        public void GetPaymentById_ResponseDataShouldNotBeNull()
+        public async Task GetPaymentById_ResponseDataShouldNotBeNull()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new PaymentDTO() { Id = serverEntity.Id, Amount = serverEntity.Amount, Sender = serverEntity.Sender };
@@ -46,7 +47,7 @@ namespace PaymentService.UnitTests
             mockRepository.Setup(p => p.GetEntityByID(serverEntity.Id)).ReturnsAsync(serverEntity);
             mockMapper.Setup(p => p.Map<PaymentDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Get(serverEntity.Id).Result;
+            var response = await controller.Get(serverEntity.Id);
             Assert.Equal(0, response.ErrorId);
 
             var entityFromServer = response.Result as PaymentDTO;
@@ -54,14 +55,14 @@ namespace PaymentService.UnitTests
         }
 
         [Fact]
-        public void CreatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task CreatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Create(null).Result;
+            var response = await controller.Create(null);
             Assert.Equal(400, response.ErrorId);
         }
 
         [Fact]
-        public void CreatePayment_EntityShouldBeCreatedSuccessfully()
+        public async Task CreatePayment_EntityShouldBeCreatedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new PaymentDTO() { Id = serverEntity.Id, Amount = serverEntity.Amount, Sender = serverEntity.Sender };
@@ -70,7 +71,7 @@ namespace PaymentService.UnitTests
             mockMapper.Setup(p => p.Map<Payment>(clientEntity)).Returns(serverEntity);
             mockMapper.Setup(p => p.Map<PaymentDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Create(clientEntity).Result;
+            var response = await controller.Create(clientEntity);
             Assert.Equal(0, response.ErrorId);
 
             var entityFromServer = response.Result as PaymentDTO;
@@ -78,14 +79,14 @@ namespace PaymentService.UnitTests
         }
 
         [Fact]
-        public void UpdatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task UpdatePayment_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Update(null).Result;
+            var response = await controller.Update(null);
             Assert.Equal(501, response.ErrorId);
         }
 
         [Fact]
-        public void UpdatePayment_ThereShouldBeErrorMessage_BecauseWeWillNotSupportUpdaingPaymentInfo()
+        public async Task UpdatePayment_ThereShouldBeErrorMessage_BecauseWeWillNotSupportUpdaingPaymentInfo()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new PaymentDTO() { Id = serverEntity.Id, Amount = serverEntity.Amount, Sender = serverEntity.Sender };
@@ -93,31 +94,31 @@ namespace PaymentService.UnitTests
             Payment entity = null;
             mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(entity);
 
-            var response = controller.Update(clientEntity).Result;
+            var response = await controller.Update(clientEntity);
             Assert.Equal(501, response.ErrorId);
         }
 
         [Fact]
-        public void DeletePaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task DeletePaymentById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Delete(Guid.NewGuid()).Result;
+            var response = await controller.Delete(Guid.NewGuid());
             response.ErrorId.Should().Be(404);
         }
 
         [Fact]
-        public void DeletePaymentById_EntityShouldBeDeletedSuccessfully()
+        public async Task DeletePaymentById_EntityShouldBeDeletedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var entityId = Guid.NewGuid();
             mockRepository.Setup(p => p.GetEntityByID(entityId)).ReturnsAsync(serverEntity);
             mockRepository.Setup(p => p.DeleteEntity(entityId, true));
 
-            var response = controller.Delete(entityId).Result;
+            var response = await controller.Delete(entityId);
             response.ErrorId.Should().Be(0);
         }
 
         [Fact]
-        public void GetPaymentByUserId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
+        public async Task GetPaymentByUserId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
         {
             List<Payment> entities = GetTestEntities();
             IEnumerable<PaymentDTO> dtoEntities = entities.Select(u => new PaymentDTO { Id = u.Id, Amount = u.Amount, Sender = u.Sender });
@@ -126,7 +127,7 @@ namespace PaymentService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<PaymentDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetPaymentsByUserId(Guid.NewGuid()).Result;
+            var response = await controller.GetPaymentsByUserId(Guid.NewGuid());
             response.Should().NotBeNull();
             response.ErrorId.Should().Be(0);
 
@@ -136,7 +137,7 @@ namespace PaymentService.UnitTests
         }
 
         [Fact]
-        public void GetPaymentByUserId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
+        public async Task GetPaymentByUserId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
         {
             var userId = Guid.NewGuid();
             List<Payment> entities = GetTestEntities();
@@ -148,7 +149,7 @@ namespace PaymentService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<PaymentDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetPaymentsByUserId(userId).Result;
+            var response = await controller.GetPaymentsByUserId(userId);
             var entitiesFromServer = response.Result as IEnumerable<PaymentDTO>;
             entitiesFromServer.Count().Should().BeLessThan(dtoEntities.Count());
             entitiesFromServer.Should().HaveCount(2);
@@ -162,6 +163,7 @@ namespace PaymentService.UnitTests
             {
                 var payment = new Payment
                 {
+                    Id = Guid.NewGuid(),
                     OrderId = i.ToString(),
                     Amount = 100 * i,
                     Sender = "Payoneer"

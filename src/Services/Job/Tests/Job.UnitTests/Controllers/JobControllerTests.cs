@@ -7,6 +7,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace JobService.UnitTests
 {
@@ -14,7 +15,7 @@ namespace JobService.UnitTests
     public class JobControllerTests : BaseTestEntity<Job, JobController>
     {
         [Test]
-        public void GetAllJobs_ResponseDataShouldContainAllCreatedEntities()
+        public async Task GetAllJobs_ResponseDataShouldContainAllCreatedEntities()
         {
             List<Job> entities = GetTestEntities();
             IEnumerable<JobDTO> dtoEntities = entities.Select(u => new JobDTO { Id = u.Id, Name = u.Name, Description = u.Description });
@@ -23,24 +24,24 @@ namespace JobService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<JobDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetAll().Result;
+            var response = await controller.GetAll();
             response.Should().NotBeNull();
 
             var entitiesFromServer = response.Result as IEnumerable<JobDTO>;
             entitiesFromServer.Should().NotBeNull();
             entitiesFromServer.Should().HaveCount(dtoEntities.Count());
-            entitiesFromServer.First().Should().Equals(dtoEntities.First());
+            entitiesFromServer.First().Id.Should().Be(dtoEntities.First().Id);
         }
 
         [Test]
-        public void GetJobById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task GetJobById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Get(Guid.NewGuid()).Result;
+            var response = await controller.Get(Guid.NewGuid());
             response.ErrorId.Should().Be(404);
         }
 
         [Test]
-        public void GetJobById_ResponseDataShouldNotBeNull()
+        public async Task GetJobById_ResponseDataShouldNotBeNull()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new JobDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
@@ -48,7 +49,7 @@ namespace JobService.UnitTests
             mockRepository.Setup(p => p.GetEntityByID(serverEntity.Id)).ReturnsAsync(serverEntity);
             mockMapper.Setup(p => p.Map<JobDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Get(serverEntity.Id).Result;
+            var response = await controller.Get(serverEntity.Id);
             response.ErrorId.Should().Be(0);
 
             var entityFromServer = response.Result as JobDTO;
@@ -56,14 +57,14 @@ namespace JobService.UnitTests
         }
 
         [Test]
-        public void CreateJob_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task CreateJob_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Create(null).Result;
+            var response = await controller.Create(null);
             response.ErrorId.Should().Be(400);
         }
 
         [Test]
-        public void CreateJob_EntityShouldBeCreatedSuccessfully()
+        public async Task CreateJob_EntityShouldBeCreatedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new JobDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
@@ -72,7 +73,7 @@ namespace JobService.UnitTests
             mockMapper.Setup(p => p.Map<Job>(clientEntity)).Returns(serverEntity);
             mockMapper.Setup(p => p.Map<JobDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Create(clientEntity).Result;
+            var response = await controller.Create(clientEntity);
             response.ErrorId.Should().Be(0);
 
             var entityFromServer = response.Result as JobDTO;
@@ -80,14 +81,14 @@ namespace JobService.UnitTests
         }
 
         [Test]
-        public void UpdateJob_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task UpdateJob_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Update(null).Result;
+            var response = await controller.Update(null);
             response.ErrorId.Should().Be(400);
         }
 
         [Test]
-        public void UpdateJob_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task UpdateJob_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new JobDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
@@ -95,12 +96,12 @@ namespace JobService.UnitTests
             Job entity = null;
             mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(entity);
 
-            var response = controller.Update(clientEntity).Result;
+            var response = await controller.Update(clientEntity);
             response.ErrorId.Should().Be(404);
         }
 
         [Test]
-        public void UpdateJob_EntityShouldBeUpdatedSuccessfully()
+        public async Task UpdateJob_EntityShouldBeUpdatedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new JobDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Description = serverEntity.Description };
@@ -109,31 +110,31 @@ namespace JobService.UnitTests
             mockMapper.Setup(p => p.Map(clientEntity, serverEntity)).Returns(serverEntity);
             mockRepository.Setup(p => p.UpdateEntity(serverEntity, true));
 
-            var response = controller.Update(clientEntity).Result;
+            var response = await controller.Update(clientEntity);
             response.ErrorId.Should().Be(0);
         }
 
         [Test]
-        public void DeleteJobById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task DeleteJobById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Delete(Guid.NewGuid()).Result;
+            var response = await controller.Delete(Guid.NewGuid());
             response.ErrorId.Should().Be(404);
         }
 
         [Test]
-        public void DeleteJobById_EntityShouldBeDeletedSuccessfully()
+        public async Task DeleteJobById_EntityShouldBeDeletedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var entityId = Guid.NewGuid();
             mockRepository.Setup(p => p.GetEntityByID(entityId)).ReturnsAsync(serverEntity);
             mockRepository.Setup(p => p.DeleteEntity(entityId, true));
 
-            var response = controller.Delete(entityId).Result;
+            var response = await controller.Delete(entityId);
             response.ErrorId.Should().Be(0);
         }
 
         [Test]
-        public void GetJobByCategoryId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
+        public async Task GetJobByCategoryId_ThereShouldBeNotBeMessageAndResultShouldbeEmpty_BecauseEntitiesNotFoundWithThisCategoryId()
         {
             List<Job> entities = GetTestEntities();
             IEnumerable<JobDTO> dtoEntities = entities.Select(u => new JobDTO { Id = u.Id, Name = u.Name, Description = u.Description });
@@ -142,9 +143,9 @@ namespace JobService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<JobDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetJobsByCategoryId(Guid.NewGuid()).Result;
+            var response = await controller.GetJobsByCategoryId(Guid.NewGuid());
             response.Should().NotBeNull();
-            response.ErrorId.Should().Equals(0);
+            response.ErrorId.Should().Be(0);
 
             var entitiesFromServer = response.Result as IEnumerable<JobDTO>;
             entitiesFromServer.Should().NotBeNull();
@@ -152,7 +153,7 @@ namespace JobService.UnitTests
         }
 
         [Test]
-        public void GetJobByCategoryId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
+        public async Task GetJobByCategoryId_ResultShouldHaveTwoItems_BecauseWeCreatedTwoJobsWithThisCategoryId()
         {
             var categoryId = Guid.NewGuid();
             List<Job> entities = GetTestEntities();
@@ -164,7 +165,7 @@ namespace JobService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<JobDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetJobsByCategoryId(categoryId).Result;
+            var response = await controller.GetJobsByCategoryId(categoryId);
             var entitiesFromServer = response.Result as IEnumerable<JobDTO>;
             entitiesFromServer.Count().Should().BeLessThan(dtoEntities.Count());
             entitiesFromServer.Should().HaveCount(2);

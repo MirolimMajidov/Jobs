@@ -7,6 +7,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace IdentityService.UnitTests
 {
@@ -14,7 +15,7 @@ namespace IdentityService.UnitTests
     public class UserControllerTests : BaseTestEntity<User, UserController>
     {
         [TestMethod]
-        public void GetAllCategories_ResponseDataShouldContainAllCreatedEntities()
+        public async Task GetAllCategories_ResponseDataShouldContainAllCreatedEntities()
         {
             List<User> entities = GetTestEntities();
             IEnumerable<UserDTO> dtoEntities = entities.Select(u => new UserDTO { Id = u.Id, Name = u.Name, Login = u.Login, Role = u.Role });
@@ -23,24 +24,24 @@ namespace IdentityService.UnitTests
             foreach (var entity in entities)
                 mockMapper.Setup(p => p.Map<UserDTO>(entity)).Returns(dtoEntities.FirstOrDefault(d => d.Id == entity.Id));
 
-            var response = controller.GetAll().Result;
+            var response = await controller.GetAll();
             response.Should().NotBeNull();
 
             var entitiesFromServer = response.Result as IEnumerable<UserDTO>;
             entitiesFromServer.Should().NotBeNull();
             entitiesFromServer.Should().HaveCount(dtoEntities.Count());
-            entitiesFromServer.First().Should().Equals(dtoEntities.First());
+            entitiesFromServer.First().Id.Should().Be(dtoEntities.First().Id);
         }
 
         [TestMethod]
-        public void GetUserById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task GetUserById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Get(Guid.NewGuid()).Result;
+            var response = await controller.Get(Guid.NewGuid());
             response.ErrorId.Should().Be(404);
         }
 
         [TestMethod]
-        public void GetUserById_ResponseDataShouldNotBeNull()
+        public async Task GetUserById_ResponseDataShouldNotBeNull()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new UserDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Login = serverEntity.Login, Role = serverEntity.Role };
@@ -48,7 +49,7 @@ namespace IdentityService.UnitTests
             mockRepository.Setup(p => p.GetEntityByID(serverEntity.Id)).ReturnsAsync(serverEntity);
             mockMapper.Setup(p => p.Map<UserDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Get(serverEntity.Id).Result;
+            var response = await controller.Get(serverEntity.Id);
             response.ErrorId.Should().Be(0);
 
             var entityFromServer = response.Result as UserDTO;
@@ -56,24 +57,24 @@ namespace IdentityService.UnitTests
         }
 
         [TestMethod]
-        public void CreateUser_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task CreateUser_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Create(null).Result;
+            var response = await controller.Create(null);
             response.ErrorId.Should().Be(400);
         }
 
         [TestMethod]
-        public void CreateUser_ThereShouldBeErrorMessage_BecausePasswordIsEmpty()
+        public async Task CreateUser_ThereShouldBeErrorMessage_BecausePasswordIsEmpty()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new UserDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Login = serverEntity.Login, Role = serverEntity.Role };
 
-            var response = controller.Create(clientEntity).Result;
+            var response = await controller.Create(clientEntity);
             response.ErrorId.Should().Be(400);
         }
 
         [TestMethod]
-        public void CreateUser_EntityShouldBeCreatedSuccessfully()
+        public async Task CreateUser_EntityShouldBeCreatedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new UserDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Login = serverEntity.Login, Role = serverEntity.Role, Password = "test123" };
@@ -82,7 +83,7 @@ namespace IdentityService.UnitTests
             mockMapper.Setup(p => p.Map<User>(clientEntity)).Returns(serverEntity);
             mockMapper.Setup(p => p.Map<UserDTO>(serverEntity)).Returns(clientEntity);
 
-            var response = controller.Create(clientEntity).Result;
+            var response = await controller.Create(clientEntity);
             response.ErrorId.Should().Be(0);
 
             var entityFromServer = response.Result as UserDTO;
@@ -90,14 +91,14 @@ namespace IdentityService.UnitTests
         }
 
         [TestMethod]
-        public void UpdateUser_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
+        public async Task UpdateUser_ThereShouldBeErrorMessage_BecauseEntityCanNotBeNull()
         {
-            var response = controller.Update(null).Result;
+            var response = await controller.Update(null);
             response.ErrorId.Should().Be(400);
         }
 
         [TestMethod]
-        public void UpdateUser_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task UpdateUser_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new UserDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Login = serverEntity.Login, Role = serverEntity.Role };
@@ -105,12 +106,12 @@ namespace IdentityService.UnitTests
             User entity = null;
             mockRepository.Setup(p => p.GetEntityByID(clientEntity.Id)).ReturnsAsync(entity);
 
-            var response = controller.Update(clientEntity).Result;
+            var response = await controller.Update(clientEntity);
             response.ErrorId.Should().Be(404);
         }
 
         [TestMethod]
-        public void UpdateUser_EntityShouldBeUpdatedSuccessfully()
+        public async Task UpdateUser_EntityShouldBeUpdatedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var clientEntity = new UserDTO() { Id = serverEntity.Id, Name = serverEntity.Name, Login = serverEntity.Login, Role = serverEntity.Role };
@@ -119,26 +120,26 @@ namespace IdentityService.UnitTests
             mockMapper.Setup(p => p.Map(clientEntity, serverEntity)).Returns(serverEntity);
             mockRepository.Setup(p => p.UpdateEntity(serverEntity, true));
 
-            var response = controller.Update(clientEntity).Result;
+            var response = await controller.Update(clientEntity);
             response.ErrorId.Should().Be(0);
         }
 
         [TestMethod]
-        public void DeleteUserById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
+        public async Task DeleteUserById_ThereShouldBeErrorMessage_BecauseEntityNotFoundWithThisId()
         {
-            var response = controller.Delete(Guid.NewGuid()).Result;
+            var response = await controller.Delete(Guid.NewGuid());
             response.ErrorId.Should().Be(404);
         }
 
         [TestMethod]
-        public void DeleteUserById_EntityShouldBeDeletedSuccessfully()
+        public async Task DeleteUserById_EntityShouldBeDeletedSuccessfully()
         {
             var serverEntity = GetTestEntities().First();
             var entityId = Guid.NewGuid();
             mockRepository.Setup(p => p.GetEntityByID(entityId)).ReturnsAsync(serverEntity);
             mockRepository.Setup(p => p.DeleteEntity(entityId, true));
 
-            var response = controller.Delete(entityId).Result;
+            var response = await controller.Delete(entityId);
             response.ErrorId.Should().Be(0);
         }
 
