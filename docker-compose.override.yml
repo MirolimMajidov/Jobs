@@ -42,7 +42,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - RabbitMQConnection=rabbitmq
-      - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
+      - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true; TrustServerCertificate=True;
     ports:
       - "7002:80"
     depends_on:
@@ -53,7 +53,7 @@ services:
     restart: always
     environment:
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=job_service_password
+      - SA_PASSWORD=JobServicePassword@123
     ports:
       - "7012:1433"
 
