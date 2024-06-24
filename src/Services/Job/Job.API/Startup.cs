@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using Jobs.Service.Common;
@@ -41,8 +42,8 @@ namespace JobService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
-                .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
                 .AddResponseNewtonsoftJson();
+            services.AddValidatorsFromAssembly(typeof(Program).Assembly);
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Job");
             services.AddAutoMapper(typeof(DTOMapper));

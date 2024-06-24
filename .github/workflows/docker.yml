@@ -11,13 +11,6 @@ on:
     - src/**
     - .github/workflows/docker.yml
 
-  pull_request:
-    branches: [ master ]
-    paths:
-    - src/**
-    - .github/workflows/docker.yml
-
-
 env:
   REGISTRY: mirolimmajidov
   IDENTITY_IMAGE_NAME: identity.api
