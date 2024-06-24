@@ -19,7 +19,7 @@ services:
 
   job-SqlServerDB:
     container_name: JobService_SqlServerDB
-    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
 
   payment-api:
     container_name: PaymentService
