@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using IdentityService.DataProvider;
@@ -48,11 +49,11 @@ namespace IdentityService
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
-                .AddFluentValidation(s => s.RegisterValidatorsFromAssemblyContaining<Startup>())
-                .AddNewtonsoftJson().AddResponseNewtonsoftJson();
+                .AddResponseNewtonsoftJson();
+            services.AddValidatorsFromAssembly(typeof(Program).Assembly);
             services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Identity");
-            services.AddAutoMapper(typeof(DTOMapper));
+            services.AddAutoMapper(typeof(Program));
 
             var container = new ContainerBuilder();
             container.Populate(services);
