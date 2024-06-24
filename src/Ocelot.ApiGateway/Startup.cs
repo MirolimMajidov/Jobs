@@ -41,7 +41,7 @@ namespace OcelotApiGateway
                 endpoints.MapControllers();
                 endpoints.MapGet("/status", async context =>
                 {
-                    await context.Response.WriteAsync("Api Gateway service is running!");
+                    await context.Response.WriteAsync("API Gateway service is running!");
                 });
             });
 
