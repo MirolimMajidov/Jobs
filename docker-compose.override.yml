@@ -82,6 +82,8 @@ services:
     restart: always
     volumes:
       - jobs-redisDB:/data
+    ports:
+      - "7033:6379"
 
   rabbitmq:
     restart: always

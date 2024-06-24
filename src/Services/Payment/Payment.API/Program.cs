@@ -46,14 +46,17 @@ namespace PaymentService
             }
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
+        public static IWebHostBuilder CreateHostBuilder(string[] args)
         {
-            var builder = Host.CreateDefaultBuilder(args)
-            .UseSerilog()
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Startup>();
-            });
+            var builder = WebHost.CreateDefaultBuilder(args);
+            builder.ConfigureLogging((hostingContext, logging) =>
+             {
+                 logging.ClearProviders();
+                 logging.AddConsole();
+                 logging.AddSerilog();
+             });
+            builder.UseStartup<Startup>();
+
             return builder;
         }
 
@@ -64,6 +67,7 @@ namespace PaymentService
             .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
             .Enrich.FromLogContext()
             .WriteTo.Debug()
+            .WriteTo.Console()
             .WriteTo.File("Logs/Log.txt",
                 rollOnFileSizeLimit: true,
                 shared: true,
