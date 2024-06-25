@@ -1,3 +1,6 @@
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using EventBus.RabbitMQ;
 using JobService.DataProvider;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace JobService
@@ -41,15 +45,29 @@ namespace JobService
             await host.RunAsync();
         }
 
-        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddDebug();
-                    logging.AddNLog();
-                })
-                .UseStartup<Startup>();
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var builder = Host.CreateDefaultBuilder(args);
+            builder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            builder.ConfigureContainer<ContainerBuilder>((container) =>
+            {
+                //container.Populate(services);
+                container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
+            });
+
+            builder.ConfigureLogging((hostingContext, logging) =>
+            {
+                logging.ClearProviders();
+                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddDebug();
+                logging.AddNLog();
+            });
+            builder.ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
+
+            return builder;
+        }
     }
 }

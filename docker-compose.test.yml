@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   ocelot-api-gateway:
     restart: always
@@ -50,7 +48,7 @@ services:
       - RabbitMQConnection=rabbitmq
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true
     ports:
-      - "7002:80"
+      - "7002:8080"
     build:
       context: .
       dockerfile: src/Services/Job/Job.API/Dockerfile
@@ -74,7 +72,7 @@ services:
       - RedisConnectionString=payment-redisDB
       - RabbitMQConnection=rabbitmq
     ports:
-      - "7003:80"
+      - "7003:8080"
     build:
       context: .
       dockerfile: src/Services/Payment/Payment.API/Dockerfile
