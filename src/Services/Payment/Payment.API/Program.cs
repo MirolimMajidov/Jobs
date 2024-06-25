@@ -1,8 +1,12 @@
+using Autofac.Core;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DnsClient;
 using EventBus.RabbitMQ;
 using Jobs.Service.Common;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

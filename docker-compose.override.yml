@@ -1,5 +1,3 @@
-version: '3.4'
-
 services:
   ocelot-api-gateway:
     restart: always
@@ -44,7 +42,7 @@ services:
       - RabbitMQConnection=rabbitmq
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true; TrustServerCertificate=True;
     ports:
-      - "7002:5000"
+      - "7002:8080"
     depends_on:
       - job-SqlServerDB
       - rabbitmq
@@ -65,7 +63,7 @@ services:
       - RedisConnectionString=payment-redisDB
       - RabbitMQConnection=rabbitmq
     ports:
-      - "7003:5000"
+      - "7003:8080"
     depends_on:
       - payment-mongoDB
       - payment-redisDB

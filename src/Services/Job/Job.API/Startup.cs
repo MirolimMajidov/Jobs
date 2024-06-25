@@ -31,8 +31,7 @@ namespace JobService
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public virtual IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration["ConnectionString"], sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
@@ -47,14 +46,8 @@ namespace JobService
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Job");
             services.AddAutoMapper(typeof(DTOMapper));
-
-            var container = new ContainerBuilder();
-            container.Populate(services);
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
-            return new AutofacServiceProvider(container.Build());
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
