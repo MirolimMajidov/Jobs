@@ -1,8 +1,6 @@
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using Jobs.Service.Common;
 using JobService.DataProvider;
@@ -46,6 +44,12 @@ namespace JobService
             services.AddJobsHealthChecks().AddCheck("SQL Server", new SqlServerHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Job");
             services.AddAutoMapper(typeof(DTOMapper));
+        }
+
+        public void ConfigureContainer(ContainerBuilder container)
+        {
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
+                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
