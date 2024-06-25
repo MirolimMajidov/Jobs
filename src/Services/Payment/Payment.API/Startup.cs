@@ -31,7 +31,7 @@ namespace PaymentService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public virtual IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DatabaseConfiguration>(options =>
             {
@@ -56,11 +56,6 @@ namespace PaymentService
             services.AddJobsHealthChecks();
             services.AddSwaggerGen("Payment");
             services.AddAutoMapper(typeof(DTOMapper));
-
-            var container = new ContainerBuilder();
-            container.Populate(services);
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
-            return new AutofacServiceProvider(container.Build());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,7 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using EventBus.RabbitMQ;
 using Jobs.Service.Common;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +11,7 @@ using PaymentService.Models;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PaymentService
@@ -46,16 +49,26 @@ namespace PaymentService
             }
         }
 
-        public static IWebHostBuilder CreateHostBuilder(string[] args)
+        public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            var builder = WebHost.CreateDefaultBuilder(args);
+            var builder = Host.CreateDefaultBuilder(args);
+            builder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            builder.ConfigureContainer<ContainerBuilder>((container) =>
+            {
+                //container.Populate(services);
+                container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
+            });
+
             builder.ConfigureLogging((hostingContext, logging) =>
-             {
-                 logging.ClearProviders();
-                 logging.AddConsole();
-                 logging.AddSerilog();
-             });
-            builder.UseStartup<Startup>();
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    logging.AddSerilog();
+                });
+            builder.ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
 
             return builder;
         }
