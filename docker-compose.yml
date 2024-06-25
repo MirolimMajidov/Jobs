@@ -33,4 +33,7 @@ services:
 
   rabbitmq:
     container_name: RabbitMQ_MessageBroker
-    image: rabbitmq:latest
+    image: rabbitmq:3-management
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
