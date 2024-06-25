@@ -1,8 +1,6 @@
 using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Jobs.Service.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -16,7 +14,6 @@ using PaymentService.Mapping;
 using PaymentService.RabbitMQEvents.EventHandlers;
 using PaymentService.RabbitMQEvents.Events;
 using PaymentService.Repository;
-using System;
 using System.Reflection;
 
 namespace PaymentService
@@ -34,12 +31,10 @@ namespace PaymentService
         {
             services.Configure<DatabaseConfiguration>(options =>
             {
-                var databaseSection = Configuration.GetSection(nameof(DatabaseConfiguration));
-                var databaseInfo = databaseSection.Get<DatabaseConfiguration>();
-
+                var databaseInfo = Configuration.GetSection(nameof(DatabaseConfiguration)).Get<DatabaseConfiguration>();
                 options.DatabaseName = databaseInfo.DatabaseName;
                 options.PaymentsName = databaseInfo.PaymentsName;
-                options.ConnectionString = Configuration["ConnectionString"];
+                options.ConnectionString = databaseInfo.ConnectionString;
             });
 
             services.AddStackExchangeRedisCache(options => options.Configuration = Configuration["RedisConnectionString"]);
@@ -55,6 +50,12 @@ namespace PaymentService
             services.AddJobsHealthChecks();
             services.AddSwaggerGen("Payment");
             services.AddAutoMapper(typeof(DTOMapper));
+        }
+
+        public void ConfigureContainer(ContainerBuilder container)
+        {
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
+                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

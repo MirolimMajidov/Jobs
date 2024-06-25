@@ -15,7 +15,7 @@ namespace PaymentService.RabbitMQEvents.EventHandlers
         private readonly IEntityRepository<Transaction> _transactionRepository;
         private readonly ILogger<UserNameUpdatedEventHandler> _logger;
 
-        public UserNameUpdatedEventHandler(JobsMongoContext context, IEntityRepository<Transaction> transactionRepository, ILogger<UserNameUpdatedEventHandler> logger)
+        public UserNameUpdatedEventHandler(IJobsMongoContext context, IEntityRepository<Transaction> transactionRepository, ILogger<UserNameUpdatedEventHandler> logger)
         {
             _paymentRepository = context.PaymentRepository;
             _transactionRepository = transactionRepository;

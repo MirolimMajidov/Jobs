@@ -165,7 +165,7 @@ namespace EventBus.RabbitMQ
         }
 
         /// <summary>
-        /// An event to receive all sended events
+        /// An event to receive all sent events
         /// </summary>
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)
         {

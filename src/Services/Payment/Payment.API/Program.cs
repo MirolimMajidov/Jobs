@@ -1,12 +1,6 @@
-using Autofac.Core;
-using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using DnsClient;
-using EventBus.RabbitMQ;
 using Jobs.Service.Common;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -15,7 +9,6 @@ using PaymentService.Models;
 using Serilog;
 using Serilog.Events;
 using System;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PaymentService
@@ -57,12 +50,6 @@ namespace PaymentService
         {
             var builder = Host.CreateDefaultBuilder(args);
             builder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
-            builder.ConfigureContainer<ContainerBuilder>((container) =>
-            {
-                //container.Populate(services);
-                container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
-            });
-
             builder.ConfigureLogging((hostingContext, logging) =>
                 {
                     logging.ClearProviders();
