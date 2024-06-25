@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
                 
-      - name: Build and push Identity-api docker image
+      - name: Build and push Identity-API docker image
         id: docker_build_identity
         uses: docker/build-push-action@v2
         with:
@@ -41,7 +41,7 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IDENTITY_IMAGE_NAME }}:latest
                 
-      - name: Build and push Job-api docker image
+      - name: Build and push Job-API docker image
         id: docker_build_job
         uses: docker/build-push-action@v2
         with:
@@ -50,7 +50,7 @@ jobs:
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.JOB_IMAGE_NAME }}:latest
                 
-      - name: Build and push Payment-api docker image
+      - name: Build and push Payment-API docker image
         id: docker_build_payment
         uses: docker/build-push-action@v2
         with:
