@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using IdentityService.DataProvider;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -21,8 +22,7 @@ namespace IdentityService
 
         public static async Task Main(string[] args)
         {
-            var configuration = GetConfiguration();
-            var host = CreateHostBuilder(configuration, args).Build();
+            var host = CreateHostBuilder(args).Build();
 
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
@@ -46,39 +46,38 @@ namespace IdentityService
             await host.RunAsync();
         }
 
-        public static IWebHostBuilder CreateHostBuilder(IConfiguration configuration, string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-                .ConfigureLogging((hostingContext, logging) =>
+        public static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            var builder = Host.CreateDefaultBuilder(args);
+            builder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+            builder.ConfigureLogging((hostingContext, logging) =>
+            {
+                logging.ClearProviders();
+                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddDebug();
+                logging.AddNLog();
+            });
+            builder.ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureKestrel((context, options) =>
                 {
-                    logging.ClearProviders();
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddDebug();
-                    logging.AddNLog();
-                })
-                .ConfigureKestrel(options =>
-                {
-                    var (httpPort, grpcPort) = GetDefinedPorts(configuration);
+                    var (httpPort, grpcPort) = GetDefinedPorts(context.Configuration);
                     options.Listen(IPAddress.Any, httpPort,
                         listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
                     options.Listen(IPAddress.Any, grpcPort,
                         listenOptions => { listenOptions.Protocols = HttpProtocols.Http2; });
-                })
-                .UseStartup<Startup>();
+                });
+                webBuilder.UseStartup<Startup>();
+            });
+
+            return builder;
+        }
 
         private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration configuration)
         {
             var grpcPort = configuration.GetValue("GRPC_PORT", 81);
             var port = configuration.GetValue("PORT", 80);
             return (port, grpcPort);
-        }
-
-        private static IConfigurationRoot GetConfiguration()
-        {
-            return new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables()
-                .Build();
         }
     }
 }

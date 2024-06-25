@@ -1,11 +1,8 @@
 ﻿using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using EventBus.RabbitMQ;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using Identity.API.Infrastructure.HealthChecks;
 using IdentityService.DataProvider;
-using IdentityService.Mapping;
 using IdentityService.RabbitMQEvents.EventHandlers;
 using IdentityService.RabbitMQEvents.Events;
 using IdentityService.Repository;
@@ -33,7 +30,7 @@ namespace IdentityService
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public virtual IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddGrpc();
@@ -54,11 +51,12 @@ namespace IdentityService
             services.AddJobsHealthChecks().AddCheck("MySQL", new MySqlHealthCheck(Configuration["ConnectionString"]));
             services.AddSwaggerGen("Identity");
             services.AddAutoMapper(typeof(Program));
+        }
 
-            var container = new ContainerBuilder();
-            container.Populate(services);
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly).AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
-            return new AutofacServiceProvider(container.Build());
+        public void ConfigureContainer(ContainerBuilder container)
+        {
+            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
+                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
