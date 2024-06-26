@@ -10,20 +10,18 @@ namespace EventBus.RabbitMQ
     public static class ConfigurationExtensions
     {
         /// <summary>
-        /// To register all needed sturucture of RabbitMQ
+        /// To register all needed structure of RabbitMQ
         /// </summary>
         /// <param name="services">Service collection</param>
-        /// <param name="hostName">Host name of RabbitMQ connection</param>
-        /// <param name="clientName">Subscription's client name</param>
-        /// <param name="retryCount">Retry count</param>
-        public static void UseEventBusRabbitMQ(this IServiceCollection services, string hostName = "localhost", string clientName = "localhost", int retryCount = 5)
+        /// <param name="configurationInfo">Configuration info to configure the RabbitMQ</param>
+        public static void UseEventBusRabbitMQ(this IServiceCollection services, RabbitMQConfigurationInfo configurationInfo)
         {
             services.AddSingleton<IRabbitMQConnection>(serviceProvider =>
             {
                 var logger = serviceProvider.GetRequiredService<ILogger<RabbitMQConnection>>();
-                var factory = new ConnectionFactory { HostName = hostName, DispatchConsumersAsync = true };
+                var factory = new ConnectionFactory { HostName = configurationInfo.ConnectionString, DispatchConsumersAsync = true };
 
-                return new RabbitMQConnection(factory, logger, retryCount);
+                return new RabbitMQConnection(factory, logger, configurationInfo.RetryPublishCount);
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, EventBusSubscriptionsManager>();
@@ -32,11 +30,11 @@ namespace EventBus.RabbitMQ
             {
                 var logger = serviceProvider.GetRequiredService<ILogger<EventBusRabbitMQ>>();
                 var rabbitMqConnection = serviceProvider.GetRequiredService<IRabbitMQConnection>();
-                var iLifetimeScope = serviceProvider.GetRequiredService<ILifetimeScope>();
+                var lifetimeScope = serviceProvider.GetRequiredService<ILifetimeScope>();
                 var subscriptionsManager = serviceProvider.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                return new EventBusRabbitMQ(rabbitMqConnection, subscriptionsManager, iLifetimeScope, logger,
-                    clientName);
+                return new EventBusRabbitMQ(rabbitMqConnection, subscriptionsManager, lifetimeScope, logger,
+                    configurationInfo.SubscriptionName);
             });
         }
     }

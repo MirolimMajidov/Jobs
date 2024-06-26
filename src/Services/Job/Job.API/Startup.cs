@@ -34,7 +34,9 @@ namespace JobService
             services.AddDbContext<JobsContext>(o => o.UseSqlServer(Configuration["ConnectionString"], sqlOptions => sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(10), errorNumbersToAdd: null)));
 
             services.AddTransient(typeof(IEntityQueryableRepository<>), typeof(EntityRepository<>));
-            services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
+
+            var rabbitMQConfigInfo = Configuration.GetSection(nameof(RabbitMQConfigurationInfo)).Get<RabbitMQConfigurationInfo>();
+            services.UseEventBusRabbitMQ(rabbitMQConfigInfo);
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
