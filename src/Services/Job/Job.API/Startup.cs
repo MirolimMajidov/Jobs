@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Reflection;
 
 namespace JobService
 {
@@ -48,8 +47,7 @@ namespace JobService
 
         public void ConfigureContainer(ContainerBuilder container)
         {
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
-                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
+            container.AddRabbitMQEventHandlers(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

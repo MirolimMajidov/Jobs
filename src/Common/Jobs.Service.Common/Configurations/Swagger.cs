@@ -14,7 +14,7 @@ namespace Jobs.Service.Common
                 c.EnableAnnotations();
                 c.SwaggerDoc(docName, new OpenApiInfo { Title = $"{serviceName} service's RESTful APIs documentation", Version = versionName }); c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = @"JWT Authorization header using the Bearer scheme.  Enter 'Bearer' [space] and then your token in the text input below. Example: 'Bearer 12345abcdef'",
+                    Description = @"JWT Authorization header using the Bearer scheme.  Enter your token in the text input below. Example: 'YourBearerToken'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
