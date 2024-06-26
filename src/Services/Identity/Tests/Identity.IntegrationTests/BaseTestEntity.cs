@@ -1,4 +1,4 @@
-﻿using Identity.FunctionalTests;
+﻿using Identity.IntegrationTests;
 using Jobs.Service.Common;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

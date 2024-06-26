@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace Identity.FunctionalTests
+namespace Identity.IntegrationTests
 {
     using IdentityService;
     using IdentityService.DataProvider;

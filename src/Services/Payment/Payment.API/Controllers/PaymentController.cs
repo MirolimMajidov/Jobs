@@ -28,14 +28,15 @@ namespace PaymentService.Controllers
             if (entity == null)
                 return await base.Create(entity);
 
-            entity.UserId = User?.GetUserId();
+            var userId = User?.GetUserId();
+            entity.UserId = userId;
             entity.UserName = User?.GetUserName();
 
             var result = await base.Create(entity);
 
-            if (result.ErrorId == 0)
+            if (result.ErrorId == 0 && userId is not null)
             {
-                var newPayment = new UserPaymentEvent() { UserId = (Guid)entity.UserId, Amount = entity.Amount };
+                var newPayment = new UserPaymentEvent() { UserId = (Guid)userId, Amount = entity.Amount };
                 _eventBus.Publish(newPayment);
             }
 
