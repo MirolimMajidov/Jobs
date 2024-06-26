@@ -34,7 +34,7 @@ namespace PaymentService.Controllers
 
             if (result.ErrorId == 0)
             {
-                var newPayment = new UserTransactionEvent() { UserId = entity.Id, Amount = entity.Amount };
+                var newPayment = new UserTransactionEvent() { UserId = (Guid)entity.UserId, Amount = entity.Amount };
                 _eventBus.Publish(newPayment);
             }
 

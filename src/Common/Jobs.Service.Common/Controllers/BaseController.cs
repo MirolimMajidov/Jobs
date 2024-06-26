@@ -32,7 +32,7 @@ namespace Jobs.Service.Common
         [SwaggerResponse(200, "Return list of found items if it's finished successfully", typeof(RequestModel))]
         public virtual async Task<RequestModel> GetAll()
         {
-            var entities =(await _repository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
+            var entities = (await _repository.GetEntities()).Select(e => _mapper.Map<TEntityDTO>(e));
             return await RequestModel.SuccessAsync(entities);
         }
 
@@ -67,7 +67,7 @@ namespace Jobs.Service.Common
         [HttpPut]
         [SwaggerOperation(Summary = "To update exists an item. For this you must be authorized")]
         [SwaggerResponse(200, "Return OK if it's updated successfully", typeof(RequestModel))]
-        [SwaggerResponse(400, "Entity can'tbe null", typeof(RequestModel))]
+        [SwaggerResponse(400, "Entity can't be null", typeof(RequestModel))]
         [SwaggerResponse(404, "An item with the specified ID was not found", typeof(RequestModel))]
         public virtual async Task<RequestModel> Update([FromBody] TEntityDTO entity)
         {
