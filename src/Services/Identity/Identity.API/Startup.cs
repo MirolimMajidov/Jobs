@@ -16,7 +16,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Reflection;
 
 namespace IdentityService
 {
@@ -55,8 +54,7 @@ namespace IdentityService
 
         public void ConfigureContainer(ContainerBuilder container)
         {
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
-                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
+            container.AddRabbitMQEventHandlers(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

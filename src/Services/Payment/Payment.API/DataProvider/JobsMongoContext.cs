@@ -27,7 +27,8 @@ namespace PaymentService.DataProvider
             {
                 if (_paymentRepository == null)
                 {
-                    var payments = _database.GetCollection<Payment>(_settings.PaymentsName);
+                    var collectionName = $"{nameof(Payment)}s";
+                    var payments = _database.GetCollection<Payment>(collectionName);
                     _paymentRepository = new MongoEntityRepository<Payment>(payments);
                 }
 

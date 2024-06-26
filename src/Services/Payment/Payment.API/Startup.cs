@@ -14,7 +14,6 @@ using PaymentService.Mapping;
 using PaymentService.RabbitMQEvents.EventHandlers;
 using PaymentService.RabbitMQEvents.Events;
 using PaymentService.Repository;
-using System.Reflection;
 
 namespace PaymentService
 {
@@ -33,7 +32,6 @@ namespace PaymentService
             {
                 var databaseInfo = Configuration.GetSection(nameof(DatabaseConfiguration)).Get<DatabaseConfiguration>();
                 options.DatabaseName = databaseInfo.DatabaseName;
-                options.PaymentsName = databaseInfo.PaymentsName;
                 options.ConnectionString = databaseInfo.ConnectionString;
             });
 
@@ -54,8 +52,7 @@ namespace PaymentService
 
         public void ConfigureContainer(ContainerBuilder container)
         {
-            container.RegisterAssemblyTypes(typeof(Startup).GetTypeInfo().Assembly)
-                     .AsClosedTypesOf(typeof(IRabbitMQEventHandler<>));
+            container.AddRabbitMQEventHandlers(typeof(Startup));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
