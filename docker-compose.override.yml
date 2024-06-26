@@ -59,7 +59,7 @@ services:
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionString=mongodb://payment-mongoDB
+      - DatabaseConfiguration__ConnectionString=mongodb://payment-mongoDB
       - RedisConnectionString=payment-redisDB
       - RabbitMQConnection=rabbitmq
     ports:

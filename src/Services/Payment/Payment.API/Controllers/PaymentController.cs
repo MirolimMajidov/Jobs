@@ -42,10 +42,10 @@ namespace PaymentService.Controllers
             return result;
         }
 
-        [SwaggerResponse(501, "We will not support updating paymnet's information", typeof(RequestModel))]
+        [SwaggerResponse(501, "We will not support updating payment's information", typeof(RequestModel))]
         public override async Task<RequestModel> Update([FromBody] PaymentDTO entity)
         {
-            return await RequestModel.ErrorRequestAsync("We will not support updating paymnet's information", 501);
+            return await RequestModel.ErrorRequestAsync("We will not support updating payment's information", 501);
         }
 
         [AllowAnonymous]
