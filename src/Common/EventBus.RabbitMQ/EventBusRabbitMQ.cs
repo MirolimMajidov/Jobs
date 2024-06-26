@@ -15,9 +15,9 @@ namespace EventBus.RabbitMQ
     public class EventBusRabbitMQ : IEventBusRabbitMQ
     {
         /// <summary>
-        /// Single name to use on RabbitMQ's exchange name and Autofac's scope name
+        /// Single name to use on the RabbitMQ's exchange name and AutoFac's scope name
         /// </summary>
-        const string SingeAplicationName = "Microservices";
+        const string SingeAplicationName = "JobsQueue";
 
         private readonly ILogger<EventBusRabbitMQ> _logger;
         private readonly IEventBusSubscriptionsManager _subscriptionsManager;

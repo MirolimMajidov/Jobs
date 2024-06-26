@@ -39,7 +39,9 @@ namespace PaymentService
 
             services.AddScoped<IJobsMongoContext, JobsMongoContext>();
             services.AddTransient(typeof(IEntityRepository<>), typeof(RedisEntityRepository<>));
-            services.UseEventBusRabbitMQ(Configuration["RabbitMQConnection"], Configuration["SubscriptionClientName"], int.Parse(Configuration["EventBusRetryCount"]));
+
+            var rabbitMQConfigInfo = Configuration.GetSection(nameof(RabbitMQConfigurationInfo)).Get<RabbitMQConfigurationInfo>();
+            services.UseEventBusRabbitMQ(rabbitMQConfigInfo);
 
             services.AddAuthenticationsAndPolices();
             services.AddControllers(options => options.Filters.Add(typeof(JobsExceptionFilter)))
