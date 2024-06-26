@@ -1,13 +1,6 @@
 name: Job service
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-    - src/Services/Job/**
-    - src/Common/**
-    - .github/workflows/job_service.yml
-
   pull_request:
     branches: [ master ]
     paths:

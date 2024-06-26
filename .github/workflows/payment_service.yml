@@ -1,13 +1,6 @@
 name: Payment service
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-    - src/Services/Payment/**
-    - src/Common/**
-    - .github/workflows/payment_service.yml
-
   pull_request:
     branches: [ master ]
     paths:
