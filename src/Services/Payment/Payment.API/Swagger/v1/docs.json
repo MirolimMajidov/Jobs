@@ -89,7 +89,7 @@
         },
         "responses": {
           "501": {
-            "description": "We will not support updating paymnet's information",
+            "description": "We will not support updating payment's information",
             "content": {
               "application/json": {
                 "schema": {

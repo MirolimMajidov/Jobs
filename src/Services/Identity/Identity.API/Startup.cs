@@ -91,6 +91,7 @@ namespace IdentityService
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBusRabbitMQ>();
             eventBus.Subscribe<UserPaymentEvent, UserPaymentEventHandler>();
+            eventBus.Subscribe<UserTransactionEvent, UserTransactionEventHandler>();
         }
     }
 }

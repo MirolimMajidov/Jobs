@@ -52,7 +52,7 @@ namespace IdentityService
             {
                 logging.ClearProviders();
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                logging.AddDebug();
+                logging.AddConsole();
                 logging.AddNLog();
             });
             builder.ConfigureWebHostDefaults(webBuilder =>
