@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace IdentityService.FunctionalTests
+namespace Identity.IntegrationTests
 {
     public abstract class BaseTestEntity
     {

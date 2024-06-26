@@ -1,13 +1,6 @@
 name: Identity service
 
 on:
-  push:
-    branches: [ master ]
-    paths:
-    - src/Services/Identity/**
-    - src/Common/**
-    - .github/workflows/identity_service.yml
-
   pull_request:
     branches: [ master ]
     paths:
@@ -24,11 +17,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 8.0.x
-    - name: Restore dependencies for unit tests
-      run: dotnet restore src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj
-    - name: Restore dependencies for integration tests
-      run: dotnet restore src/Services/Identity/Tests/Identity.IntegrationTests/Identity.IntegrationTests.csproj
+    - name: Restore dependencies
+      run: dotnet restore Jobs.sln
     - name: Run unit tests
       run: dotnet test src/Services/Identity/Tests/Identity.UnitTests/Identity.UnitTests.csproj --logger "console;verbosity=detailed" --blame
     - name: Run integration tests
       run: dotnet test src/Services/Identity/Tests/Identity.IntegrationTests/Identity.IntegrationTests.csproj --logger "console;verbosity=detailed" --blame
+    - name: Run gRPC tests
+      run: dotnet test src/Services/Identity/Tests/Identity.GRPCTests/Identity.GRPCTests.csproj --logger "console;verbosity=detailed" --blame

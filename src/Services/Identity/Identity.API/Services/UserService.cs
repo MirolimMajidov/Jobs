@@ -10,10 +10,10 @@ namespace IdentityService.Services
 {
     public class UserService : UserBase
     {
-        private readonly IEntityRepository<Models.User> _repository;
+        private readonly IEntityQueryableRepository<Models.User> _repository;
         private readonly ILogger _logger;
 
-        public UserService(ILogger<UserService> logger, IEntityRepository<Models.User> repository)
+        public UserService(ILogger<UserService> logger, IEntityQueryableRepository<Models.User> repository)
         {
             _logger = logger;
             _repository = repository;

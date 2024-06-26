@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IdentityService.FunctionalTests
+namespace Identity.IntegrationTests
 {
     [TestClass]
     public class UserControllerTests : BaseTestEntity
