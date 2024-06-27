@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: job-mssql-persistent
+  namespace: jobs
 spec:
   accessModes:
     - ReadWriteOnce
@@ -12,7 +13,8 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: job-mssql-deployment
+  name: job-mssql
+  namespace: jobs
 spec:
   replicas: 1
   selector:
@@ -25,14 +27,15 @@ spec:
     spec:
       containers:
         - name: mssql
-          image: mcr.microsoft.com/mssql/server:2019-latest
+          image: mcr.microsoft.com/mssql/server:2022-latest
           ports:
             - containerPort: 1433
+              name: http
           env:
             - name: MSSQL_PID
               value: "Developer"
             - name: SA_PASSWORD
-              value: "job_service_password"
+              value: "JobServicePassword@123"
             - name: ACCEPT_EULA
               value: "Y"
           volumeMounts:
@@ -46,11 +49,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: job-mssql-service
+  name: job-mssql
+  namespace: jobs
 spec:
   type: ClusterIP
   selector:
     component: mssql
   ports:
     - port: 1433
-      targetPort: 7012
+      targetPort: http

@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: payment-redis-persistent
+  namespace: jobs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-redis
+  namespace: jobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: redis
+  template:
+    metadata:
+      labels:
+        component: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+              name: http
+          volumeMounts:
+            - name: redis-storage
+              mountPath: /data/db
+      volumes:
+        - name: redis-storage
+          persistentVolumeClaim:
+            claimName: payment-redis-persistent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-redis
+  namespace: jobs
+spec:
+  type: ClusterIP
+  selector:
+    component: redis
+  ports:
+    - port: 6379
+      targetPort: http

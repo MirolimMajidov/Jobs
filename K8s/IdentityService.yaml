@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: identity-api
+  namespace: jobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: identity-api
+  template:
+    metadata:
+      labels:
+        component: identity-api
+    spec:
+      containers: 
+        - name: identity-api
+          image: mirolimmajidov/identity.api:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: ConnectionString
+              value: Server=identity-mysql; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
+            - name: RabbitMQConfigurationInfo__ConnectionString
+              value: rabbitmq-message-receiver
+            - name: PORT
+              value: "8080"
+            - name: GRPC_PORT
+              value: "8081"
+          ports:
+          - containerPort: 8080
+            name: http
+          - containerPort: 8081
+            name: grpc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: identity-api
+  namespace: jobs
+spec:
+  type: LoadBalancer
+  selector:
+    component: identity-api
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: http
+      name: http
+    - protocol: TCP
+      port: 8101
+      targetPort: grpc
+      name: grpc

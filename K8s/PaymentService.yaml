@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-api
+  namespace: jobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: payment-api
+  template:
+    metadata:
+      labels:
+        component: payment-api
+    spec:
+      containers: 
+        - name: payment-api
+          image: mirolimmajidov/payment.api:latest
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: Production
+            - name: DatabaseConfiguration__ConnectionString
+              value: mongodb://payment-mongo
+            - name: RedisConnectionString
+              value: payment-redis
+            - name: RabbitMQConfigurationInfo__ConnectionString
+              value: rabbitmq-message-receiver
+          ports:
+          - containerPort: 8080
+            name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-api
+  namespace: jobs
+spec:
+  type: LoadBalancer
+  selector:
+    component: payment-api
+  ports:
+    - protocol: TCP
+      port: 8003
+      targetPort: http

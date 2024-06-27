@@ -2,7 +2,7 @@ services:
   ocelot-api-gateway:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
     ports:
       - "7000:8080"
     depends_on:
@@ -13,14 +13,14 @@ services:
   identity-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
       - ConnectionString=Server=identity-MySqlDB; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
-      - PORT=80
-      - GRPC_PORT=81
+      - PORT=8080
+      - GRPC_PORT=8081
     ports:
-      - "7001:80"
-      - "7101:81"
+      - "7001:8080"
+      - "7101:8081"
     depends_on:
       - identity-MySqlDB
       - rabbitmq
@@ -38,7 +38,7 @@ services:
   job-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true; TrustServerCertificate=True;
     ports:
@@ -58,7 +58,7 @@ services:
   payment-api:
     restart: always
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - DatabaseConfiguration__ConnectionString=mongodb://payment-mongoDB
       - RedisConnectionString=payment-redisDB
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
@@ -86,8 +86,8 @@ services:
   rabbitmq:
     restart: always
     ports:
-      - "7014:15672"
-      - "7015:5672"
+      - "7004:15672"
+      - "7005:5672"
 
 volumes:
   jobs-mongoDB:

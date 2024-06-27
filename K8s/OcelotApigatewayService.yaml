@@ -1,35 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ocelot-apigateway-deployment
+  name: ocelot-apigateway
+  namespace: jobs
 spec:
   replicas: 1
   selector:
     matchLabels:
-      component: ocelotapigateway
+      component: ocelot-apigateway
   template:
     metadata:
       labels:
-        component: ocelotapigateway
+        component: ocelot-apigateway
     spec:
       containers: 
         - name: apigateway
           image: mirolimmajidov/ocelot.apigateway:latest
-          ports:
-            - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
-              value: Development
+              value: Production
+          ports:
+            - containerPort: 8080
+              name: http
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: ocelot-apigateway-service
+  name: ocelot-apigateway
+  namespace: jobs
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    component: ocelotapigateway
+    component: ocelot-apigateway
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8000
+      port: 8000
+      targetPort: http

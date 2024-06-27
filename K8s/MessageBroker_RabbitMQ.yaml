@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: jobs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: rabbitmq
+  template:
+    metadata:
+      labels:
+        component: rabbitmq
+    spec:
+      containers: 
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+            - containerPort: 15672
+              name: ui
+            - containerPort: 5672
+              name: receiver
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: guest
+            - name: RABBITMQ_DEFAULT_PASS
+              value: guest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-message-receiver
+  namespace: jobs
+spec:
+  type: ClusterIP
+  selector:
+    component: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 5672
+      targetPort: receiver
+      name: receiver
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-admin-panel
+  namespace: jobs
+spec:
+  type: LoadBalancer
+  selector:
+    component: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 8004
+      targetPort: ui
+      name: ui
