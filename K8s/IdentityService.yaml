@@ -46,10 +46,10 @@ spec:
     component: identity-api
   ports:
     - protocol: TCP
-      port: 8001
+      port: 7001
       targetPort: http
       name: http
     - protocol: TCP
-      port: 8101
+      port: 7101
       targetPort: grpc
       name: grpc

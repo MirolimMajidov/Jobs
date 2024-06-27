@@ -87,15 +87,6 @@ You need to just run the commands below from the main Jobs repository directory 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
-You should be able to browse each service of the application by using the below URLs:
-<ul>
-   <li><a href="http://localhost:7000/status" rel="nofollow">API Gateway's status</a></li>
-   <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a> | <a href="http://localhost:7101/" rel="nofollow">Identity service for gRPC</a></li>
-   <li><a href="http://localhost:7002/" rel="nofollow">Jobs service</a></li>
-   <li><a href="http://localhost:7003/" rel="nofollow">Payment service</a></li>
-   <li><a href="http://localhost:7014/" rel="nofollow">RabbitMQ Management</a></li>
-</ul>
-
 ### Running the services on Kubernetes (K8s)
 Before running the Jobs service, you need to make sure you have enabled the Kubernetes from the Docker Desktop. Then you can run one of the scripts of commands below from the main Jobs repository's `K8s\Commands` directory and get started with the `Jobs` services immediately:
 <ul>
@@ -104,11 +95,12 @@ Before running the Jobs service, you need to make sure you have enabled the Kube
    <li>RestartServices.bat - For stopping and starting all Jobs services.</li>
 </ul>
 
+### Using the Jobs services after running
 You should be able to browse each service of the application by using the below URLs:
 <ul>
-   <li><a href="http://localhost:8000/status" rel="nofollow">API Gateway's status</a></li>
-   <li><a href="http://localhost:8001/" rel="nofollow">Identity service</a> | <a href="http://localhost:8101/" rel="nofollow">Identity service for gRPC</a></li>
-   <li><a href="http://localhost:8002/" rel="nofollow">Jobs service</a></li>
-   <li><a href="http://localhost:8003/" rel="nofollow">Payment service</a></li>
-   <li><a href="http://localhost:8004/" rel="nofollow">RabbitMQ Management</a></li>
+   <li><a href="http://localhost:7000/status" rel="nofollow">API Gateway's status</a></li>
+   <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a> | <a href="http://localhost:7101/" rel="nofollow">Identity service for gRPC</a></li>
+   <li><a href="http://localhost:7002/" rel="nofollow">Jobs service</a></li>
+   <li><a href="http://localhost:7003/" rel="nofollow">Payment service</a></li>
+   <li><a href="http://localhost:7004/" rel="nofollow">RabbitMQ Management</a></li>
 </ul>
