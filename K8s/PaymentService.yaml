@@ -40,5 +40,5 @@ spec:
     component: payment-api
   ports:
     - protocol: TCP
-      port: 8003
+      port: 7003
       targetPort: http

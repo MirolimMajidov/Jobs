@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "payment-api",
-          "Port": 8080
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/payment",
@@ -18,7 +18,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "payment-api",
-          "Port": 8080
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/payment/{id}",
@@ -30,7 +30,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "payment-api",
-          "Port": 8080
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/transaction",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "payment-api",
-          "Port": 8080
+          "Port": 7003
         }
       ],
       "UpstreamPathTemplate": "/transaction/{id}",

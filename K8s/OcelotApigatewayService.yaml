@@ -34,5 +34,5 @@ spec:
     component: ocelot-apigateway
   ports:
     - protocol: TCP
-      port: 8000
+      port: 7000
       targetPort: http

@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "job-api",
-          "Port": 8080
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/category",
@@ -18,7 +18,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "job-api",
-          "Port": 8080
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/category/{id}",
@@ -30,7 +30,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "job-api",
-          "Port": 8080
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/job",
@@ -42,7 +42,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "job-api",
-          "Port": 8080
+          "Port": 7002
         }
       ],
       "UpstreamPathTemplate": "/job/{id}",
