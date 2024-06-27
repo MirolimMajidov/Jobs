@@ -6,7 +6,7 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "PaymentService",
-          "Port": 80
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/payment",
@@ -22,6 +22,30 @@
         }
       ],
       "UpstreamPathTemplate": "/payment/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/transaction",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "payment-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/transaction",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/transaction/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "PaymentService",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/transaction/{id}",
       "UpstreamHttpMethod": [ "GET", "DELETE" ]
     }
   ]
