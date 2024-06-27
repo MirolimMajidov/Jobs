@@ -1,12 +1,15 @@
 using Autofac.Extensions.DependencyInjection;
 using JobService.DataProvider;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace JobService
@@ -55,6 +58,12 @@ namespace JobService
             });
             builder.ConfigureWebHostDefaults(webBuilder =>
             {
+                webBuilder.ConfigureKestrel((context, options) =>
+                {
+                    var httpPort = context.Configuration.GetValue("HTTP_PORT", 8080);
+                    options.Listen(IPAddress.Any, httpPort,
+                        listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
+                });
                 webBuilder.UseStartup<Startup>();
             });
 

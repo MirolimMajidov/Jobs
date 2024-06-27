@@ -1,6 +1,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Jobs.Service.Common;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -9,6 +11,7 @@ using PaymentService.Models;
 using Serilog;
 using Serilog.Events;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PaymentService
@@ -58,8 +61,14 @@ namespace PaymentService
                     logging.AddSerilog();
                 });
             builder.ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.ConfigureKestrel((context, options) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    var httpPort = context.Configuration.GetValue("HTTP_PORT", 8080);
+                    options.Listen(IPAddress.Any, httpPort,
+                        listenOptions => { listenOptions.Protocols = HttpProtocols.Http1AndHttp2; });
+                });
+                webBuilder.UseStartup<Startup>();
                 });
 
             return builder;

@@ -73,8 +73,8 @@ namespace IdentityService
 
         private static (int httpPort, int grpcPort) GetDefinedPorts(IConfiguration configuration)
         {
-            var grpcPort = configuration.GetValue("GRPC_PORT", 81);
-            var port = configuration.GetValue("PORT", 80);
+            var grpcPort = configuration.GetValue("GRPC_PORT", 8081);
+            var port = configuration.GetValue("HTTP_PORT", 8080);
             return (port, grpcPort);
         }
     }

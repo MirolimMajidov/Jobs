@@ -16,11 +16,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
       - ConnectionString=Server=identity-MySqlDB; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
-      - PORT=8080
-      - GRPC_PORT=8081
+      - HTTP_PORT=8001
+      - GRPC_PORT=8002
     ports:
-      - "7001:8080"
-      - "7101:8081"
+      - "7001:8001"
+      - "7101:8002"
     depends_on:
       - identity-MySqlDB
       - rabbitmq
@@ -41,8 +41,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
       - ConnectionString=Server=job-SqlServerDB; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true; TrustServerCertificate=True;
+      - HTTP_PORT=8002
     ports:
-      - "7002:8080"
+      - "7002:8002"
     depends_on:
       - job-SqlServerDB
       - rabbitmq
@@ -62,8 +63,9 @@ services:
       - DatabaseConfiguration__ConnectionString=mongodb://payment-mongoDB
       - RedisConnectionString=payment-redisDB
       - RabbitMQConfigurationInfo__ConnectionString=rabbitmq
+      - HTTP_PORT=8003
     ports:
-      - "7003:8080"
+      - "7003:8003"
     depends_on:
       - payment-mongoDB
       - payment-redisDB
