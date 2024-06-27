@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rabbitmq-deployment
+  name: rabbitmq
+  namespace: jobs
 spec:
   replicas: 1
   selector:
@@ -14,25 +15,39 @@ spec:
     spec:
       containers: 
         - name: rabbitmq
-          image: rabbitmq:3-management-alpine
+          image: rabbitmq:3-management
           ports:
             - containerPort: 15672
+              name: ui
             - containerPort: 5672
+              name: receiver
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: rabbitmq-service
+  name: rabbitmq-message-receiver
+  namespace: jobs
 spec:
   type: ClusterIP
   selector:
     component: rabbitmq
   ports:
     - protocol: TCP
-      port: 15672
-      targetPort: 8014
-      name: defaultport1
-    - protocol: TCP
       port: 5672
-      targetPort: 8015
-      name: defaultport2
+      targetPort: receiver
+      name: receiver      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-admin-panel
+  namespace: jobs
+spec:
+  type: LoadBalancer
+  selector:
+    component: rabbitmq
+  ports:
+    - protocol: TCP
+      port: 7014
+      targetPort: ui
+      name: ui

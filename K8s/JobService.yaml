@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: job-api-deployment
+  name: job-api
+  namespace: jobs
 spec:
   replicas: 1
   selector:
@@ -15,27 +16,27 @@ spec:
       containers: 
         - name: job-api
           image: mirolimmajidov/job.api:latest
-          ports:
-            - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Development
             - name: ConnectionString
-              value: Server=job-mssql-persistent; User Id=sa; Database=JobServiceDB; Password=job_service_password; MultipleActiveResultSets=true
-            - name: RabbitMQConnection
-              value: rabbitmq-service
-            - name: EventBusRetryCount
-              value: "0"
+              value: Server=job-mssql; User Id=sa; Database=JobServiceDB; Password=JobServicePassword@123; MultipleActiveResultSets=true; TrustServerCertificate=True;
+            - name: RabbitMQConfigurationInfo__ConnectionString
+              value: rabbitmq-message-receiver
+          ports:
+          - containerPort: 8080
+            name: http
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: job-api-service
+  name: job-api
+  namespace: jobs
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     component: job-api
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8002
+      port: 7002
+      targetPort: http

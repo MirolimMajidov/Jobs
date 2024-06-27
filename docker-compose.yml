@@ -24,11 +24,11 @@ services:
     image: mirolimmajidov/payment.api:latest
 
   payment-mongoDB:
-    container_name: Mongo_NoSqlData
+    container_name: PaymentService_MongoDB
     image: mongo:latest
 
   payment-redisDB:
-    container_name: Redis_NoSqlData
+    container_name: PaymentService_RedisDB
     image: redis:latest
 
   rabbitmq:

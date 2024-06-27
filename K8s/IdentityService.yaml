@@ -1,7 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: identity-api-deployment
+  name: identity-api
+  namespace: jobs
 spec:
   replicas: 1
   selector:
@@ -19,32 +20,36 @@ spec:
             - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
-              value: Development
+              value: Production
             - name: ConnectionString
-              value: Server=identity-mysql-persistent; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
-            - name: RabbitMQConnection
-              value: rabbitmq-service
-            - name: EventBusRetryCount
-              value: "0"
+              value: Server=identity-mysql; User Id=IdentityService; Database=IdentityServiceDB; Password=identity_service_password; charset=utf8
+            - name: RabbitMQConfigurationInfo__ConnectionString
+              value: rabbitmq-message-receiver
             - name: PORT
               value: "80"
             - name: GRPC_PORT
               value: "81"
+          ports:
+          - containerPort: 80
+            name: http
+          - containerPort: 81
+            name: grpc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: identity-api-service
+  name: identity-api
+  namespace: jobs
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     component: identity-api
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 8001
-      name: defaultport1
+      port: 7001
+      targetPort: http
+      name: http
     - protocol: TCP
-      port: 81
-      targetPort: 8101
-      name: defaultport2
+      port: 7101
+      targetPort: grpc
+      name: grpc
