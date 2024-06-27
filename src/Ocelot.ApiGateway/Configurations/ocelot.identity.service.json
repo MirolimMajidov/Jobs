@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/authorization",
@@ -17,8 +17,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/refreshtoken",
@@ -29,8 +29,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/logout",
@@ -41,8 +41,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/userinfo",
@@ -53,8 +53,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/user",
@@ -65,8 +65,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "IdentityService",
-          "Port": 80
+          "Host": "identity-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/user/{id}",
