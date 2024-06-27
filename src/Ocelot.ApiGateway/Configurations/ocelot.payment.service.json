@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "{PAYMENT_API_HOST}",
-          "Port": "{PAYMENT_API_PORT}"
+          "Host": "payment-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/payment",
