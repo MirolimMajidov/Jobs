@@ -53,6 +53,6 @@ spec:
     component: rabbitmq
   ports:
     - protocol: TCP
-      port: 7004
+      port: 8004
       targetPort: ui
       name: ui
