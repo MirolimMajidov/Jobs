@@ -5,8 +5,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "JobService",
-          "Port": 80
+          "Host": "job-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/category",
@@ -17,8 +17,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "JobService",
-          "Port": 80
+          "Host": "job-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/category/{id}",
@@ -29,8 +29,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "JobService",
-          "Port": 80
+          "Host": "job-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/job",
@@ -41,8 +41,8 @@
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "JobService",
-          "Port": 80
+          "Host": "job-api",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/job/{id}",
