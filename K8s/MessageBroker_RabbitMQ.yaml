@@ -21,6 +21,11 @@ spec:
               name: ui
             - containerPort: 5672
               name: receiver
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              value: guest
+            - name: RABBITMQ_DEFAULT_PASS
+              value: guest
 ---
 apiVersion: v1
 kind: Service
@@ -35,7 +40,7 @@ spec:
     - protocol: TCP
       port: 5672
       targetPort: receiver
-      name: receiver      
+      name: receiver
 ---
 apiVersion: v1
 kind: Service
@@ -48,6 +53,6 @@ spec:
     component: rabbitmq
   ports:
     - protocol: TCP
-      port: 7014
+      port: 8004
       targetPort: ui
       name: ui

@@ -38,5 +38,5 @@ spec:
     component: job-api
   ports:
     - protocol: TCP
-      port: 7002
+      port: 8002
       targetPort: http

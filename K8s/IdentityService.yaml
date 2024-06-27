@@ -26,13 +26,13 @@ spec:
             - name: RabbitMQConfigurationInfo__ConnectionString
               value: rabbitmq-message-receiver
             - name: PORT
-              value: "80"
+              value: "8080"
             - name: GRPC_PORT
-              value: "81"
+              value: "8081"
           ports:
-          - containerPort: 80
+          - containerPort: 8080
             name: http
-          - containerPort: 81
+          - containerPort: 8081
             name: grpc
 ---
 apiVersion: v1
@@ -46,10 +46,10 @@ spec:
     component: identity-api
   ports:
     - protocol: TCP
-      port: 7001
+      port: 8001
       targetPort: http
       name: http
     - protocol: TCP
-      port: 7101
+      port: 8101
       targetPort: grpc
       name: grpc

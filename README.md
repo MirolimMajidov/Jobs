@@ -3,9 +3,9 @@
 
 Jobs is an open-source job marketplace application, powered by micro-services ☸️ architecture and cross-platform developed 📱🖥🐳 based on .NET 6.
 
-## Architecture overview
+## Architecture Overview
 
-The architecture proposes a microservice oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and has one shared project to work with Repository and Controller for CRUD operations, but implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps, and supports asynchronous communication for data updates propagation across multiple services based on gRPC/HTTP2. All microservices are based on SOLID design principles and used popular modern technologies. Also, configured CI/CD pipelines using GitHub Actions for building and testing the code and publishing docker image file to the Docker Hub.
+The architecture proposes a microservice-oriented architecture implementation with multiple autonomous microservices (each one owning its own data/db) and has one shared project to work with the Repository and Controller for CRUD operations, but implementing different approaches within each microservice using REST/HTTP as the communication protocol between the client apps, and supports asynchronous communication for data updates propagation across multiple services based on gRPC/HTTP2. All microservices are based on SOLID design principles and use popular modern technologies. Also, configured the CI/CD pipelines using GitHub Actions for building and testing the code and publishing the docker image files to the Docker Hub.
 
 <center><img src="img/JobsArchitecture.png"/></center>
 
@@ -75,21 +75,40 @@ The architecture proposes a microservice oriented architecture implementation wi
   </tbody>  
 </table>
 
-Each microservice has its own docker image file with the latest code of master branch on my [Docker Hub](https://hub.docker.com/u/mirolimmajidov/) with :latest tag.
+Each microservice has its own docker image file with the latest code of the master branch on my [Docker Hub](https://hub.docker.com/u/mirolimmajidov/) with the `latest` tag.
 
-## Getting Started
+## Using the Jobs services
+Ensure you have installed and configured [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/) in your machine. 
 
-Make sure you have installed and configured [Docker for Windows](https://docs.docker.com/docker-for-windows/install/) in your machine. After that, you can run the below commands from the the main Jobs directory and get started with the `Jobs` immediately.
+### Running the services on Docker
+You need to just run the commands below from the main Jobs repository directory and get started with the `Jobs` services immediately.
 
 ```powershell
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```
 
-You should be able to browse different components of the application by using the below URLs :
+You should be able to browse each service of the application by using the below URLs:
 <ul>
    <li><a href="http://localhost:7000/status" rel="nofollow">API Gateway's status</a></li>
    <li><a href="http://localhost:7001/" rel="nofollow">Identity service</a> | <a href="http://localhost:7101/" rel="nofollow">Identity service for gRPC</a></li>
    <li><a href="http://localhost:7002/" rel="nofollow">Jobs service</a></li>
    <li><a href="http://localhost:7003/" rel="nofollow">Payment service</a></li>
    <li><a href="http://localhost:7014/" rel="nofollow">RabbitMQ Management</a></li>
+</ul>
+
+### Running the services on Kubernetes (K8s)
+Before running the Jobs service, you need to make sure you have enabled the Kubernetes from the Docker Desktop. Then you can run one of the scripts of commands below from the main Jobs repository's `K8s\Commands` directory and get started with the `Jobs` services immediately:
+<ul>
+   <li>StartServices.bat - For starting all Jobs services.</li>
+   <li>StopServices.bat - For stopping all Jobs services.</li>
+   <li>RestartServices.bat - For stopping and starting all Jobs services.</li>
+</ul>
+
+You should be able to browse each service of the application by using the below URLs:
+<ul>
+   <li><a href="http://localhost:8000/status" rel="nofollow">API Gateway's status</a></li>
+   <li><a href="http://localhost:8001/" rel="nofollow">Identity service</a> | <a href="http://localhost:8101/" rel="nofollow">Identity service for gRPC</a></li>
+   <li><a href="http://localhost:8002/" rel="nofollow">Jobs service</a></li>
+   <li><a href="http://localhost:8003/" rel="nofollow">Payment service</a></li>
+   <li><a href="http://localhost:8004/" rel="nofollow">RabbitMQ Management</a></li>
 </ul>
