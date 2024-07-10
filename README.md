@@ -97,11 +97,11 @@ You should be able to browse each service of the application by using the below 
 </ul>
 
 ### Running the services on Kubernetes (K8s)
-Before running the Jobs service, you need to make sure you have enabled the Kubernetes from the Docker Desktop. Then you can run one of the scripts of commands below from the main Jobs repository's `K8s\Commands` directory and get started with the `Jobs` services immediately:
+Before running the Jobs services, you need to make sure you have enabled the Kubernetes from the Docker Desktop. Then you can run one of the scripts of commands below from the main Jobs repository's `K8s\Commands` directory and get started with the `Jobs` services immediately:
 <ul>
-   <li>StartServices.bat - For starting all Jobs services.</li>
-   <li>StopServices.bat - For stopping all Jobs services.</li>
-   <li>RestartServices.bat - For stopping and starting all Jobs services.</li>
+   <li>StartServices.sh - For starting all Jobs services.</li>
+   <li>StopServices.sh - For stopping all Jobs services.</li>
+   <li>RestartServices.sh - For stopping and starting all Jobs services.</li>
 </ul>
 
 You should be able to browse each service of the application by using the below URLs:

@@ -16,8 +16,6 @@ spec:
       containers: 
         - name: identity-api
           image: mirolimmajidov/identity.api:latest
-          ports:
-            - containerPort: 80
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: Production

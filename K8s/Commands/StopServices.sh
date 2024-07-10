@@ -10,4 +10,3 @@ kubectl delete -f ../Payment_MongoDB.yaml
 kubectl delete -f ../Payment_RedisDB.yaml
 
 echo "Completed"
-timeout /t 10 /nobreak

@@ -1,3 +1,3 @@
 echo "Restarting Jobs services..."
-bash StopServices.bat
-bash StartServices.bat
+bash StopServices.sh
+bash StartServices.sh

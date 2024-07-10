@@ -10,4 +10,3 @@ kubectl apply -f ../PaymentService.yaml
 kubectl apply -f ../OcelotApiGatewayService.yaml
 
 echo "Completed"
-timeout /t 10 /nobreak
